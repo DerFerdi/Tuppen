@@ -140,7 +140,7 @@ Unused cards remain hidden and must not influence AI decisions.
 
 The first active player to the left of the dealer leads the first trick.
 
-The card that is led determines the lead suit.
+The first card played determines the lead suit. Once established, the original lead suit remains authoritative for the entire trick, even if its player later Passes or is eliminated. Passing never changes follow-suit obligations or the interpretation of cards already played.
 
 Every other active player must follow the lead suit if they hold at least one card of that suit.
 
@@ -150,15 +150,19 @@ Only cards matching the lead suit can win the trick.
 
 The highest-ranked card of the lead suit wins.
 
-The winner of a trick leads the next trick.
+The winner of a non-final trick leads the next trick if still participating in the round. If that player has Passed, the next still-participating player in table order after them leads instead, skipping passed and eliminated seats and wrapping around the table.
 
 A normal round contains four tricks.
 
 The central Tuppen rule is:
 
-**Only the fourth and final trick determines the winner of the round.**
+**Only the fourth and final trick determines the result of a normally completed round.**
 
 Winning tricks one, two, or three has no direct scoring value.
+
+A card already committed to the table remains physically and logically part of that trick after its player Passes. It remains eligible to win under the original lead suit and rank ordering. A trick won by such a card is still recorded as belonging to that player; the player does not return to the round.
+
+If a passed player's committed card wins the fourth trick, the round has no active winner. Every player still participating receives the current stake as a losing penalty. The passed player receives no additional penalty beyond the Pass penalty already applied. The trick winner and the round outcome must be represented separately.
 
 ## Strokes
 
@@ -166,13 +170,13 @@ Every player starts with zero strokes.
 
 Without knocking, every player who loses the round receives one stroke.
 
-The winner of the round receives no losing strokes.
+An active winner of the round receives no losing strokes. When the fourth-trick winner has Passed, no remaining participant receives this immunity.
 
 A player is eliminated from the match when their total reaches or exceeds seven strokes.
 
 The match continues with the remaining players.
 
-The final remaining player wins the match.
+The final remaining player wins the match. Determine the match result only after all penalties for the round have been applied. If final-trick scoring with no active winner eliminates every remaining active player simultaneously, the match ends in an explicit draw with no winner.
 
 The engine must therefore support the active player count decreasing during a match.
 
@@ -250,7 +254,7 @@ A player who passes:
 * immediately leaves the current round
 * receives the appropriate strokes
 * takes no more turns during that round
-* no longer participates in tricks
+* plays no further cards; already-committed cards remain eligible in their trick
 * remains part of the overall match unless the penalty eliminates them
 
 Their remaining cards have no effect on the current round.
@@ -261,7 +265,14 @@ The passing penalty is their final penalty for that round; they do not also rece
 
 Normal card play pauses while responses to a knock are unresolved.
 
-Every required opponent must respond with Hold or Pass.
+Every required opponent must respond with Hold or Pass in deterministic table order:
+
+1. Begin with the next still-participating player after the knocker.
+2. Continue around the table, skipping players who have left the round.
+3. Only the currently expected responder may submit Hold or Pass.
+4. Stop after every required response has been resolved.
+
+Each response becomes public immediately. Later responders intentionally see earlier Hold/Pass decisions before choosing. V1 does not use simultaneous hidden responses. The engine must expose the expected responder and remaining response order so UI and AI do not reconstruct these rules.
 
 No card may be played while required responses remain.
 
@@ -279,7 +290,7 @@ They may not knock again during the same turn.
 
 The knocking player immediately wins the round.
 
-Do not play meaningless remaining tricks.
+Do not play or evaluate any remaining unfinished trick. Immediate victory takes precedence even if a committed card belonging to a player who Passed would otherwise win that trick.
 
 ## Game Engine
 
@@ -310,17 +321,19 @@ Potential actions include:
 
 Potential events include:
 
+* roundStarted
 * cardPlayed
 * playerKnocked
 * playerHeld
 * playerPassed
 * trickWon
-* roundWon
+* roundEnded (with an active winner or explicitly no active winner)
 * strokesAdded
 * playerEliminated
 * matchWon
+* matchDrawn
 
-The exact API may differ if a cleaner Swift design is found.
+The exact API may differ if a cleaner Swift design is found. Creating a match and starting subsequent rounds must expose the same round-start lifecycle: one `roundStarted` event per new round, after dealing. Consumers must not need a special case for round 1.
 
 ## Legal Actions
 
@@ -335,7 +348,7 @@ Before the current player's card has been played, legal actions may include:
 
 After that player has knocked and all responses have resolved, legal actions may include legal card plays but must not include another immediate Knock.
 
-While knock responses are pending, normal card-playing actions are unavailable.
+While knock responses are pending, normal card-playing actions are unavailable. Only the expected responder has legal Hold/Pass actions; later responders must wait.
 
 ## Hidden Information
 
@@ -351,7 +364,7 @@ A bot may know:
 * stroke counts
 * player statuses
 * whose turn it is
-* public knock history
+* public knock history, including earlier responses and the expected responder
 
 A bot must not know:
 
@@ -564,7 +577,7 @@ It should explain:
 1. Every player receives four cards.
 2. Follow suit whenever possible.
 3. Rank order is J < Q < K < A < 7 < 8 < 9 < 10.
-4. Only the final trick wins the round.
+4. Only the final trick determines the result of a normally completed round.
 5. Losing normally costs one stroke.
 6. The current player can knock before playing their card.
 7. Knocking increases the stake.
@@ -572,6 +585,8 @@ It should explain:
 9. Pass leaves the round at the previous stake.
 10. Seven strokes eliminate a player.
 11. The final remaining player wins the match.
+12. Passing leaves committed cards in play without changing the lead suit. If a passed player wins an early trick, the next remaining player leads.
+13. If a passed player wins the final trick, everyone still in the round receives the stake. If nobody survives elimination, the match is a draw.
 
 Prefer concise visual explanations over large text walls.
 
@@ -613,9 +628,13 @@ At minimum test:
 
 * only lead suit can win
 * rank order is correct
-* trick winner leads the next trick
+* original lead suit remains fixed after Pass
+* committed cards remain eligible after their owners Pass
+* a participating trick winner leads the next trick
+* a departed trick winner yields the next lead to the next participating seat, including consecutive inactive seats and wraparound
 * normal round contains four tricks
-* fourth trick winner wins the round
+* a participating fourth-trick winner wins the round
+* a passed fourth-trick winner produces an explicit round outcome with no active winner
 
 ### Knocking
 
@@ -628,7 +647,10 @@ At minimum test:
 * Hold accepts new stake
 * Pass uses previous stake
 * passed player leaves the round
-* duplicate response is rejected
+* deterministic response order begins after the knocker and wraps around
+* inactive seats are skipped
+* wrong-player and duplicate responses are rejected
+* later responders see earlier public responses
 * all opponents passing immediately ends the round
 * after responses, control returns to the knocking player
 
@@ -637,10 +659,18 @@ At minimum test:
 * normal loss adds one stroke
 * raised stakes apply correctly
 * round winner receives no losing strokes
-* passing uses the correct previous stake
+* passing uses the correct previous stake and is never charged twice
+* a round with no active winner charges every remaining participant
 * seven strokes eliminates a player
 * eliminated players are no longer dealt cards
 * match ends with one remaining player
+* simultaneous elimination of all remaining players produces a draw
+* dealer rotation skips consecutive eliminated seats and wraps around
+
+### Lifecycle and Information Boundaries
+
+* initial and subsequent rounds expose the same round-start event contract
+* restricted player views remain free of hidden opponent hands and undealt cards after completed tricks, Pass, elimination, and subsequent turns
 
 ### AI
 

@@ -1,0 +1,23 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Hello, world!": {
+      "comment": "Temporary app-shell greeting until the game interface is added.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hello, world!"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hallo, Welt!"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
