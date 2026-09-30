@@ -40,11 +40,6 @@
 			path = TuppenTests;
 			sourceTree = "<group>";
 		};
-		56F2CD58306D7B1C00DDEC79 /* TuppenUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TuppenUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +66,6 @@
 			children = (
 				56F2CD40306D7B1B00DDEC79 /* Tuppen */,
 				56F2CD4E306D7B1C00DDEC79 /* TuppenTests */,
-				56F2CD58306D7B1C00DDEC79 /* TuppenUITests */,
 				56F2CD3F306D7B1B00DDEC79 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -140,9 +134,6 @@
 			);
 			dependencies = (
 				56F2CD57306D7B1C00DDEC79 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				56F2CD58306D7B1C00DDEC79 /* TuppenUITests */,
 			);
 			name = TuppenUITests;
 			productName = TuppenUITests;
