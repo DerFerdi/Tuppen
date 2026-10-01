@@ -1,14 +1,14 @@
 /// Stable identity independent of seat position, display name, and localization.
-struct PlayerID: Hashable, Sendable {
+struct PlayerID: Hashable, Codable, Sendable {
     let rawValue: Int
 }
 
-enum PlayerStatus: Equatable, Sendable {
+enum PlayerStatus: Equatable, Codable, Sendable {
     case active
     case eliminated
 }
 
-struct PlayerState: Equatable, Sendable {
+struct PlayerState: Equatable, Codable, Sendable {
     let id: PlayerID
     var strokes = 0
 
@@ -17,12 +17,12 @@ struct PlayerState: Equatable, Sendable {
     }
 }
 
-struct PlayedCard: Equatable, Sendable {
+struct PlayedCard: Equatable, Codable, Sendable {
     let player: PlayerID
     let card: Card
 }
 
-struct TrickState: Equatable, Sendable {
+struct TrickState: Equatable, Codable, Sendable {
     let number: Int
     /// Committed cards remain eligible even if their owners pass or are eliminated.
     private(set) var plays: [PlayedCard]
@@ -47,7 +47,7 @@ struct TrickState: Equatable, Sendable {
     }
 }
 
-struct CompletedTrick: Equatable, Sendable {
+struct CompletedTrick: Equatable, Codable, Sendable {
     let trick: TrickState
     let winner: PlayerID
     /// The original lead is retained alongside the completed public trick.
@@ -55,7 +55,7 @@ struct CompletedTrick: Equatable, Sendable {
 }
 
 /// A knock consumes this turn's opportunity to raise, even after everyone holds.
-enum TurnState: Equatable, Sendable {
+enum TurnState: Equatable, Codable, Sendable {
     case mayKnock(PlayerID)
     case mustPlay(PlayerID)
 
@@ -66,17 +66,17 @@ enum TurnState: Equatable, Sendable {
     }
 }
 
-enum KnockResponse: Equatable, Sendable {
+enum KnockResponse: Equatable, Codable, Sendable {
     case hold
     case pass
 }
 
-struct PlayerResponse: Equatable, Sendable {
+struct PlayerResponse: Equatable, Codable, Sendable {
     let player: PlayerID
     let response: KnockResponse
 }
 
-struct KnockRecord: Equatable, Sendable {
+struct KnockRecord: Equatable, Codable, Sendable {
     let player: PlayerID
     let trickNumber: Int
     let previousStake: Int
@@ -85,7 +85,7 @@ struct KnockRecord: Equatable, Sendable {
     var raisedStake: Int { previousStake + 1 }
 }
 
-struct PendingKnock: Equatable, Sendable {
+struct PendingKnock: Equatable, Codable, Sendable {
     let player: PlayerID
     let previousStake: Int
     /// Outstanding responses in table order after the knocker. Earlier decisions
@@ -95,12 +95,12 @@ struct PendingKnock: Equatable, Sendable {
     var expectedResponder: PlayerID? { responders.first }
 }
 
-enum RoundWinReason: Equatable, Sendable {
+enum RoundWinReason: Equatable, Codable, Sendable {
     case finalTrick
     case opponentsPassed
 }
 
-enum RoundOutcome: Equatable, Sendable {
+enum RoundOutcome: Equatable, Codable, Sendable {
     case won(winner: PlayerID, reason: RoundWinReason)
     /// The winning card belongs to a departed player; every remaining player loses.
     case noActiveWinner(trickWinner: PlayerID)
@@ -115,7 +115,7 @@ enum RoundOutcome: Equatable, Sendable {
 
 /// Card turns and response windows are mutually exclusive. A finished round has
 /// no current player and cannot accept further card plays or knock responses.
-enum RoundPhase: Equatable, Sendable {
+enum RoundPhase: Equatable, Codable, Sendable {
     case playing(TurnState)
     case awaitingResponses(PendingKnock)
     case finished(RoundOutcome)
@@ -130,7 +130,7 @@ enum RoundPhase: Equatable, Sendable {
     }
 }
 
-struct RoundState: Equatable, Sendable {
+struct RoundState: Equatable, Codable, Sendable {
     let number: Int
     let dealer: PlayerID
     var participants: [PlayerID]
@@ -143,7 +143,7 @@ struct RoundState: Equatable, Sendable {
     var knocks: [KnockRecord] = []
 }
 
-enum MatchPhase: Equatable, Sendable {
+enum MatchPhase: Equatable, Codable, Sendable {
     case playing
     case finished(winner: PlayerID)
     /// Final-trick scoring eliminated all surviving match players together.
@@ -153,7 +153,7 @@ enum MatchPhase: Equatable, Sendable {
 /// Authoritative state contains secrets. Pass PlayerView, never MatchState, to
 /// decision-making code for an individual player. Snapshots are value copies;
 /// only GameEngine can replace its own authoritative state.
-struct MatchState: Equatable, Sendable {
+struct MatchState: Equatable, Codable, Sendable {
     /// Seat order is fixed for the match, including seats of eliminated players.
     var players: [PlayerState]
     var round: RoundState

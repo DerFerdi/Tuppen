@@ -437,6 +437,14 @@ Suggested V1 statistics:
 * knocks passed
 * highest stake reached
 
+These counters describe the human player:
+
+* Count a match once at its terminal result, including a loss after earlier human elimination or a draw. Only a human match victory counts as a win.
+* Count a round at its terminal outcome if the human was dealt into it, even if they later Pass or are eliminated during that round. Do not count subsequent bot-only rounds. A round win requires an active human winner; a passed winning card with no active round winner is not a win.
+* Count only successful human Knock, Hold, and Pass actions.
+* Track the highest stake while the human participates, including the stake at which they Pass. Ignore subsequent raises after they leave that round.
+* Reset all statistics to zero without changing the match. Only later accepted game transitions contribute. The next transition while the human participates observes the current stake. After a reset following elimination, match completion can produce one match played with zero rounds played.
+
 Statistics are informational only.
 
 Do not introduce XP, streak rewards, currencies, badges, unlocks, or artificial progression.

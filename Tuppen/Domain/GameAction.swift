@@ -30,4 +30,5 @@ enum GameError: Error, Equatable {
     case illegalAction
     case roundNotFinished
     case matchFinished
+    case invalidSavedState
 }

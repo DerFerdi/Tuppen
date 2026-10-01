@@ -30,6 +30,18 @@ struct GameEngine: Sendable {
         )
     }
 
+    /// Restores a snapshot only after checking that its current round can be
+    /// produced by legal actions. Validation emits no events to session consumers.
+    init(restoring snapshot: MatchState) throws {
+        do {
+            state = try snapshot.roundStartForRestoration()
+            self = try replaySavedRound(snapshot)
+            guard state == snapshot else { throw GameError.invalidSavedState }
+        } catch {
+            throw GameError.invalidSavedState
+        }
+    }
+
     /// This query also validates submitted actions, so callers and the engine
     /// cannot disagree about whether a card, knock, or response is allowed.
     func legalActions(for player: PlayerID) -> [GameAction] {

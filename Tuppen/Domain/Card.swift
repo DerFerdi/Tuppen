@@ -1,10 +1,10 @@
 /// Suits have no relative strength: Tuppen has no trump suit.
-enum Suit: String, CaseIterable, Sendable {
+enum Suit: String, CaseIterable, Codable, Sendable {
     case clubs, spades, hearts, diamonds
 }
 
 /// Raw values encode Tuppen strength, not the values used in poker or bridge.
-enum Rank: Int, CaseIterable, Comparable, Sendable {
+enum Rank: Int, CaseIterable, Comparable, Codable, Sendable {
     case jack, queen, king, ace, seven, eight, nine, ten
 
     static func < (lhs: Rank, rhs: Rank) -> Bool {
@@ -12,7 +12,7 @@ enum Rank: Int, CaseIterable, Comparable, Sendable {
     }
 }
 
-struct Card: Hashable, Sendable {
+struct Card: Hashable, Codable, Sendable {
     let suit: Suit
     let rank: Rank
 }

@@ -24,7 +24,7 @@ if let action = view.legalActions.first {
 
 `GameAction` carries a card play, a knock, or a Hold/Pass response. `apply(_:by:)` checks membership in `legalActions(for:)` before making any changes. Rejected actions throw `GameError` and leave the authoritative state unchanged. Events describe public facts in resolution order; they do not carry hidden hands.
 
-`GameEngine.start` returns a named `(engine, events)` tuple; initialization is private so match creation cannot silently omit its lifecycle result. Deliver the returned events to the same consumer used for action and round-advance results. Both creation and `startNextRound` return exactly one `roundStarted` event after dealing. The first card action does not repeat it.
+`GameEngine.start` returns a named `(engine, events)` tuple; new-match initialization is private so creation cannot silently omit its lifecycle result. Deliver the returned events to the same consumer used for action and round-advance results. Both creation and `startNextRound` return exactly one `roundStarted` event after dealing. The first card action does not repeat it. `GameEngine(restoring:)` validates a saved snapshot separately and produces no new lifecycle events; see [AI and persistence](AIAndPersistence.md) for restore and statistics semantics.
 
 Round advancement is a table-level operation, separate from player actions:
 
@@ -73,9 +73,9 @@ The product specification leaves the following table procedures unspecified. The
 
 ## Hidden information
 
-`MatchState` is privileged and must not be passed to a future AI strategy. `PlayerView` is a separate value containing only the requesting player's hand, public seat information, current and completed tricks, knock history, and engine-computed legal actions. It has no engine reference, opponent-hand dictionary, or undealt-card storage.
+`MatchState` is privileged and must not be passed to a bot strategy. `PlayerView` is a separate value containing only the requesting player's hand, public seat information, current and completed tricks, knock history, and engine-computed legal actions. It has no engine reference, opponent-hand dictionary, or undealt-card storage.
 
-Tests swap every pair of hidden positions for each player and require the resulting views to remain equal. Further scenarios replay the same public history with different secrets through completed tricks, sequential responses, Pass, elimination, and subsequent active turns. Views and public events must remain equal while opponent hands and undealt cards differ. The future AI entry point should accept `PlayerView` alone.
+Tests swap every pair of hidden positions for each player and require the resulting views to remain equal. Further scenarios replay the same public history with different secrets through completed tricks, sequential responses, Pass, elimination, and subsequent active turns. Views and public events must remain equal while opponent hands and undealt cards differ. `BotStrategy` accepts this restricted view and a separate decision generator.
 
 ## Localization
 
