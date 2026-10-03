@@ -2,7 +2,7 @@
 
 An offline-first iPhone implementation of the traditional German card game Tuppen, built with Swift and SwiftUI. No accounts, ads, or analytics.
 
-The repository contains the complete non-UI rules engine, a V1 bot, local saving and restoration, and local statistics. A session service can run one human and two computer opponents through an entire match. The app still has a minimal shell; connecting the game interface is a later phase.
+Play a complete three-player match against two computer opponents, continue a locally saved game, and view local statistics. The functional SwiftUI interface supports German and English, with native cards and explicit round results. Sound, haptics, and final animation polish are still to come.
 
 ## Build and test
 
@@ -32,7 +32,9 @@ There is no UI-test target. UI and visual verification are performed manually.
 - [Contributor instructions](AGENTS.md): architecture, documentation, and testing standards.
 - [Game engine](Documentation/GameEngine.md): API, state transitions, information boundaries, and rule assumptions.
 - [AI and persistence](Documentation/AIAndPersistence.md): bot decisions, session orchestration, versioned saves, and statistics semantics.
+- [App presentation](Documentation/AppPresentation.md): navigation, session integration, localization, preferences, and manual verification.
 - `Tuppen/Domain`: Swift value types and the authoritative rules engine, independent of SwiftUI.
 - `Tuppen/AI`, `Tuppen/Application`, `Tuppen/Persistence`: restricted bot strategies, game sessions, and local storage.
-- `Tuppen/Resources/Localizable.xcstrings`: English/German string catalog for the current app shell.
-- `TuppenTests`: deterministic rule and bot scenarios, information boundaries, full matches, persistence, and statistics.
+- `Tuppen/Presentation`: observable application state and focused SwiftUI screens.
+- `Tuppen/Resources/Localizable.xcstrings`: English/German string catalog.
+- `TuppenTests`: deterministic rule and bot scenarios, information boundaries, full matches, persistence, statistics, and application integration.

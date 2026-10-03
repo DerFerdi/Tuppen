@@ -69,7 +69,7 @@ The product specification leaves the following table procedures unspecified. The
 - The supplied player order proceeds to the left. The first seat is the initial dealer unless a dealer is supplied explicitly.
 - Deal one card at a time, starting to the dealer's left, for four circuits. Advance the dealer to the next surviving seat after every round, including rounds ended by passing. Eliminated seats are skipped for dealing, leading, and play.
 - There is no additional stake cap. Each player can raise at most once per card turn, and every player has at most four card turns per round.
-- The domain accepts two through eight seats, the capacity of a 32-card deck dealt four cards each. V1's eventual app flow remains one human and two computer opponents; no player-count UI is included.
+- The domain accepts two through eight seats, the capacity of a 32-card deck dealt four cards each. The app uses one human and two computer opponents; no player-count UI is included.
 
 ## Hidden information
 
@@ -79,10 +79,10 @@ Tests swap every pair of hidden positions for each player and require the result
 
 ## Localization
 
-The app uses Apple's `Localizable.xcstrings` catalog with English as the source language and German translations. SwiftUI's existing literal text resolves through the catalog. Add languages and user-facing strings there; domain identifiers and rules remain independent of translated text. The in-app System/Deutsch/English preference belongs to the later UI phase.
+The app uses Apple's `Localizable.xcstrings` catalog with English as the source language and German translations. Presentation resolves strings using the selected System/Deutsch/English preference; see [App presentation](AppPresentation.md). Domain identifiers and rules remain independent of translated text.
 
 ## Verification
 
 The Swift Testing target covers deck validation, exact dealing, every rank pairing, following suit, rejected-action atomicity, four-trick scoring, knock interruption and resumption, fixed leads after Pass, committed cards winning after their owners leave, next-leader fallback, final-trick outcomes with no active winner, draws, response ordering, initial/subsequent round events, elimination, dealer rotation, reduced tables, and terminal matches. Seeded full-match scenarios exercise two, three, four, and eight seats, comparing every event and state against replay and checking card conservation and progress throughout.
 
-Build and run the unit target using the commands in the repository README. Manually inspect the app shell in English and German and review the table-procedure assumptions above before adding the game UI. No UI automation, screenshots, or snapshot tests are part of this workflow.
+Build and run the unit target using the commands in the repository README. Manually inspect gameplay in English and German using the [app checklist](AppPresentation.md#manual-verification). No UI automation, screenshots, or snapshot tests are part of this workflow.

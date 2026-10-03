@@ -1,6 +1,6 @@
 # AI and persistence
 
-The application layer supports one human and two computer opponents without a game UI. `GameSession` owns the engine, automatic progression, random streams, and local checkpoint. It has no SwiftUI dependency. One caller must serialize access to a session and own its save file; concurrent sessions must not write the same file.
+The application layer supports one human and two computer opponents independently of the game UI. `GameSession` owns the engine, automatic progression, random streams, and local checkpoint. It has no SwiftUI dependency. One caller must serialize access to a session and own its save file; concurrent sessions must not write the same file. The app uses the actor-owned adapter described in [App presentation](AppPresentation.md).
 
 ## Bot boundary and decisions
 
@@ -33,7 +33,7 @@ let progress = try session.advanceBots()
 
 `advanceOneAutomaticStep` applies one bot action or deals the next round. During a knock it follows `PendingKnock.expectedResponder`, stopping before the human's response. Once responses finish, the engine resumes the knocker's mandatory card turn. A human who has passed or been eliminated does not block the remaining bots.
 
-`advanceBots` repeats those steps until human input, match completion, or a cooperative action budget (64 by default). `yielded` means the caller should resume; it imposes no limit on a valid match. There are no timers or artificial delays. Future presentation can use the single-step method to display each committed event before advancing again.
+`advanceBots` repeats those steps until human input, match completion, or a cooperative action budget (64 by default). `yielded` means the caller should resume; it imposes no limit on a valid match. There are no timers or artificial delays. The app uses the single-step method to publish each committed state and pause at round results.
 
 Every successful action and between-round deal saves automatically. The session first prepares a candidate engine, counters, and random streams, then writes the checkpoint, then publishes the new live state and events. A failed write discards that candidate, including consumed randomness, so retrying is safe. In a multi-step call, earlier successful steps remain committed if a later step fails; read the current session state or use the single-step API when presenting individual events.
 
@@ -47,7 +47,7 @@ The codec reads the version before interpreting the payload. Unknown versions pr
 
 `GameEngine(restoring:)` validates card conservation and bounded structure, reconstructs the start of the saved round, and checks that its recorded plays and knocks reproduce the exact snapshot through existing rule validation. This handles pending responses, passed committed cards, elimination, and draws without duplicating scoring rules. Earlier completed rounds must also be supported by prior scoring progress: each costs at least one unit, with each player's strokes capped at seven for this check. Current-round penalties are excluded. A fresh zero-stroke game claiming round 21 is therefore rejected at load time. This is a necessary consistency check, not full historical replay; restoration emits no application events or reconstructed statistics. Phase 1 rules are unchanged.
 
-A failed load leaves the file untouched. A future recovery flow can report the error and explicitly use `GameSession.empty(store:)` to start again, or remove the file through `LocalGameStore.remove()`. Creating the empty session alone does not overwrite anything. Compatible migrations belong at the codec's version switch when needed; changes to the persisted schema or restoration semantics require an explicit compatibility decision and a version bump where necessary.
+A failed load leaves the file untouched. The app reports a localized error and offers a new game using `GameSession.empty(store:)`. Creating the empty session alone does not overwrite anything; only a successful new-match save replaces the file. `LocalGameStore.remove()` also remains available for explicit recovery. Compatible migrations belong at the codec's version switch when needed; changes to the persisted schema or restoration semantics require an explicit compatibility decision and a version bump where necessary.
 
 ## Human statistics
 
@@ -70,4 +70,4 @@ Counters consume only newly accepted engine events during a checkpoint commit. R
 
 Non-UI tests cover legal bot actions, deterministic tactics and full matches, hidden-information boundaries, ordered responses, human pauses, exact restored continuation, human-scoped statistics, resets, winner/draw outcomes, corruption, and file operations. Rollback tests exercise deals and their random stream, terminal scoring, a later failure within automatic progression, resets, new-match replacement, and an unwritable existing save. Existing engine playout tests restore every intermediate state across two, three, four, and eight seats.
 
-`TuppenTests/Fixtures/version-1-pending-knock.json` is a fixed compatibility fixture: an ordered first deal with Bob's Knock, Charlie's Hold, and Alice's response pending. Maintain it independently of the encoder so schema changes cannot hide behind round-trip tests. No UI tests or presentation behavior are introduced here.
+`TuppenTests/Fixtures/version-1-pending-knock.json` is a fixed compatibility fixture: an ordered first deal with Bob's Knock, Charlie's Hold, and Alice's response pending. Maintain it independently of the encoder so schema changes cannot hide behind round-trip tests. There are no automated UI tests.
