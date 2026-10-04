@@ -19,15 +19,18 @@ struct SettingsView: View {
             Section {
                 Toggle(strings.text("Sound"), isOn: $preferences.soundEnabled)
                 Toggle(strings.text("Haptics"), isOn: $preferences.hapticsEnabled)
-            } footer: {
-                Text(strings.text("Your preferences are saved. Sound and haptic effects will be available in a future update."))
             }
             Section {
                 Button(strings.text("Reset Statistics"), role: .destructive) { confirmingReset = true }
                     .disabled(model.isBusy || model.snapshot == nil)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(TableStyle.background)
+        .tint(TableStyle.accent)
         .navigationTitle(strings.text("Settings"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
         .confirmationDialog(strings.text("Reset All Statistics?"), isPresented: $confirmingReset, titleVisibility: .visible) {
             Button(strings.text("Reset Statistics"), role: .destructive) { Task { await model.resetStatistics() } }
             Button(strings.text("Cancel"), role: .cancel) {}

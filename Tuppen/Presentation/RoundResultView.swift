@@ -9,44 +9,76 @@ struct RoundResultView: View {
     private var strings: GameStrings { preferences.strings }
 
     var body: some View {
-        VStack(spacing: 16) {
-            switch view.matchPhase {
-            case .playing:
-                Text(strings.text("Round Complete")).font(.title2.weight(.semibold))
-            case .finished(let winner):
-                Text(winner == view.player ? strings.text("You Win") : strings.text("\(strings.player(winner, in: view)) Wins"))
-                    .font(.title.weight(.semibold))
-            case .draw:
-                Text(strings.text("Draw")).font(.title.weight(.semibold))
-            }
-            Text(strings.roundResult(outcome, in: view))
+        GeometryReader { geometry in
+            let compact = geometry.size.height < 350
+            result(compact: compact)
+                .frame(maxWidth: 360)
+                .padding(.horizontal, 8)
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                // Preserve a readable result and reachable actions in the same
+                // bounded table space, including the longer German outcome.
+                .dynamicTypeSize(...(compact ? DynamicTypeSize.xLarge : .xxxLarge))
+        }
+        .disabled(model.isBusy)
+        .transition(.opacity)
+    }
+
+    private func result(compact: Bool) -> some View {
+        VStack(spacing: compact ? 10 : 18) {
+            Text(title)
+                .font(.system(compact ? .title2 : .title, design: .serif, weight: .medium))
+                .lineLimit(2).minimumScaleFactor(0.85)
+                .accessibilityAddTraits(.isHeader)
             if case .noActiveWinner = outcome {
-                Text(strings.text("The winning card belongs to a player who passed. All remaining players receive strokes."))
+                Text(strings.text("The winner passed. Strokes for everyone still in."))
+                    .font(.callout).foregroundStyle(.secondary)
+            } else if case .won(_, .opponentsPassed) = outcome {
+                Text(strings.text("Everyone else passed."))
                     .font(.callout).foregroundStyle(.secondary)
             }
-            VStack(spacing: 10) {
-                ForEach(changes, id: \.player) { change in
-                    VStack(spacing: 3) {
-                        Text(strings.text("\(strings.player(change.player, in: view)): Strokes +\(change.amount)"))
-                            .monospacedDigit()
-                        if view.players.first(where: { $0.id == change.player })?.status == .eliminated {
-                            Text(strings.text("Eliminated")).font(.caption).foregroundStyle(.secondary)
-                        }
+            HStack(alignment: .top, spacing: 18) {
+                ForEach(changes.filter { $0.amount > 0 }, id: \.player) { change in
+                    VStack(spacing: 4) {
+                        Text(strings.text("+\(change.amount)"))
+                            .font(.system(.title3, design: .serif, weight: .medium)).monospacedDigit()
+                        Text(strings.player(change.player, in: view))
+                            .font(.caption).foregroundStyle(.secondary)
+                            .lineLimit(1).minimumScaleFactor(0.8)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(strings.text("\(strings.player(change.player, in: view)): Strokes +\(change.amount)"))
                 }
             }
+            .padding(.bottom, 4)
             if view.matchPhase == .playing {
-                Button(strings.text("Next Round")) { Task { await model.nextRound() } }
-                    .buttonStyle(.borderedProminent)
+                if view.players.first(where: { $0.id == view.player })?.status == .eliminated {
+                    Text(strings.text("The opponents play on."))
+                        .font(.callout).foregroundStyle(.secondary)
+                } else {
+                    Button(strings.text("Next Round")) { Task { await model.nextRound() } }
+                        .buttonStyle(.borderedProminent)
+                }
             } else {
-                Button(strings.text("New Game")) { Task { await model.newMatch() } }
-                    .buttonStyle(.borderedProminent)
-                Button(strings.text("Back to Home")) { model.path = [] }
+                HStack(spacing: 20) {
+                    Button(strings.text("New Game")) { Task { await model.newMatch() } }
+                        .buttonStyle(.borderedProminent)
+                    Button(strings.text("Home")) { model.path = [] }
+                        .foregroundStyle(.secondary)
+                }
             }
         }
+        .controlSize(.large)
         .multilineTextAlignment(.center)
-        .frame(maxWidth: .infinity).padding(20)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 18))
-        .disabled(model.isBusy)
+    }
+
+    private var title: String {
+        switch view.matchPhase {
+        case .playing:
+            if case .noActiveWinner = outcome { strings.text("Round Complete") }
+            else { strings.roundResult(outcome, in: view) }
+        case .finished(let winner):
+            winner == view.player ? strings.text("You Win") : strings.text("\(strings.player(winner, in: view)) Wins")
+        case .draw: strings.text("Draw")
+        }
     }
 }

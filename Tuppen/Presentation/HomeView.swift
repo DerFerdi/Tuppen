@@ -7,47 +7,46 @@ struct HomeView: View {
     private var strings: GameStrings { preferences.strings }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 36) {
-                VStack(spacing: 16) {
-                    Image(systemName: "suit.club.fill")
-                        .font(.system(size: 40)).foregroundStyle(.tint).accessibilityHidden(true)
-                    Text(strings.text("TUPPEN"))
-                        .font(.system(.largeTitle, design: .serif, weight: .semibold)).tracking(5)
-                        .accessibilityAddTraits(.isHeader)
-                    Text(strings.text("Four cards. One final trick."))
-                        .foregroundStyle(.secondary).multilineTextAlignment(.center)
+        VStack(spacing: 0) {
+            Spacer(minLength: 28)
+            Text(strings.text("TUPPEN"))
+                .font(.system(size: 42, weight: .medium, design: .serif)).tracking(7)
+                .accessibilityAddTraits(.isHeader)
+                .padding(.bottom, 56)
+            VStack(spacing: 18) {
+                if model.hasActiveMatch {
+                    Button(strings.text("Continue")) { model.path = [.game] }
+                        .buttonStyle(.borderedProminent)
                 }
-                .padding(.top, 48)
-                VStack(spacing: 16) {
-                    if model.hasActiveMatch {
-                        Button(strings.text("Continue")) { model.path = [.game] }
-                            .buttonStyle(.borderedProminent)
-                    }
-                    Button(strings.text("New Game")) {
-                        if model.hasActiveMatch { confirmingNewMatch = true }
-                        else { Task { await model.newMatch() } }
-                    }
-                    .buttonStyle(.bordered)
+                Button(strings.text("New Game")) {
+                    if model.hasActiveMatch { confirmingNewMatch = true }
+                    else { Task { await model.newMatch() } }
                 }
-                .controlSize(.large)
-                .disabled(!model.hasLoaded || model.isBusy)
-                if model.isBusy {
-                    ProgressView(strings.text("Loading…"))
-                } else if model.hasLoaded, model.snapshot == nil {
-                    Text(strings.text("Your saved game could not be opened. Try again, or start a new game to replace it."))
-                        .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
-                }
-                VStack(spacing: 22) {
-                    NavigationLink(strings.text("Statistics"), value: AppScreen.statistics)
-                    NavigationLink(strings.text("Settings"), value: AppScreen.settings)
-                }
-                .disabled(!model.hasLoaded)
+                .buttonStyle(.bordered)
             }
-            .frame(maxWidth: 440).frame(maxWidth: .infinity).padding(24)
+            .controlSize(.large)
+            .disabled(!model.hasLoaded || model.isBusy)
+            if model.isBusy {
+                ProgressView(strings.text("Loading…")).padding(.top, 24)
+            } else if model.hasLoaded, model.snapshot == nil {
+                Text(strings.text("Your saved game could not be opened. Try again, or start a new game to replace it."))
+                    .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
+                    .padding(.top, 24)
+            }
+            Spacer(minLength: 32)
+            VStack(spacing: 22) {
+                NavigationLink(strings.text("Statistics"), value: AppScreen.statistics)
+                NavigationLink(strings.text("Settings"), value: AppScreen.settings)
+            }
+            .font(.subheadline).foregroundStyle(.secondary)
+            .disabled(!model.hasLoaded)
+            .padding(.bottom, 36)
         }
-        .navigationTitle(strings.text("Home"))
-        .navigationBarTitleDisplayMode(.inline)
+        .frame(maxWidth: 380).padding(.horizontal, 24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(TableStyle.background.ignoresSafeArea())
+        .tint(TableStyle.accent)
+        .toolbar(.hidden, for: .navigationBar)
         .confirmationDialog(strings.text("Start a New Game?"), isPresented: $confirmingNewMatch, titleVisibility: .visible) {
             Button(strings.text("New Game"), role: .destructive) { Task { await model.newMatch() } }
             Button(strings.text("Cancel"), role: .cancel) {}

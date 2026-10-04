@@ -48,7 +48,7 @@ struct GameStrings {
         switch outcome {
         case .won(let winner, _):
             winner == view.player ? text("You win the round.") : text("\(player(winner, in: view)) wins the round.")
-        case .noActiveWinner: text("No active winner.")
+        case .noActiveWinner: text("Everyone still in receives strokes.")
         }
     }
 

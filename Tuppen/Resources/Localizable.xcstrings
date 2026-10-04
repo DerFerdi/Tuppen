@@ -18,23 +18,6 @@
         }
       }
     },
-    "%@ is playing.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ is playing."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ ist am Zug."
-          }
-        }
-      }
-    },
     "%@ knocked. Stake: %lld": {
       "extractionState": "manual",
       "localizations": {
@@ -47,7 +30,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@: Getuppt. Einsatz: %lld"
+            "value": "%@ hat geklopft. Einsatz: %lld"
           }
         }
       }
@@ -86,36 +69,19 @@
         }
       }
     },
-    "%@: Hold": {
+    "%@: %@": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@: Hold"
+            "value": "%@: %@"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@: Halten"
-          }
-        }
-      }
-    },
-    "%@: Pass": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: Pass"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: Passen"
+            "value": "%@: %@"
           }
         }
       }
@@ -133,6 +99,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: Striche +%lld"
+          }
+        }
+      }
+    },
+    "+%lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld"
           }
         }
       }
@@ -273,6 +256,23 @@
         }
       }
     },
+    "Card table": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Card table"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartentisch"
+          }
+        }
+      }
+    },
     "Cards: %lld": {
       "extractionState": "manual",
       "localizations": {
@@ -375,6 +375,23 @@
         }
       }
     },
+    "Double tap the table to Knock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Double tap the table to Knock"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Klopfen zweimal auf den Tisch tippen"
+          }
+        }
+      }
+    },
     "Draw": {
       "extractionState": "manual",
       "localizations": {
@@ -443,19 +460,53 @@
         }
       }
     },
-    "Four cards. One final trick.": {
+    "Everyone else passed.": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Four cards. One final trick."
+            "value": "Everyone else passed."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vier Karten. Ein letzter Stich."
+            "value": "Alle anderen haben gepasst."
+          }
+        }
+      }
+    },
+    "Everyone still in receives strokes.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everyone still in receives strokes."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle verbliebenen Spieler erhalten Striche."
+          }
+        }
+      }
+    },
+    "HOLDS": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HOLDS"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HÄLT"
           }
         }
       }
@@ -625,7 +676,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tuppen"
+            "value": "Klopfen"
           }
         }
       }
@@ -659,7 +710,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Getuppt"
+            "value": "Geklopft"
           }
         }
       }
@@ -800,23 +851,6 @@
         }
       }
     },
-    "No active winner.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No active winner."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kein aktiver Gewinner."
-          }
-        }
-      }
-    },
     "OK": {
       "extractionState": "manual",
       "localizations": {
@@ -847,6 +881,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gegner %lld"
+          }
+        }
+      }
+    },
+    "PASSES": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PASSES"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PASST"
           }
         }
       }
@@ -898,23 +949,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diese Karte spielen"
-          }
-        }
-      }
-    },
-    "Playing…": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playing…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es wird gespielt …"
           }
         }
       }
@@ -1034,23 +1068,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Runde beendet"
-          }
-        }
-      }
-    },
-    "Round History": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Round History"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rundenverlauf"
           }
         }
       }
@@ -1242,6 +1259,23 @@
         }
       }
     },
+    "Strokes +%lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strokes +%lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Striche +%lld"
+          }
+        }
+      }
+    },
     "Strokes: %lld": {
       "extractionState": "manual",
       "localizations": {
@@ -1276,6 +1310,23 @@
         }
       }
     },
+    "TOK TOK": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TOK TOK"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TOK TOK"
+          }
+        }
+      }
+    },
     "TUPPEN": {
       "extractionState": "manual",
       "localizations": {
@@ -1289,6 +1340,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "TUPPEN"
+          }
+        }
+      }
+    },
+    "Table options": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Table options"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tischoptionen"
           }
         }
       }
@@ -1327,19 +1395,53 @@
         }
       }
     },
-    "The winning card belongs to a player who passed. All remaining players receive strokes.": {
+    "The opponents play on.": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The winning card belongs to a player who passed. All remaining players receive strokes."
+            "value": "The opponents play on."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Karte, die den Stich gewinnt, gehört einem Spieler, der gepasst hat. Alle verbliebenen Spieler erhalten Striche."
+            "value": "Die Gegner spielen weiter."
+          }
+        }
+      }
+    },
+    "The winner passed. Strokes for everyone still in.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The winner passed. Strokes for everyone still in."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Stichgewinner hat gepasst. Striche für alle Verbliebenen."
+          }
+        }
+      }
+    },
+    "Thinking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thinking"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überlegt"
           }
         }
       }
@@ -1378,23 +1480,6 @@
         }
       }
     },
-    "Trick %lld of 4": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trick %lld of 4"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stich %lld von 4"
-          }
-        }
-      }
-    },
     "Trick %lld · Winner: %@": {
       "extractionState": "manual",
       "localizations": {
@@ -1412,6 +1497,23 @@
         }
       }
     },
+    "Trick winner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trick winner"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stichgewinner"
+          }
+        }
+      }
+    },
     "Unable to Continue": {
       "extractionState": "manual",
       "localizations": {
@@ -1425,23 +1527,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fortsetzen nicht möglich"
-          }
-        }
-      }
-    },
-    "Waiting for %@.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Waiting for %@."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Warten auf %@."
           }
         }
       }
@@ -1480,23 +1565,6 @@
         }
       }
     },
-    "You are eliminated. The opponents will finish the match.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You are eliminated. The opponents will finish the match."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du bist ausgeschieden. Die Gegner spielen die Partie zu Ende."
-          }
-        }
-      }
-    },
     "You win the round.": {
       "extractionState": "manual",
       "localizations": {
@@ -1514,23 +1582,6 @@
         }
       }
     },
-    "Your preferences are saved. Sound and haptic effects will be available in a future update.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your preferences are saved. Sound and haptic effects will be available in a future update."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine Einstellungen werden gespeichert. Ton und haptische Effekte folgen in einem späteren Update."
-          }
-        }
-      }
-    },
     "Your saved game could not be opened. Try again, or start a new game to replace it.": {
       "extractionState": "manual",
       "localizations": {
@@ -1544,23 +1595,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dein gespeichertes Spiel konnte nicht geöffnet werden. Versuche es erneut oder ersetze es durch ein neues Spiel."
-          }
-        }
-      }
-    },
-    "Your turn. Choose a card.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your turn. Choose a card."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du bist dran. Wähle eine Karte."
           }
         }
       }

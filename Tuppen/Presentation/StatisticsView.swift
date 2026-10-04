@@ -22,7 +22,12 @@ struct StatisticsView: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(TableStyle.background)
+        .tint(TableStyle.accent)
         .navigationTitle(strings.text("Statistics"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
     }
 
     private func row(_ title: String.LocalizationValue, _ value: Int) -> some View {

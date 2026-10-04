@@ -60,6 +60,8 @@ All user-facing strings must use Apple's localization infrastructure so adding m
 
 Game logic must never depend on localized strings.
 
+In German, Tuppen is the name of the game; Klopfen is the action of raising the stake (English: Knock).
+
 All source code, comments, tests, and repository documentation remain English.
 
 ## V1 Scope
@@ -74,7 +76,7 @@ V1 includes:
 * playing cards
 * following suit
 * four tricks per round
-* Tuppen / knocking
+* Knock / Klopfen
 * Hold / Halten
 * Pass / Passen
 * strokes

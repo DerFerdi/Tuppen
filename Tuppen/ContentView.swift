@@ -4,6 +4,7 @@ struct ContentView: View {
     @Environment(AppModel.self) private var model
     @Environment(AppPreferences.self) private var preferences
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         @Bindable var model = model
@@ -18,6 +19,9 @@ struct ContentView: View {
                 }
         }
         .task { await model.load() }
+        .onChange(of: preferences.soundEnabled, initial: true) { _, enabled in model.soundEnabled = enabled }
+        .onChange(of: preferences.hapticsEnabled, initial: true) { _, enabled in model.hapticsEnabled = enabled }
+        .onChange(of: reduceMotion, initial: true) { _, enabled in model.reduceMotion = enabled }
         .onChange(of: model.path) { _, path in
             if path.last == .game { Task { await model.resume() } }
         }
