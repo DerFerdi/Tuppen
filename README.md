@@ -126,7 +126,7 @@ Selectable AI difficulty.
 
 ### V4
 
-Regional and house-rule configuration under the idea: *So spielen wir.*
+Regional and house-rule configuration.
 
 ### V5
 

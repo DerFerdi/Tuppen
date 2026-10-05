@@ -1,1186 +1,261 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "%@ Holds.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ Holds."
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ Holds." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hält."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ hält."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Holds."
           }
         }
       }
     },
-    "%@ Passes.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ Passes."
+    "%@ is eliminated." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist ausgeschieden."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ passt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is eliminated."
           }
         }
       }
     },
-    "%@ Wins": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ Wins"
+    "%@ knocked. Stake: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hat geklopft. Einsatz: %lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ gewinnt"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ knocked. Stake: %lld"
           }
         }
       }
     },
-    "%@ is eliminated.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ is eliminated."
+    "%@ of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ %1$@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ ist ausgeschieden."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of %@"
           }
         }
       }
     },
-    "%@ knocked. Stake: %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ knocked. Stake: %lld"
+    "%@ Passes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ passt."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ hat geklopft. Einsatz: %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Passes."
           }
         }
       }
     },
-    "%@ of %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ of %@"
+    "%@ played %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hat %@ gespielt."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%2$@ %1$@"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ played %@."
           }
         }
       }
     },
-    "%@ played %@.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ played %@."
+    "%@ to play." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist am Zug."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ hat %@ gespielt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ to play."
           }
         }
       }
     },
-    "%@ to play.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ to play."
+    "%@ Wins" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gewinnt"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ ist am Zug."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Wins"
           }
         }
       }
     },
-    "%@ wins the match.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ wins the match."
+    "%@ wins the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gewinnt die Partie."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ gewinnt die Partie."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wins the match."
           }
         }
       }
     },
-    "%@ wins the round.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ wins the round."
+    "%@ wins the round." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gewinnt die Runde."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ gewinnt die Runde."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wins the round."
           }
         }
       }
     },
-    "%@: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: %@"
+    "%@: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: %@"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
           }
         }
       }
     },
-    "%@: Strokes +%lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: Strokes +%lld"
+    "%@: Strokes +%lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: Striche +%lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: Striche +%lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: Strokes +%lld"
           }
         }
       }
     },
-    "%lld of seven strokes": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld of seven strokes"
+    "%lld of seven strokes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld von sieben Strichen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld von sieben Strichen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of seven strokes"
           }
         }
       }
     },
-    "%lld strokes added.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld stroke added."
+    "%lld strokes added." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Strich dazu."
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld strokes added."
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Striche dazu."
                 }
               }
             }
           }
         },
-        "de": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Strich dazu."
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld stroke added."
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Striche dazu."
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "+%lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+%lld"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+%lld"
-          }
-        }
-      }
-    },
-    "10": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "10"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "10"
-          }
-        }
-      }
-    },
-    "7": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7"
-          }
-        }
-      }
-    },
-    "8": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "8"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "8"
-          }
-        }
-      }
-    },
-    "9": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "9"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "9"
-          }
-        }
-      }
-    },
-    "A": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A"
-          }
-        }
-      }
-    },
-    "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eine normale Runde hat vier Stiche. Nur der vierte Stich entscheidet, wer die Runde gewinnt. Wer einen früheren Stich gewinnt, spielt im nächsten zuerst – die Runde ist damit noch nicht gewonnen."
-          }
-        }
-      }
-    },
-    "Ace": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ace"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ass"
-          }
-        }
-      }
-    },
-    "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nach dem Klopfen kannst du halten: Du bleibst in der Runde und akzeptierst den höheren Einsatz. Steigt er von eins auf zwei und du verlierst später, bekommst du zwei Striche."
-          }
-        }
-      }
-    },
-    "Back to Home": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Back to Home"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zurück zum Start"
-          }
-        }
-      }
-    },
-    "Cancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbrechen"
-          }
-        }
-      }
-    },
-    "Card table": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Card table"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kartentisch"
-          }
-        }
-      }
-    },
-    "Cards: %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cards: %lld"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Karten: %lld"
-          }
-        }
-      }
-    },
-    "Clubs": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clubs"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kreuz"
-          }
-        }
-      }
-    },
-    "Continue": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fortsetzen"
-          }
-        }
-      }
-    },
-    "Current decision": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Current decision"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktuelle Entscheidung"
-          }
-        }
-      }
-    },
-    "Current trick": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Current trick"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktueller Stich"
-          }
-        }
-      }
-    },
-    "Currently unavailable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Currently unavailable"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Derzeit nicht verfügbar"
-          }
-        }
-      }
-    },
-    "Deutsch": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deutsch"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deutsch"
-          }
-        }
-      }
-    },
-    "Diamonds": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diamonds"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Karo"
-          }
-        }
-      }
-    },
-    "Double tap the table to Knock": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Double tap the table to Knock"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zum Klopfen zweimal auf den Tisch tippen"
-          }
-        }
-      }
-    },
-    "Draw": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Draw"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unentschieden"
-          }
-        }
-      }
-    },
-    "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle spielen reihum eine Karte: Das ist ein Stich. Die erste Karte bestimmt die Farbe. Hast du diese Farbe, musst du sie bedienen. Sonst darfst du eine beliebige Karte spielen. Die höchste Karte der angespielten Farbe gewinnt."
-          }
-        }
-      }
-    },
-    "Eight": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eight"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acht"
-          }
-        }
-      }
-    },
-    "Eliminated": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eliminated"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ausgeschieden"
-          }
-        }
-      }
-    },
-    "English": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "English"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "English"
-          }
-        }
-      }
-    },
-    "Everyone else passed.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Everyone else passed."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle anderen haben gepasst."
-          }
-        }
-      }
-    },
-    "Everyone still in receives strokes.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Everyone still in receives strokes."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle verbliebenen Spieler erhalten Striche."
-          }
-        }
-      }
-    },
-    "Finish the remaining computer turns without animations.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finish the remaining computer turns without animations."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spiele die restlichen Computerzüge ohne Animationen bis zum Ergebnis."
-          }
-        }
-      }
-    },
-    "Finishing match…": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finishing match…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partie wird beendet …"
-          }
-        }
-      }
-    },
-    "Follow %@.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Follow %@."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bediene %@."
-          }
-        }
-      }
-    },
-    "Follow the led suit": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Follow the led suit"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bediene die angespielte Farbe"
-          }
-        }
-      }
-    },
-    "Four cards each": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Four cards each"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vier Karten pro Person"
-          }
-        }
-      }
-    },
-    "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Von schwach nach stark: Bube, Dame, König, Ass, Sieben, Acht, Neun, Zehn. Es gibt keinen Trumpf."
-          }
-        }
-      }
-    },
-    "HOLDS": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HOLDS"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HÄLT"
-          }
-        }
-      }
-    },
-    "Haptics": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haptics"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haptik"
-          }
-        }
-      }
-    },
-    "Hearts": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hearts"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Herz"
-          }
-        }
-      }
-    },
-    "Highest Stake Reached": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Highest Stake Reached"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Höchster Einsatz"
-          }
-        }
-      }
-    },
-    "Hold": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hold"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Halten"
-          }
-        }
-      }
-    },
-    "Hold or Pass required": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hold or Pass required"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Halten oder Passen erforderlich"
-          }
-        }
-      }
-    },
-    "Home": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
-          }
-        }
-      }
-    },
-    "How to Play": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How to Play"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spielregeln"
-          }
-        }
-      }
-    },
-    "J": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "J"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "B"
-          }
-        }
-      }
-    },
-    "Jack": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jack"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bube"
-          }
-        }
-      }
-    },
-    "K": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "K"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "K"
-          }
-        }
-      }
-    },
-    "King": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "King"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "König"
-          }
-        }
-      }
-    },
-    "Knock": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Knock"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klopfen"
-          }
-        }
-      }
-    },
-    "Knocked": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Knocked"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geklopft"
-          }
-        }
-      }
-    },
-    "Knocks Held": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Knocks Held"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gehalten"
-          }
-        }
-      }
-    },
-    "Knocks Made": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Knocks Made"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geklopft"
-          }
-        }
-      }
-    },
-    "Knocks Passed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Knocks Passed"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gepasst"
-          }
-        }
-      }
-    },
-    "Language": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprache"
-          }
-        }
-      }
-    },
-    "Leave this round and receive %lld strokes.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Leave this round and receive %lld stroke."
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Leave this round and receive %lld strokes."
-                }
-              }
-            }
-          }
-        },
-        "de": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Verlasse diese Runde und erhalte %lld Strich."
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Verlasse diese Runde und erhalte %lld Striche."
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld strokes added."
                 }
               }
             }
@@ -1188,1315 +263,2240 @@
         }
       }
     },
-    "Led suit: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Led suit: %@"
+    "+%lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Angespielte Farbe: %@"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld"
           }
         }
       }
     },
-    "Loading…": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loading…"
+    "7" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wird geladen …"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7"
           }
         }
       }
     },
-    "Matches Played": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Matches Played"
+    "8" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "8"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gespielte Partien"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "8"
           }
         }
       }
     },
-    "Matches Won": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Matches Won"
+    "9" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gewonnene Partien"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9"
           }
         }
       }
     },
-    "New Game": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New Game"
+    "10" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neues Spiel"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10"
           }
         }
       }
     },
-    "Next Round": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next Round"
+    "A" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nächste Runde"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A"
           }
         }
       }
     },
-    "Nine": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nine"
+    "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine normale Runde hat vier Stiche. Nur der vierte Stich entscheidet, wer die Runde gewinnt. Wer einen früheren Stich gewinnt, spielt im nächsten zuerst – die Runde ist damit noch nicht gewonnen."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neun"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round."
           }
         }
       }
     },
-    "No cards played yet.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No cards played yet."
+    "Ace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ass"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch keine Karte gespielt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ace"
           }
         }
       }
     },
-    "OK": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+    "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachdem jemand geklopft hat kannst du halten: Du bleibst in der Runde und akzeptierst den höheren Einsatz. Steigt er von eins auf zwei und du verlierst später, bekommst du zwei Striche."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes."
           }
         }
       }
     },
-    "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn."
+    "Back to Home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück zum Start"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nur wer am Zug ist, darf klopfen – bevor die eigene Karte gespielt wird. Jedes Klopfen erhöht den Einsatz um eins. Nach den Antworten spielst du deine Karte. Im selben Zug darfst du nicht erneut klopfen."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back to Home"
           }
         }
       }
     },
-    "Opponent %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opponent %lld"
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gegner %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
     },
-    "PASSES": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PASSES"
+    "Card table" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartentisch"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PASST"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card table"
           }
         }
       }
     },
-    "Pass": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pass"
+    "Cards: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karten: %lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cards: %lld"
           }
         }
       }
     },
-    "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately."
+    "Clubs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kreuz"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beim Passen verlässt du die Runde und bekommst den vorherigen Einsatz als Striche. Steigt der Einsatz von eins auf zwei, bekommst du beim Passen einen Strich. Passen alle anderen, gewinnt die klopfende Person die Runde sofort."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clubs"
           }
         }
       }
     },
-    "Passed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passed"
+    "Continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortsetzen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gepasst"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
           }
         }
       }
     },
-    "Play is in progress.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play is in progress."
+    "Current decision" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Entscheidung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Spielzug läuft."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current decision"
           }
         }
       }
     },
-    "Play this card": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play this card"
+    "Current trick" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktueller Stich"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diese Karte spielen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current trick"
           }
         }
       }
     },
-    "Playable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playable"
+    "Currently unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derzeit nicht verfügbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spielbar"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currently unavailable"
           }
         }
       }
     },
-    "Q": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Q"
+    "Deutsch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "D"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
           }
         }
       }
     },
-    "Queen": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queen"
+    "Diamonds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karo"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dame"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diamonds"
           }
         }
       }
     },
-    "Reset All Statistics?": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset All Statistics?"
+    "Double tap the table to Knock" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Klopfen zweimal auf den Tisch tippen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gesamte Statistik zurücksetzen?"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap the table to Knock"
           }
         }
       }
     },
-    "Reset Statistics": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset Statistics"
+    "Draw" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unentschieden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistik zurücksetzen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Draw"
           }
         }
       }
     },
-    "Retry": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retry"
+    "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle spielen reihum eine Karte: Das ist ein Stich. Die erste Karte bestimmt die Farbe. Hast du diese Farbe, musst du sie bedienen. Sonst darfst du eine beliebige Karte spielen. Die höchste Karte der angespielten Farbe gewinnt."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erneut versuchen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins."
           }
         }
       }
     },
-    "Round %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Round %lld"
+    "Eight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acht"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Runde %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight"
           }
         }
       }
     },
-    "Round %lld. Cards dealt.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Round %lld. Cards dealt."
+    "Eliminated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgeschieden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Runde %lld. Die Karten sind verteilt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminated"
           }
         }
       }
     },
-    "Round Complete": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Round Complete"
+    "English" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Runde beendet"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
           }
         }
       }
     },
-    "Rounds Played": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rounds Played"
+    "Everyone else passed." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle anderen haben gepasst."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gespielte Runden"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone else passed."
           }
         }
       }
     },
-    "Rounds Won": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rounds Won"
+    "Everyone still in receives strokes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle verbliebenen Spieler erhalten Striche."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gewonnene Runden"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone still in receives strokes."
           }
         }
       }
     },
-    "Settings": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "Finish the remaining computer turns without animations." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spiele die restlichen Computerzüge ohne Animationen bis zum Ergebnis."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einstellungen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the remaining computer turns without animations."
           }
         }
       }
     },
-    "Seven": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seven"
+    "Finishing match…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partie wird beendet …"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sieben"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finishing match…"
           }
         }
       }
     },
-    "Skip to Result": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skip to Result"
+    "Follow %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bediene %@."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zum Ergebnis"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow %@."
           }
         }
       }
     },
-    "Sound": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sound"
+    "Follow the led suit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bediene die angespielte Farbe"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ton"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow the led suit"
           }
         }
       }
     },
-    "Spades": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spades"
+    "Four cards each" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vier Karten pro Person"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pik"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Four cards each"
           }
         }
       }
     },
-    "Stake: %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stake: %lld"
+    "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Von schwach nach stark: Bube, Dame, König, Ass, Sieben, Acht, Neun, Zehn. "
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einsatz: %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit."
           }
         }
       }
     },
-    "Start a New Game?": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start a New Game?"
+    "Haptics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haptik"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neues Spiel starten?"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haptics"
           }
         }
       }
     },
-    "Statistics": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistics"
+    "Hearts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herz"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistik"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hearts"
           }
         }
       }
     },
-    "Statistics are unavailable until your saved data is opened or a new game is started.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistics are unavailable until your saved data is opened or a new game is started."
+    "Highest Stake Reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Höchster Einsatz"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Statistik ist verfügbar, sobald deine gespeicherten Daten geöffnet wurden oder du ein neues Spiel startest."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Highest Stake Reached"
           }
         }
       }
     },
-    "Statistics could not be reset. Your previous statistics are unchanged.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistics could not be reset. Your previous statistics are unchanged."
+    "Hold" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halten"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Statistik konnte nicht zurückgesetzt werden. Deine bisherige Statistik bleibt unverändert."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold"
           }
         }
       }
     },
-    "Stay below seven strokes": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stay below seven strokes"
+    "Hold or Pass required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halten oder Passen erforderlich"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bleib unter sieben Strichen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold or Pass required"
           }
         }
       }
     },
-    "Stay in this round at stake %lld.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stay in this round at stake %lld."
+    "HOLDS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HÄLT"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bleibe bei Einsatz %lld in dieser Runde."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HOLDS"
           }
         }
       }
     },
-    "Strokes +%lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Strokes +%lld"
+    "Home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Striche +%lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         }
       }
     },
-    "Strokes: %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Strokes: %lld"
+    "How to Play" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spielregeln"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Striche: %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Play"
           }
         }
       }
     },
-    "System": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "System"
+    "J" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "System"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "J"
           }
         }
       }
     },
-    "TOK TOK": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "TOK TOK"
+    "Jack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bube"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "TOK TOK"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jack"
           }
         }
       }
     },
-    "TUPPEN": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "TUPPEN"
+    "K" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "K"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "TUPPEN"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "K"
           }
         }
       }
     },
-    "Table options": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Table options"
+    "King" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "König"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tischoptionen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "King"
           }
         }
       }
     },
-    "Ten": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ten"
+    "Knock" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klopfen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zehn"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knock"
           }
         }
       }
     },
-    "Ten is strongest": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ten is strongest"
+    "Knocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geklopft"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Zehn ist am stärksten"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knocked"
           }
         }
       }
     },
-    "The change could not be saved. Your last saved position is safe. Please try again.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The change could not be saved. Your last saved position is safe. Please try again."
+    "Knocks Held" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehalten"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Änderung konnte nicht gespeichert werden. Dein letzter gespeicherter Spielstand bleibt erhalten. Bitte versuche es erneut."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knocks Held"
           }
         }
       }
     },
-    "The fourth trick decides": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The fourth trick decides"
+    "Knocks Made" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geklopft"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der vierte Stich entscheidet"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knocks Made"
           }
         }
       }
     },
-    "The match is a draw.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The match is a draw."
+    "Knocks Passed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gepasst"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Partie endet unentschieden."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knocks Passed"
           }
         }
       }
     },
-    "The opponents play on.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The opponents play on."
+    "Language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Gegner spielen weiter."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         }
       }
     },
-    "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match."
+    "Leave this round and receive %lld strokes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verlasse diese Runde und erhalte %lld Strich."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verlasse diese Runde und erhalte %lld Striche."
+                }
+              }
+            }
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Einsatz beginnt bei eins. Wer eine Runde verliert, bekommt normalerweise einen Strich. Mit sieben oder mehr Strichen scheidest du aus. Wer zuletzt übrig bleibt, gewinnt die Partie."
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Leave this round and receive %lld stroke."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Leave this round and receive %lld strokes."
+                }
+              }
+            }
           }
         }
       }
     },
-    "The winner passed. Strokes for everyone still in.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The winner passed. Strokes for everyone still in."
+    "Led suit: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angespielte Farbe: %@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Stichgewinner hat gepasst. Striche für alle Verbliebenen."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Led suit: %@"
           }
         }
       }
     },
-    "Thinking": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thinking"
+    "Loading…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird geladen …"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Überlegt"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
           }
         }
       }
     },
-    "This clears your local statistics. Your current match is kept.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This clears your local statistics. Your current match is kept."
+    "Matches Played" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespielte Partien"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine lokale Statistik wird gelöscht. Deine aktuelle Partie bleibt erhalten."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches Played"
           }
         }
       }
     },
-    "This replaces your current match. Your statistics are kept.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This replaces your current match. Your statistics are kept."
+    "Matches Won" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewonnene Partien"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine aktuelle Partie wird ersetzt. Deine Statistik bleibt erhalten."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches Won"
           }
         }
       }
     },
-    "To play": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To play"
+    "New Game" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neues Spiel"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Am Zug"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Game"
           }
         }
       }
     },
-    "Trick %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trick %lld"
+    "Next Round" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nächste Runde"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stich %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next Round"
           }
         }
       }
     },
-    "Trick %lld · Winner: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trick %lld · Winner: %@"
+    "Nine" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neun"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stich %lld · Gewinner: %@"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nine"
           }
         }
       }
     },
-    "Trick winner": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trick winner"
+    "No cards played yet." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Karte gespielt."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stichgewinner"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No cards played yet."
           }
         }
       }
     },
-    "Unable to Continue": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unable to Continue"
+    "OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fortsetzen nicht möglich"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "Waiting for %@ to Hold or Pass.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Waiting for %@ to Hold or Pass."
+    "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur wer am Zug ist, darf klopfen – bevor die eigene Karte gespielt wird. Jedes Klopfen erhöht den Einsatz um eins. Nach den Antworten spielst du deine Karte. Im selben Zug darfst du nicht erneut klopfen."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ muss noch halten oder passen."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn."
           }
         }
       }
     },
-    "You": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You"
+    "Opponent %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gegner %lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opponent %lld"
           }
         }
       }
     },
-    "You Hold.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You Hold."
+    "Pass" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du hältst."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass"
           }
         }
       }
     },
-    "You Pass.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You Pass."
+    "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Passen verlässt du die Runde und bekommst den vorherigen Einsatz als Striche. Steigt der Einsatz von eins auf zwei, bekommst du beim Passen einen Strich. Passen alle anderen, gewinnt die klopfende Person die Runde sofort."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du passt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately."
           }
         }
       }
     },
-    "You Win": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You Win"
+    "Passed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gepasst"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gewonnen"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passed"
           }
         }
       }
     },
-    "You are eliminated.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You are eliminated."
+    "PASSES" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PASST"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du bist ausgeschieden."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PASSES"
           }
         }
       }
     },
-    "You knocked. Stake: %lld.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You knocked. Stake: %lld."
+    "Play is in progress." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Spielzug läuft."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du hast geklopft. Einsatz: %lld."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play is in progress."
           }
         }
       }
     },
-    "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
+    "Play this card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Karte spielen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du spielst gegen zwei Gegner. Alle, die noch dabei sind, erhalten vier Karten. Die Farben heißen Kreuz, Pik, Herz und Karo."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play this card"
           }
         }
       }
     },
-    "You played %@.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You played %@."
+    "Playable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spielbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du hast %@ gespielt."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playable"
           }
         }
       }
     },
-    "You win the match.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You win the match."
+    "Q" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du gewinnst die Partie."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Q"
           }
         }
       }
     },
-    "You win the round.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You win the round."
+    "Queen" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dame"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du gewinnst die Runde."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Queen"
           }
         }
       }
     },
-    "Your hand": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your hand"
+    "Reset All Statistics?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesamte Statistik zurücksetzen?"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine Karten"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset All Statistics?"
           }
         }
       }
     },
-    "Your response. Hold or Pass. Stake: %lld.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your response. Hold or Pass. Stake: %lld."
+    "Reset Statistics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistik zurücksetzen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du entscheidest: Halten oder Passen. Einsatz: %lld."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Statistics"
           }
         }
       }
     },
-    "Your saved game could not be opened. Try again, or start a new game to replace it.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your saved game could not be opened. Try again, or start a new game to replace it."
+    "Retry" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut versuchen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dein gespeichertes Spiel konnte nicht geöffnet werden. Versuche es erneut oder ersetze es durch ein neues Spiel."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
           }
         }
       }
     },
-    "Your turn. Play a card.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your turn. Play a card."
+    "Round %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runde %lld"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du bist am Zug. Spiele eine Karte."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %lld"
+          }
+        }
+      }
+    },
+    "Round %lld. Cards dealt." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runde %lld. Die Karten sind verteilt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %lld. Cards dealt."
+          }
+        }
+      }
+    },
+    "Round Complete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runde beendet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round Complete"
+          }
+        }
+      }
+    },
+    "Rounds Played" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespielte Runden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rounds Played"
+          }
+        }
+      }
+    },
+    "Rounds Won" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewonnene Runden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rounds Won"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Seven" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seven"
+          }
+        }
+      }
+    },
+    "Skip to Result" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Ergebnis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip to Result"
+          }
+        }
+      }
+    },
+    "Sound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ton"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
+          }
+        }
+      }
+    },
+    "Spades" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pik"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spades"
+          }
+        }
+      }
+    },
+    "Stake: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einsatz: %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stake: %lld"
+          }
+        }
+      }
+    },
+    "Start a New Game?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neues Spiel starten?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a New Game?"
+          }
+        }
+      }
+    },
+    "Statistics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistik"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "Statistics are unavailable until your saved data is opened or a new game is started." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Statistik ist verfügbar, sobald deine gespeicherten Daten geöffnet wurden oder du ein neues Spiel startest."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics are unavailable until your saved data is opened or a new game is started."
+          }
+        }
+      }
+    },
+    "Statistics could not be reset. Your previous statistics are unchanged." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Statistik konnte nicht zurückgesetzt werden. Deine bisherige Statistik bleibt unverändert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics could not be reset. Your previous statistics are unchanged."
+          }
+        }
+      }
+    },
+    "Stay below seven strokes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bleib unter sieben Strichen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay below seven strokes"
+          }
+        }
+      }
+    },
+    "Stay in this round at stake %lld." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bleibe bei Einsatz %lld in dieser Runde."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay in this round at stake %lld."
+          }
+        }
+      }
+    },
+    "Strokes +%lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Striche +%lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strokes +%lld"
+          }
+        }
+      }
+    },
+    "Strokes: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Striche: %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strokes: %lld"
+          }
+        }
+      }
+    },
+    "System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
+    },
+    "Table options" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tischoptionen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Table options"
+          }
+        }
+      }
+    },
+    "Ten" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zehn"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten"
+          }
+        }
+      }
+    },
+    "Ten is strongest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Zehn ist am stärksten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten is strongest"
+          }
+        }
+      }
+    },
+    "The change could not be saved. Your last saved position is safe. Please try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Änderung konnte nicht gespeichert werden. Dein letzter gespeicherter Spielstand bleibt erhalten. Bitte versuche es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The change could not be saved. Your last saved position is safe. Please try again."
+          }
+        }
+      }
+    },
+    "The fourth trick decides" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der vierte Stich entscheidet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The fourth trick decides"
+          }
+        }
+      }
+    },
+    "The match is a draw." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Partie endet unentschieden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The match is a draw."
+          }
+        }
+      }
+    },
+    "The opponents play on." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Gegner spielen weiter."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The opponents play on."
+          }
+        }
+      }
+    },
+    "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Einsatz beginnt bei eins. Wer eine Runde verliert, bekommt normalerweise einen Strich. Mit sieben oder mehr Strichen scheidest du aus. Wer zuletzt übrig bleibt, gewinnt die Partie."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match."
+          }
+        }
+      }
+    },
+    "The winner passed. Strokes for everyone still in." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Stichgewinner hat gepasst. Striche für alle Verbliebenen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The winner passed. Strokes for everyone still in."
+          }
+        }
+      }
+    },
+    "Thinking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überlegt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thinking"
+          }
+        }
+      }
+    },
+    "This clears your local statistics. Your current match is kept." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine lokale Statistik wird gelöscht. Deine aktuelle Partie bleibt erhalten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This clears your local statistics. Your current match is kept."
+          }
+        }
+      }
+    },
+    "This replaces your current match. Your statistics are kept." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine aktuelle Partie wird ersetzt. Deine Statistik bleibt erhalten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This replaces your current match. Your statistics are kept."
+          }
+        }
+      }
+    },
+    "To play" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Am Zug"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To play"
+          }
+        }
+      }
+    },
+    "TOK TOK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TOK TOK"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TOK TOK"
+          }
+        }
+      }
+    },
+    "Trick %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stich %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trick %lld"
+          }
+        }
+      }
+    },
+    "Trick %lld · Winner: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stich %lld · Gewinner: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trick %lld · Winner: %@"
+          }
+        }
+      }
+    },
+    "Trick winner" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stichgewinner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trick winner"
+          }
+        }
+      }
+    },
+    "TUPPEN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TUPPEN"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TUPPEN"
+          }
+        }
+      }
+    },
+    "Unable to Continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortsetzen nicht möglich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to Continue"
+          }
+        }
+      }
+    },
+    "Waiting for %@ to Hold or Pass." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ muss noch halten oder passen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for %@ to Hold or Pass."
+          }
+        }
+      }
+    },
+    "You" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You"
+          }
+        }
+      }
+    },
+    "You are eliminated." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du bist ausgeschieden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are eliminated."
+          }
+        }
+      }
+    },
+    "You Hold." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du hältst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You Hold."
+          }
+        }
+      }
+    },
+    "You knocked. Stake: %lld." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du hast geklopft. Einsatz: %lld."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You knocked. Stake: %lld."
+          }
+        }
+      }
+    },
+    "You Pass." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du passt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You Pass."
+          }
+        }
+      }
+    },
+    "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du spielst gegen zwei Gegner. Alle erhalten vier Karten. Die Farben heißen Kreuz, Pik, Herz und Karo."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
+          }
+        }
+      }
+    },
+    "You played %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du hast %@ gespielt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You played %@."
+          }
+        }
+      }
+    },
+    "You Win" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewonnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You Win"
+          }
+        }
+      }
+    },
+    "You win the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du gewinnst die Partie."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You win the match."
+          }
+        }
+      }
+    },
+    "You win the round." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du gewinnst die Runde."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You win the round."
+          }
+        }
+      }
+    },
+    "Your hand" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Karten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your hand"
+          }
+        }
+      }
+    },
+    "Your response. Hold or Pass. Stake: %lld." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du entscheidest: Halten oder Passen. Einsatz: %lld."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your response. Hold or Pass. Stake: %lld."
+          }
+        }
+      }
+    },
+    "Your saved game could not be opened. Try again, or start a new game to replace it." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein gespeichertes Spiel konnte nicht geöffnet werden. Versuche es erneut oder ersetze es durch ein neues Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your saved game could not be opened. Try again, or start a new game to replace it."
+          }
+        }
+      }
+    },
+    "Your turn. Play a card." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du bist am Zug. Spiele eine Karte."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your turn. Play a card."
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
