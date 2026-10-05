@@ -1,5 +1,6 @@
 ---
 title: TUPPEN Support
+permalink: /support/
 ---
 
 # TUPPEN Support
