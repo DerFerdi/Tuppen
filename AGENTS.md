@@ -54,11 +54,11 @@ Avoid:
 
 * excessive section comments
 * obvious comments
-* generic AI-style explanations
+* generic explanations that do not clarify the software
 * verbose comments that restate implementation details
-* comments referring to prompts, Codex, AI, generated code, or implementation instructions
+* comments describing development tools, task instructions, or the authorship process
 
-Comments should describe the software and its intent, never the process that generated it.
+Comments should describe the software and its intent, rather than how it was produced.
 
 Repository documentation should follow the same standard: concise, intentional, technically useful, and suitable for a public open-source project.
 
@@ -108,7 +108,7 @@ Specifically:
 
 The project owner performs UI and visual testing manually.
 
-Codex may and should build the app and run non-UI unit tests.
+Contributors should build the app and run non-UI unit tests.
 
 Tests should also be written as maintainable open-source code:
 
@@ -163,9 +163,9 @@ The codebase should therefore be:
 * sensibly documented
 * unsurprising
 * easy to navigate
-* free of generated-looking boilerplate
+* free of unnecessary boilerplate
 * free of unnecessary abstraction
-* free of references to AI-generated implementation
+* focused on software behavior rather than development-process details
 
 Where a short documentation comment or explanatory comment would save a future contributor time, add it.
 

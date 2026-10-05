@@ -15,7 +15,10 @@ enum AppFailure: Equatable {
 @MainActor @Observable
 final class AppModel {
     var path: [AppScreen] = [] {
-        didSet { if path.last != .game { cancelPresentation() } }
+        didSet {
+            navigationIntent = UUID()
+            if path.last != .game { cancelPresentation() }
+        }
     }
     var sceneIsActive = true {
         didSet { if !sceneIsActive { cancelPresentation() } }
@@ -42,6 +45,7 @@ final class AppModel {
     private let announcements: any TableAnnouncements
     @ObservationIgnored private var retryCommand: Command?
     @ObservationIgnored private var work: Task<Void, Never>?
+    @ObservationIgnored private var navigationIntent = UUID()
     private static let logger = Logger(subsystem: "com.DerFerdi.Tuppen", category: "Session")
 
     private enum Command: Equatable {
@@ -147,8 +151,9 @@ final class AppModel {
         isBusy = true
         failure = nil
         automaticWorkFailed = false
+        let navigationRequest = navigationIntent
         let task = Task {
-            await run(command)
+            await run(command, navigationRequest: navigationRequest)
             work = nil
             isBusy = false
         }
@@ -156,7 +161,7 @@ final class AppModel {
         await task.value
     }
 
-    private func run(_ command: Command) async {
+    private func run(_ command: Command, navigationRequest: UUID) async {
         let skipsPresentation = command == .skipToResult
         var retry = command
         do {
@@ -167,7 +172,9 @@ final class AppModel {
                 settle()
             case .newMatch:
                 let update = try await driver.newMatch()
-                path = [.game]
+                // A completed save remains authoritative even after leaving.
+                // Only the still-current navigation request may open the table.
+                if navigationRequest == navigationIntent, !Task.isCancelled { path = [.game] }
                 retry = .resume
                 try await present(update)
             case .submit(let action):

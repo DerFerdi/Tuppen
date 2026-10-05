@@ -10,6 +10,8 @@ The adapter returns `SessionUpdate`: the human's `PlayerView`, local statistics,
 
 `AppModel` is a main-actor observable model. It owns navigation, busy state, recovery alerts, the latest committed update, and a disposable `TablePresentation`. Views submit intentions through it. A busy guard serializes commands and disables action controls while a transaction or required presentation sequence is running. The engine remains the final validator.
 
+New Game records the current navigation intent before asynchronous work begins. A successful save always publishes its session, but opens the table only if that request is still current and has not been cancelled. Navigation during the save keeps its destination; the committed match remains available through Continue.
+
 ## Automatic play and round results
 
 After a human action, one owned task in `AppModel` presents its accepted events, then requests automatic steps from the driver. A bot has a thinking beat before its action is submitted. Each successful save publishes the authoritative update immediately, then `TableTimeline` produces ordered public frames. The next bot cannot begin until those frames have finished. Human input remains disabled throughout the required sequence.
