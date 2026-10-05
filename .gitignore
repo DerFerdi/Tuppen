@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Xcode user state; shared schemes and project configuration remain tracked.
+xcuserdata/
+*.xcuserstate
+
+# Local build and test output
+DerivedData/
+build/
+*.xcresult/
+*.xcarchive/
+
+# Swift Package Manager build state
+.build/
+
+# Local Python bytecode from repository tools
+__pycache__/
+*.pyc

@@ -62,6 +62,8 @@ final class AppModel {
     var view: PlayerView? { snapshot?.view }
     var statistics: LocalStatistics { snapshot?.statistics ?? LocalStatistics() }
     var hasActiveMatch: Bool { view?.matchPhase == .playing }
+    /// Dismissing the alert does not discard the failed load's recovery action.
+    var canRetryRestore: Bool { hasLoaded && snapshot == nil && !isBusy }
     var canKnock: Bool { canSubmit(.knock) }
     var isSkippingToResult: Bool { skipRequest != nil }
     var canSkipToResult: Bool { canPresent && isEliminatedSpectator && !isSkippingToResult && failure == nil }
@@ -77,6 +79,11 @@ final class AppModel {
 
     func load() async {
         guard !hasLoaded else { return }
+        await perform(.load)
+    }
+
+    func retryRestore() async {
+        guard canRetryRestore else { return }
         await perform(.load)
     }
 

@@ -48,9 +48,15 @@ struct HomeView: View {
             if model.isBusy {
                 ProgressView(strings.text("Loading…")).padding(.top, 24)
             } else if model.hasLoaded, model.snapshot == nil {
-                Text(strings.text("Your saved game could not be opened. Try again, or start a new game to replace it."))
-                    .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
-                    .padding(.top, 24)
+                VStack(spacing: 12) {
+                    Text(strings.failure(.restore))
+                        .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
+                    if model.canRetryRestore {
+                        Button(strings.text("Retry")) { Task { await model.retryRestore() } }
+                            .buttonStyle(.bordered).controlSize(.large)
+                    }
+                }
+                .padding(.top, 24)
             }
             Spacer(minLength: 32)
             VStack(spacing: 8) {

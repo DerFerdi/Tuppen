@@ -53,7 +53,7 @@ final class GameSession {
         saved = SavedGame()
     }
 
-    /// A future recovery flow may explicitly choose a new local profile after
+    /// The recovery flow may explicitly choose a new local profile after
     /// reporting a load error. Nothing is overwritten until a new match is saved.
     static func empty(store: any GameStore) -> GameSession {
         GameSession(emptyStore: store)

@@ -6,7 +6,7 @@ Playback uses `AVAudioPlayer` with an ambient audio session. It respects the iPh
 
 ## Asset origin
 
-All six WAVs in `Tuppen/Resources/Sounds` are original procedural effects made for this repository. `Tools/generate_sounds.py` contains their complete source, uses only Python's standard library, and reproduces the checked-in files with fixed noise seeds. There are no recordings, downloaded samples, external synthesis models, or third-party audio dependencies. No third-party attribution or sample license applies. These assets are project material; this document does not assign a separate license to the repository.
+All six WAVs in `Tuppen/Resources/Sounds` are original procedural effects made for this repository. `Tools/generate_sounds.py` contains their complete source, uses only Python's standard library, and reproduces the checked-in files with fixed noise seeds. There are no recordings, downloaded samples, external synthesis models, or third-party audio dependencies. The original bundled sounds and their synthesis source are distributed with the project under the repository's [MIT License](../LICENSE). No third-party attribution or sample license applies.
 
 The sounds are intentionally restrained synthesized interpretations of paper contact and a solid tabletop, not recordings of real materials. They are provisional original assets pending listening and tuning on an iPhone. The Knock combines a short filtered-noise contact with damped, inharmonic resonances. Each asset is mono 44.1 kHz, 16-bit PCM, with short endpoint fades and conservative peak levels. Playback further reduces gain to 65 percent. The match result is a quiet pair of card contacts, without a musical victory cue.
 

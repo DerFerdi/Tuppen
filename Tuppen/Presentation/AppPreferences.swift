@@ -14,7 +14,7 @@ enum AppLanguage: String, CaseIterable, Sendable {
     }
 }
 
-/// Preferences have no session reference: changing language or future effects
+/// Preferences have no session reference: changing language or effect settings
 /// cannot recreate a match or alter an in-flight game decision.
 @MainActor @Observable
 final class AppPreferences {
