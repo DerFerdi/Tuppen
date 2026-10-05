@@ -21,6 +21,15 @@ struct SettingsView: View {
                 Toggle(strings.text("Haptics"), isOn: $preferences.hapticsEnabled)
             }
             Section {
+                Link(destination: URL(string: "https://derferdi.github.io/Tuppen/privacy/")!) {
+                    HStack {
+                        Text(strings.text("Privacy Policy"))
+                        Spacer()
+                        Image(systemName: "arrow.up.right")
+                            .font(.footnote)
+                            .accessibilityHidden(true)
+                    }
+                }
                 Button(strings.text("Reset Statistics"), role: .destructive) { confirmingReset = true }
                     .disabled(model.isBusy || model.snapshot == nil)
             }
