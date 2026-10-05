@@ -29,6 +29,7 @@ struct RoundResultView: View {
                 .font(.system(compact ? .title2 : .title, design: .serif, weight: .medium))
                 .lineLimit(2).minimumScaleFactor(0.85)
                 .accessibilityAddTraits(.isHeader)
+                .accessibilityLabel(view.matchPhase == .playing ? title : strings.matchResult(in: view))
             if case .noActiveWinner = outcome {
                 Text(strings.text("The winner passed. Strokes for everyone still in."))
                     .font(.callout).foregroundStyle(.secondary)
@@ -46,7 +47,7 @@ struct RoundResultView: View {
                             .lineLimit(1).minimumScaleFactor(0.8)
                     }
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(strings.text("\(strings.player(change.player, in: view)): Strokes +\(change.amount)"))
+                    .accessibilityLabel(strings.announcement(.strokesAdded(player: change.player, amount: change.amount), in: view))
                 }
             }
             .padding(.bottom, 4)
@@ -57,18 +58,27 @@ struct RoundResultView: View {
                 } else {
                     Button(strings.text("Next Round")) { Task { await model.nextRound() } }
                         .buttonStyle(.borderedProminent)
+                        .foregroundStyle(TableStyle.onAccent)
                 }
             } else {
-                HStack(spacing: 20) {
-                    Button(strings.text("New Game")) { Task { await model.newMatch() } }
-                        .buttonStyle(.borderedProminent)
-                    Button(strings.text("Home")) { model.path = [] }
-                        .foregroundStyle(.secondary)
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 20) { matchActions }
+                    VStack(spacing: 12) { matchActions }
                 }
             }
         }
         .controlSize(.large)
         .multilineTextAlignment(.center)
+    }
+
+    @ViewBuilder private var matchActions: some View {
+        Button(strings.text("New Game")) { Task { await model.newMatch() } }
+            .buttonStyle(.borderedProminent)
+            .foregroundStyle(TableStyle.onAccent)
+        Button { model.path = [] } label: {
+            Text(strings.text("Home")).frame(minHeight: 44).contentShape(Rectangle())
+        }
+        .foregroundStyle(.secondary)
     }
 
     private var title: String {

@@ -41,6 +41,10 @@ enum TablePause: Equatable, Sendable {
 }
 
 enum TablePacing {
+    // VoiceOver may not send a completion notification after an interruption.
+    // This is a recovery bound, not an additional delay during normal speech.
+    static let announcementTimeout: Duration = .seconds(15)
+
     static func motionDuration(reduceMotion: Bool) -> Double { reduceMotion ? 0.12 : 0.3 }
 
     static func duration(_ pause: TablePause, reduceMotion: Bool) -> Duration {
@@ -79,6 +83,7 @@ struct TableBeat: Equatable, Sendable {
     let frame: TablePresentation
     let pause: TablePause?
     var effect: TableEffect?
+    var announcement: GameEvent?
 }
 
 /// Converts one accepted transaction into a short, ordered visual sequence.
@@ -107,14 +112,15 @@ enum TableTimeline {
                 for count in 1...4 {
                     frame.hand = Array(view.hand.prefix(count))
                     frame.players = view.players.map { replacing($0, count: min(count, $0.remainingCardCount)) }
-                    beats.append(TableBeat(frame: frame, pause: .deal, effect: .deal))
+                    beats.append(TableBeat(frame: frame, pause: .deal, effect: .deal,
+                                           announcement: count == 4 ? event : nil))
                 }
             case .cardPlayed(let play):
                 // The engine has already cleared an early completed trick. Keep
                 // its recorded public cards on the table until collection ends.
                 if let completed = completedTrick(in: update) { frame.trick = completed.trick }
                 updatePlayer(play.player, in: &frame, from: view, cardCount: true)
-                beats.append(TableBeat(frame: frame, pause: .cardMovement, effect: .cardPlaced))
+                beats.append(TableBeat(frame: frame, pause: .cardMovement, effect: .cardPlaced, announcement: event))
                 beats.append(TableBeat(frame: frame, pause: .cardSettle))
             case .playerKnocked(let player, let stake):
                 frame.reactions[player] = .knocked
@@ -123,19 +129,19 @@ enum TableTimeline {
                     beats.append(TableBeat(frame: frame, pause: .knockGap, effect: .knockTap(human: player == view.player)))
                 }
                 frame.stake = stake
-                beats.append(TableBeat(frame: frame, pause: .knockReveal))
+                beats.append(TableBeat(frame: frame, pause: .knockReveal, announcement: event))
             case .playerHeld(let player):
                 frame.reactions[player] = .held
-                beats.append(TableBeat(frame: frame, pause: .reaction))
+                beats.append(TableBeat(frame: frame, pause: .reaction, announcement: event))
             case .playerPassed(let player):
                 frame.reactions[player] = .passed
                 updatePlayer(player, in: &frame, from: view, participation: true)
-                beats.append(TableBeat(frame: frame, pause: .reaction))
+                beats.append(TableBeat(frame: frame, pause: .reaction, announcement: event))
             case .trickWon(_, let winner):
                 if let completed = completedTrick(in: update) { frame.trick = completed.trick }
                 beats.append(TableBeat(frame: frame, pause: .trickRead))
                 frame.highlightedWinner = winner
-                beats.append(TableBeat(frame: frame, pause: .trickWinner, effect: .trickWon))
+                beats.append(TableBeat(frame: frame, pause: .trickWinner, effect: .trickWon, announcement: event))
                 frame.collecting = true
                 beats.append(TableBeat(frame: frame, pause: .collection, effect: .collectTrick))
                 frame.trick = TrickState(number: view.currentTrick.number)
@@ -143,21 +149,21 @@ enum TableTimeline {
                 frame.highlightedWinner = nil
             case .roundEnded(let outcome):
                 frame.roundOutcome = outcome
-                beats.append(TableBeat(frame: frame, pause: .roundOutcome))
+                beats.append(TableBeat(frame: frame, pause: .roundOutcome, announcement: event))
             case .strokesAdded(let player, let amount):
                 updatePlayer(player, in: &frame, from: view, strokes: true)
                 frame.strokeChanges.append(StrokeChange(player: player, amount: amount))
-                beats.append(TableBeat(frame: frame, pause: .scoring, effect: .strokes(amount)))
+                beats.append(TableBeat(frame: frame, pause: .scoring, effect: .strokes(amount), announcement: event))
             case .playerEliminated(let player):
                 updatePlayer(player, in: &frame, from: view, status: true)
                 frame.reactions[player] = .eliminated
-                beats.append(TableBeat(frame: frame, pause: .elimination, effect: .elimination))
+                beats.append(TableBeat(frame: frame, pause: .elimination, effect: .elimination, announcement: event))
             case .matchWon(let winner):
                 frame.resultVisible = true
-                beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: winner == view.player)))
+                beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: winner == view.player), announcement: event))
             case .matchDrawn:
                 frame.resultVisible = true
-                beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: false)))
+                beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: false), announcement: event))
             }
         }
         frame.players = view.players

@@ -1,6 +1,40 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ Holds.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Holds."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hält."
+          }
+        }
+      }
+    },
+    "%@ Passes.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Passes."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ passt."
+          }
+        }
+      }
+    },
     "%@ Wins": {
       "extractionState": "manual",
       "localizations": {
@@ -14,6 +48,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ gewinnt"
+          }
+        }
+      }
+    },
+    "%@ is eliminated.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is eliminated."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ist ausgeschieden."
           }
         }
       }
@@ -48,6 +99,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "%2$@ %1$@"
+          }
+        }
+      }
+    },
+    "%@ played %@.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ played %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hat %@ gespielt."
+          }
+        }
+      }
+    },
+    "%@ to play.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ to play."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ist am Zug."
+          }
+        }
+      }
+    },
+    "%@ wins the match.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wins the match."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gewinnt die Partie."
           }
         }
       }
@@ -99,6 +201,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: Striche +%lld"
+          }
+        }
+      }
+    },
+    "%lld of seven strokes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld of seven strokes"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld von sieben Strichen"
+          }
+        }
+      }
+    },
+    "%lld strokes added.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld stroke added."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld strokes added."
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Strich dazu."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Striche dazu."
+                }
+              }
+            }
           }
         }
       }
@@ -205,6 +365,23 @@
         }
       }
     },
+    "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A normal round has four tricks. Only the fourth trick wins the round. Winning an earlier trick lets you lead the next one, but does not win the round."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine normale Runde hat vier Stiche. Nur der vierte Stich entscheidet, wer die Runde gewinnt. Wer einen früheren Stich gewinnt, spielt im nächsten zuerst – die Runde ist damit noch nicht gewonnen."
+          }
+        }
+      }
+    },
     "Ace": {
       "extractionState": "manual",
       "localizations": {
@@ -218,6 +395,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ass"
+          }
+        }
+      }
+    },
+    "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After a Knock, Hold accepts the higher stake and keeps you in the round. If the stake rises from one to two and you later lose, you receive two strokes."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach dem Klopfen kannst du halten: Du bleibst in der Runde und akzeptierst den höheren Einsatz. Steigt er von eins auf zwei und du verlierst später, bekommst du zwei Striche."
           }
         }
       }
@@ -324,6 +518,40 @@
         }
       }
     },
+    "Current decision": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current decision"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuelle Entscheidung"
+          }
+        }
+      }
+    },
+    "Current trick": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current trick"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktueller Stich"
+          }
+        }
+      }
+    },
     "Currently unavailable": {
       "extractionState": "manual",
       "localizations": {
@@ -405,6 +633,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unentschieden"
+          }
+        }
+      }
+    },
+    "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle spielen reihum eine Karte: Das ist ein Stich. Die erste Karte bestimmt die Farbe. Hast du diese Farbe, musst du sie bedienen. Sonst darfst du eine beliebige Karte spielen. Die höchste Karte der angespielten Farbe gewinnt."
           }
         }
       }
@@ -494,6 +739,108 @@
         }
       }
     },
+    "Finish the remaining computer turns without animations.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finish the remaining computer turns without animations."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spiele die restlichen Computerzüge ohne Animationen bis zum Ergebnis."
+          }
+        }
+      }
+    },
+    "Finishing match…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finishing match…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partie wird beendet …"
+          }
+        }
+      }
+    },
+    "Follow %@.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bediene %@."
+          }
+        }
+      }
+    },
+    "Follow the led suit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow the led suit"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bediene die angespielte Farbe"
+          }
+        }
+      }
+    },
+    "Four cards each": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Four cards each"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vier Karten pro Person"
+          }
+        }
+      }
+    },
+    "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von schwach nach stark: Bube, Dame, König, Ass, Sieben, Acht, Neun, Zehn. Es gibt keinen Trumpf."
+          }
+        }
+      }
+    },
     "HOLDS": {
       "extractionState": "manual",
       "localizations": {
@@ -579,6 +926,23 @@
         }
       }
     },
+    "Hold or Pass required": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold or Pass required"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halten oder Passen erforderlich"
+          }
+        }
+      }
+    },
     "Home": {
       "extractionState": "manual",
       "localizations": {
@@ -592,6 +956,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Start"
+          }
+        }
+      }
+    },
+    "How to Play": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How to Play"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spielregeln"
           }
         }
       }
@@ -681,6 +1062,23 @@
         }
       }
     },
+    "Knocked": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knocked"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geklopft"
+          }
+        }
+      }
+    },
     "Knocks Held": {
       "extractionState": "manual",
       "localizations": {
@@ -745,6 +1143,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sprache"
+          }
+        }
+      }
+    },
+    "Leave this round and receive %lld strokes.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Leave this round and receive %lld stroke."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Leave this round and receive %lld strokes."
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Verlasse diese Runde und erhalte %lld Strich."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Verlasse diese Runde und erhalte %lld Striche."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Led suit: %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Led suit: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angespielte Farbe: %@"
           }
         }
       }
@@ -851,6 +1307,23 @@
         }
       }
     },
+    "No cards played yet.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No cards played yet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Karte gespielt."
+          }
+        }
+      }
+    },
     "OK": {
       "extractionState": "manual",
       "localizations": {
@@ -864,6 +1337,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the player whose turn it is may Knock, before playing a card. Each Knock raises the stake by one. After the responses, play your card; you cannot Knock again on that turn."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur wer am Zug ist, darf klopfen – bevor die eigene Karte gespielt wird. Jedes Klopfen erhöht den Einsatz um eins. Nach den Antworten spielst du deine Karte. Im selben Zug darfst du nicht erneut klopfen."
           }
         }
       }
@@ -919,6 +1409,23 @@
         }
       }
     },
+    "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pass leaves the round and gives you the previous stake in strokes. If the stake rises from one to two, passing gives you one stroke. If everyone else passes, the knocker wins the round immediately."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Passen verlässt du die Runde und bekommst den vorherigen Einsatz als Striche. Steigt der Einsatz von eins auf zwei, bekommst du beim Passen einen Strich. Passen alle anderen, gewinnt die klopfende Person die Runde sofort."
+          }
+        }
+      }
+    },
     "Passed": {
       "extractionState": "manual",
       "localizations": {
@@ -936,6 +1443,23 @@
         }
       }
     },
+    "Play is in progress.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play is in progress."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Spielzug läuft."
+          }
+        }
+      }
+    },
     "Play this card": {
       "extractionState": "manual",
       "localizations": {
@@ -949,6 +1473,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diese Karte spielen"
+          }
+        }
+      }
+    },
+    "Playable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playable"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spielbar"
           }
         }
       }
@@ -1055,6 +1596,23 @@
         }
       }
     },
+    "Round %lld. Cards dealt.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Round %lld. Cards dealt."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runde %lld. Die Karten sind verteilt."
+          }
+        }
+      }
+    },
     "Round Complete": {
       "extractionState": "manual",
       "localizations": {
@@ -1136,6 +1694,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sieben"
+          }
+        }
+      }
+    },
+    "Skip to Result": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip to Result"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Ergebnis"
           }
         }
       }
@@ -1259,6 +1834,40 @@
         }
       }
     },
+    "Stay below seven strokes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay below seven strokes"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleib unter sieben Strichen"
+          }
+        }
+      }
+    },
+    "Stay in this round at stake %lld.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay in this round at stake %lld."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleibe bei Einsatz %lld in dieser Runde."
+          }
+        }
+      }
+    },
     "Strokes +%lld": {
       "extractionState": "manual",
       "localizations": {
@@ -1378,6 +1987,23 @@
         }
       }
     },
+    "Ten is strongest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ten is strongest"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zehn ist am stärksten"
+          }
+        }
+      }
+    },
     "The change could not be saved. Your last saved position is safe. Please try again.": {
       "extractionState": "manual",
       "localizations": {
@@ -1395,6 +2021,40 @@
         }
       }
     },
+    "The fourth trick decides": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The fourth trick decides"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der vierte Stich entscheidet"
+          }
+        }
+      }
+    },
+    "The match is a draw.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The match is a draw."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Partie endet unentschieden."
+          }
+        }
+      }
+    },
     "The opponents play on.": {
       "extractionState": "manual",
       "localizations": {
@@ -1408,6 +2068,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Die Gegner spielen weiter."
+          }
+        }
+      }
+    },
+    "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The stake starts at one. Losing a round normally gives one stroke. At seven or more strokes, you are eliminated. The last player remaining wins the match."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Einsatz beginnt bei eins. Wer eine Runde verliert, bekommt normalerweise einen Strich. Mit sieben oder mehr Strichen scheidest du aus. Wer zuletzt übrig bleibt, gewinnt die Partie."
           }
         }
       }
@@ -1480,6 +2157,40 @@
         }
       }
     },
+    "To play": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To play"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Am Zug"
+          }
+        }
+      }
+    },
+    "Trick %lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trick %lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stich %lld"
+          }
+        }
+      }
+    },
     "Trick %lld · Winner: %@": {
       "extractionState": "manual",
       "localizations": {
@@ -1531,6 +2242,23 @@
         }
       }
     },
+    "Waiting for %@ to Hold or Pass.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for %@ to Hold or Pass."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ muss noch halten oder passen."
+          }
+        }
+      }
+    },
     "You": {
       "extractionState": "manual",
       "localizations": {
@@ -1544,6 +2272,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Du"
+          }
+        }
+      }
+    },
+    "You Hold.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You Hold."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hältst."
+          }
+        }
+      }
+    },
+    "You Pass.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You Pass."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du passt."
           }
         }
       }
@@ -1565,6 +2327,91 @@
         }
       }
     },
+    "You are eliminated.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You are eliminated."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bist ausgeschieden."
+          }
+        }
+      }
+    },
+    "You knocked. Stake: %lld.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You knocked. Stake: %lld."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast geklopft. Einsatz: %lld."
+          }
+        }
+      }
+    },
+    "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du spielst gegen zwei Gegner. Alle, die noch dabei sind, erhalten vier Karten. Die Farben heißen Kreuz, Pik, Herz und Karo."
+          }
+        }
+      }
+    },
+    "You played %@.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You played %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast %@ gespielt."
+          }
+        }
+      }
+    },
+    "You win the match.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You win the match."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du gewinnst die Partie."
+          }
+        }
+      }
+    },
     "You win the round.": {
       "extractionState": "manual",
       "localizations": {
@@ -1582,6 +2429,40 @@
         }
       }
     },
+    "Your hand": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your hand"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Karten"
+          }
+        }
+      }
+    },
+    "Your response. Hold or Pass. Stake: %lld.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your response. Hold or Pass. Stake: %lld."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du entscheidest: Halten oder Passen. Einsatz: %lld."
+          }
+        }
+      }
+    },
     "Your saved game could not be opened. Try again, or start a new game to replace it.": {
       "extractionState": "manual",
       "localizations": {
@@ -1595,6 +2476,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dein gespeichertes Spiel konnte nicht geöffnet werden. Versuche es erneut oder ersetze es durch ein neues Spiel."
+          }
+        }
+      }
+    },
+    "Your turn. Play a card.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your turn. Play a card."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bist am Zug. Spiele eine Karte."
           }
         }
       }

@@ -9,6 +9,7 @@ struct PlayerSummaryView: View {
     var addedStrokes = 0
     var compact = false
     @Environment(AppPreferences.self) private var preferences
+    @Environment(AppModel.self) private var model
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     private var strings: GameStrings { preferences.strings }
 
@@ -34,7 +35,9 @@ struct PlayerSummaryView: View {
         .foregroundStyle(player.status == .eliminated ? .secondary : .primary)
         .dynamicTypeSize(...(compact ? DynamicTypeSize.xLarge : .xxLarge))
         .frame(maxWidth: .infinity)
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(strings.player(player.id, in: view))
+        .accessibilityValue(accessibilitySummary)
     }
 
     private var name: some View {
@@ -94,5 +97,26 @@ struct PlayerSummaryView: View {
             else if !player.isParticipating { strings.text("Passed") }
             else { nil }
         }
+    }
+
+    private var accessibilitySummary: String {
+        var parts = [strings.strokes(player.strokes)]
+        if player.status == .eliminated { parts.append(strings.text("Eliminated")) }
+        else if !player.isParticipating { parts.append(strings.text("Passed")) }
+        else { parts.append(strings.text("Cards: \(player.remainingCardCount)")) }
+        if thinking { parts.append(strings.text("Thinking")) }
+        if highlighted { parts.append(strings.text("Trick winner")) }
+        if case .knocked = reaction { parts.append(strings.text("Knocked")) }
+        if case .held = reaction { parts.append(strings.text("HOLDS")) }
+        if !model.isBusy {
+            switch view.roundPhase {
+            case .playing(let turn) where turn.player == player.id:
+                parts.append(strings.text("To play"))
+            case .awaitingResponses(let pending) where pending.expectedResponder == player.id:
+                parts.append(strings.text("Hold or Pass required"))
+            default: break
+            }
+        }
+        return parts.joined(separator: ". ")
     }
 }

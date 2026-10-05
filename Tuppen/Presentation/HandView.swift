@@ -31,11 +31,16 @@ struct HandView: View {
                     .rotationEffect(.degrees(reduceMotion ? 0 : position * 3))
                     .offset(y: reduceMotion ? 0 : abs(position) * 3 - (legal ? 4 : 0))
                     .accessibilityLabel(preferences.strings.card(card))
-                    .accessibilityHint(legal ? preferences.strings.text("Play this card") : preferences.strings.text("Currently unavailable"))
+                    .accessibilityValue(model.view.map {
+                        preferences.strings.cardAvailability(card, in: $0, busy: model.isBusy)
+                    } ?? preferences.strings.text("Currently unavailable"))
+                    .accessibilityHint(legal ? preferences.strings.text("Play this card") : "")
                     .transition(reduceMotion ? .opacity : .move(edge: .bottom).combined(with: .opacity))
                 }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(preferences.strings.text("Your hand"))
         }
         .animation(.easeInOut(duration: TablePacing.motionDuration(reduceMotion: reduceMotion)), value: cards)
     }

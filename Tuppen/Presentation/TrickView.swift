@@ -29,6 +29,11 @@ struct TrickView: View {
         .animation(.easeInOut(duration: TablePacing.motionDuration(reduceMotion: reduceMotion)), value: table.trick)
         .animation(.easeInOut(duration: TablePacing.motionDuration(reduceMotion: reduceMotion)), value: table.highlightedWinner)
         .animation(.easeInOut(duration: TablePacing.motionDuration(reduceMotion: reduceMotion)), value: table.collecting)
+        // Spatial card positions do not define reading order. Speak committed
+        // cards in play order, including a passed player's public card.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(preferences.strings.text("Current trick"))
+        .accessibilityValue(accessibilitySummary)
     }
 
     @ViewBuilder private func playedCard(_ play: PlayedCard, width: CGFloat) -> some View {
@@ -70,5 +75,17 @@ struct TrickView: View {
         guard table.collecting, !reduceMotion, let winner = table.highlightedWinner else { return .zero }
         let target = position(for: winner, in: size)
         return CGSize(width: (target.x - size.width / 2) * 1.3, height: winner == table.view.player ? 55 : -55)
+    }
+
+    private var accessibilitySummary: String {
+        let strings = preferences.strings
+        var parts = [strings.text("Trick \(table.trick.number)")]
+        if let suit = table.trick.leadSuit { parts.append(strings.text("Led suit: \(strings.suit(suit))")) }
+        if table.trick.plays.isEmpty { parts.append(strings.text("No cards played yet.")) }
+        parts += table.trick.plays.map { strings.text("\(strings.player($0.player, in: table.view)): \(strings.card($0.card))") }
+        if let winner = table.highlightedWinner {
+            parts.append(strings.text("Trick \(table.trick.number) · Winner: \(strings.player(winner, in: table.view))"))
+        }
+        return parts.joined(separator: ". ")
     }
 }

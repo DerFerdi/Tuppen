@@ -18,6 +18,15 @@ enum TableStyle {
     }
 
     static let paper = Color(red: 0.995, green: 0.99, blue: 0.965)
+
+    // The dark appearance uses a light accent. Explicit ink avoids white text
+    // on that pale fill in prominent buttons.
+    static var onAccent: Color {
+        Color(uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 0.10, green: 0.12, blue: 0.14, alpha: 1) : .white
+        })
+    }
 }
 
 /// Press feedback stays local to the card. Only the button's action can submit

@@ -15,6 +15,6 @@ struct StrokeMarksView: View {
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(preferences.strings.text("Strokes: \(strokes)"))
+        .accessibilityLabel(preferences.strings.strokes(strokes))
     }
 }

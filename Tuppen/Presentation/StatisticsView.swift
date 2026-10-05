@@ -32,5 +32,6 @@ struct StatisticsView: View {
 
     private func row(_ title: String.LocalizationValue, _ value: Int) -> some View {
         LabeledContent(strings.text(title), value: value.formatted(.number.locale(preferences.locale)))
+            .accessibilityElement(children: .combine)
     }
 }

@@ -178,6 +178,8 @@ A player is eliminated from the match when their total reaches or exceeds seven 
 
 The match continues with the remaining players.
 
+When the human has been eliminated and only computer players remain, they may choose Skip to Result (German: Zum Ergebnis). This skips presentation only: the remaining match still runs through the authoritative engine with normal saving and statistics, then shows the final result.
+
 The final remaining player wins the match. Determine the match result only after all penalties for the round have been applied. If final-trick scoring with no active winner eliminates every remaining active player simultaneously, the match ends in an explicit draw with no winner.
 
 The engine must therefore support the active player count decreasing during a match.
@@ -595,10 +597,8 @@ It should explain:
 9. Pass leaves the round at the previous stake.
 10. Seven strokes eliminate a player.
 11. The final remaining player wins the match.
-12. Passing leaves committed cards in play without changing the lead suit. If a passed player wins an early trick, the next remaining player leads.
-13. If a passed player wins the final trick, everyone still in the round receives the stake. If nobody survives elimination, the match is a draw.
 
-Prefer concise visual explanations over large text walls.
+The optional How to Play guide on Home teaches these essentials in a short visual sequence. Rare cases involving passed cards, no active winner, and draws belong in the rules reference rather than the beginner tutorial.
 
 ## Accessibility
 

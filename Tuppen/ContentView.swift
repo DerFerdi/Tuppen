@@ -5,6 +5,7 @@ struct ContentView: View {
     @Environment(AppPreferences.self) private var preferences
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
 
     var body: some View {
         @Bindable var model = model
@@ -13,6 +14,7 @@ struct ContentView: View {
                 .navigationDestination(for: AppScreen.self) { screen in
                     switch screen {
                     case .game: GameView()
+                    case .tutorial: TutorialView()
                     case .statistics: StatisticsView()
                     case .settings: SettingsView()
                     }
@@ -22,6 +24,8 @@ struct ContentView: View {
         .onChange(of: preferences.soundEnabled, initial: true) { _, enabled in model.soundEnabled = enabled }
         .onChange(of: preferences.hapticsEnabled, initial: true) { _, enabled in model.hapticsEnabled = enabled }
         .onChange(of: reduceMotion, initial: true) { _, enabled in model.reduceMotion = enabled }
+        .onChange(of: voiceOverEnabled, initial: true) { _, enabled in model.voiceOverEnabled = enabled }
+        .onChange(of: preferences.locale, initial: true) { _, locale in model.presentationLocale = locale }
         .onChange(of: model.path) { _, path in
             if path.last == .game { Task { await model.resume() } }
         }
