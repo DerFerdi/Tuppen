@@ -39,7 +39,11 @@ If every opponent passes, the knocking player wins the round immediately. Otherw
 
 ## Screenshots
 
-Screenshots will be added for the first public release.
+<p align="center">
+  <img src="Documentation/Screenshots/home.png" width="30%" alt="TUPPEN home screen">
+  <img src="Documentation/Screenshots/game.png" width="30%" alt="TUPPEN game table">
+  <img src="Documentation/Screenshots/how-to-play.png" width="30%" alt="TUPPEN how to play">
+</p>
 
 ## Languages
 
