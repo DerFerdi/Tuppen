@@ -32,7 +32,6 @@ struct AutomaticProgress: Equatable, Sendable {
 /// Failed writes leave the live session unchanged and can be retried safely.
 final class GameSession {
     static let human = PlayerID(rawValue: 0)
-    static let seats = (0..<3).map { PlayerID(rawValue: $0) }
 
     private let store: any GameStore
     private var saved: SavedGame
@@ -41,6 +40,7 @@ final class GameSession {
     var state: MatchState? { engine?.state }
     var statistics: LocalStatistics { saved.statistics }
     var hasActiveMatch: Bool { engine?.state.phase == .playing }
+    var botCount: BotCount? { saved.session?.botCount }
 
     init(store: any GameStore) throws {
         self.store = store
@@ -65,14 +65,19 @@ final class GameSession {
     }
 
     @discardableResult
-    func startNewMatch(seeds: SessionSeeds = .system(), deck: Deck? = nil) throws -> [GameEvent] {
+    func startNewMatch(
+        botCount: BotCount = .two, seeds: SessionSeeds = .system(), deck: Deck? = nil
+    ) throws -> [GameEvent] {
         var deckRandom = SeededRandom(seed: seeds.deck)
+        // Seat zero remains the human; every other stable ID is a bot. Seats
+        // remain in this order throughout the match, including after elimination.
+        let seats = (0..<botCount.playerCount).map { PlayerID(rawValue: $0) }
         let start = try GameEngine.start(
-            players: Self.seats, deck: deck ?? Deck.shuffled(using: &deckRandom)
+            players: seats, deck: deck ?? Deck.shuffled(using: &deckRandom)
         )
         let session = SavedSession(
             human: Self.human, match: start.engine.state, deckRandom: deckRandom,
-            botRandom: SeededRandom(seed: seeds.decisions)
+            botRandom: SeededRandom(seed: seeds.decisions), botCount: botCount
         )
         try commit(start.engine, session: session, events: start.events)
         return start.events

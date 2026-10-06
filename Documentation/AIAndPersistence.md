@@ -1,6 +1,12 @@
 # AI and persistence
 
-The application layer supports one human and two computer opponents independently of the game UI. `GameSession` owns the engine, automatic progression, random streams, and local checkpoint. It has no SwiftUI dependency. One caller must serialize access to a session and own its save file; concurrent sessions must not write the same file. The app uses the actor-owned adapter described in [App presentation](AppPresentation.md).
+The application layer supports one human and one, two, or three computer opponents independently of the game UI. `GameSession` owns the engine, automatic progression, random streams, and local checkpoint. It has no SwiftUI dependency. One caller must serialize access to a session and own its save file; concurrent sessions must not write the same file. The app uses the actor-owned adapter described in [App presentation](AppPresentation.md).
+
+## Match configuration
+
+`BotCount` admits only `.one`, `.two`, and `.three`, for two through four total participants. Pass it to `GameSession.startNewMatch(botCount:)` or `SessionDriver.newMatch(botCount:)`. Both default to `.two`; the shipping New Game path still creates the V1 configuration and does not expose player selection yet.
+
+New matches always seat the human at ID zero, followed by bots with IDs one through the configured count. This order is deterministic and retains eliminated seats. The engine already deals four cards per active player and handles turn order and response queues without a fixed seat count. Every non-human actor uses the same V1 strategy. `GameSession.botCount` describes the original configuration, not the number of bots still active.
 
 ## Bot boundary and decisions
 
@@ -43,6 +49,8 @@ Every successful action and between-round deal saves automatically. The session 
 
 Statistics and match state are separate types in the same atomic file. Saving them independently could leave a counted outcome paired with its pre-outcome match after termination. Terminal checkpoints are retained, but `hasActiveMatch` is false. Starting a new match replaces the previous match and retains lifetime counters; abandoning a match does not invent completion events.
 
+New `SavedSession` values also encode an integer `botCount`. The envelope remains version 1: this additive field can be decoded without migrating the authoritative state or random streams. A missing field means the historical two-bot configuration, never an inferred count. An explicit null or unsupported count is corrupt; a supported count that disagrees with the retained match seats is invalid. The human must still be a seated player. Eliminated seats continue to count toward the original configuration. Historical V1 saves load without rewriting or recounting them; the next successful transaction writes the explicit count. Older V1 binaries retain their three-seat validation and reject new two- or four-seat saves safely.
+
 The codec reads the version before interpreting the payload. Unknown versions produce `unsupportedVersion`; malformed data produces `corruptData`; inconsistent decoded contents produce `invalidContents`. Read/write failures also have typed errors. These carry no UI text and can be mapped to Apple's string catalog by presentation code. A missing file means a new local profile.
 
 `GameEngine(restoring:)` validates card conservation and bounded structure, reconstructs the start of the saved round, and checks that its recorded plays and knocks reproduce the exact snapshot through existing rule validation. This handles pending responses, passed committed cards, elimination, and draws without duplicating scoring rules. Earlier completed rounds must also be supported by prior scoring progress: each costs at least one unit, with each player's strokes capped at seven for this check. Current-round penalties are excluded. A fresh zero-stroke game claiming round 21 is therefore rejected at load time. This is a necessary consistency check, not full historical replay; restoration emits no application events or reconstructed statistics. Phase 1 rules are unchanged.
@@ -68,6 +76,6 @@ Counters consume only newly accepted engine events during a checkpoint commit. R
 
 ## Verification
 
-Non-UI tests cover legal bot actions, deterministic tactics and full matches, hidden-information boundaries, ordered responses, human pauses, exact restored continuation, human-scoped statistics, resets, winner/draw outcomes, corruption, and file operations. Rollback tests exercise deals and their random stream, terminal scoring, a later failure within automatic progression, resets, new-match replacement, and an unwritable existing save. Existing engine playout tests restore every intermediate state across two, three, four, and eight seats.
+Non-UI tests cover legal bot actions, deterministic tactics and full matches, hidden-information boundaries, ordered responses, human pauses, exact restored continuation, human-scoped statistics, resets, winner/draw outcomes, corruption, and file operations. Session, driver, and bot playouts cover all three bot counts. Two-seat scenarios verify that a lone opponent's Pass immediately ends the round, taking precedence over any committed trick winner. Rollback tests exercise deals and their random stream, terminal scoring, a later failure within automatic progression, resets, changing the configured count on new-match replacement, and an unwritable existing save. Existing engine playout tests restore every intermediate state across two, three, four, and eight seats.
 
-`TuppenTests/Fixtures/version-1-pending-knock.json` is a fixed compatibility fixture: an ordered first deal with Bob's Knock, Charlie's Hold, and Alice's response pending. Maintain it independently of the encoder so schema changes cannot hide behind round-trip tests. There are no automated UI tests.
+`TuppenTests/Fixtures/version-1-pending-knock.json` is a fixed compatibility fixture without a player-count field: an ordered first deal with Bob's Knock, Charlie's Hold, and Alice's response pending. Maintain it independently of the encoder so schema changes cannot hide behind round-trip tests. There are no automated UI tests.

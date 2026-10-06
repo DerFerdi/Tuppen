@@ -69,7 +69,7 @@ The product specification leaves the following table procedures unspecified. The
 - The supplied player order proceeds to the left. The first seat is the initial dealer unless a dealer is supplied explicitly.
 - Deal one card at a time, starting to the dealer's left, for four circuits. Advance the dealer to the next surviving seat after every round, including rounds ended by passing. Eliminated seats are skipped for dealing, leading, and play.
 - There is no additional stake cap. Each player can raise at most once per card turn, and every player has at most four card turns per round.
-- The domain accepts two through eight seats, the capacity of a 32-card deck dealt four cards each. The app uses one human and two computer opponents; no player-count UI is included.
+- The domain accepts two through eight seats, the capacity of a 32-card deck dealt four cards each. Local sessions constrain this to two, three, or four total players through `BotCount`; the shipping UI continues to create one human and two computer opponents. See [AI and persistence](AIAndPersistence.md#match-configuration).
 
 ## Hidden information
 

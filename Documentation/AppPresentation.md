@@ -4,7 +4,7 @@ The app opens on Home. New Game creates one human and two opponents; Continue ap
 
 ## Session boundary
 
-`SessionDriver` is an actor that exclusively owns `GameSession` and its store. Calls perform synchronous engine work, bot decisions, and disk writes on that actor, away from the main actor. The existing session still validates and saves every action before publication; the engine, bot strategy, statistics semantics, and version-1 save format are unchanged.
+`SessionDriver` is an actor that exclusively owns `GameSession` and its store. Calls perform synchronous engine work, bot decisions, and disk writes on that actor, away from the main actor. The existing session still validates and saves every action before publication. Its programmatic `newMatch(botCount:)` supports one through three opponents, while `AppModel` keeps the two-bot default. The engine, bot strategy, and statistics semantics are unchanged; [save compatibility](AIAndPersistence.md#save-format-and-recovery) uses an additive field within version 1.
 
 The adapter returns `SessionUpdate`: the human's `PlayerView`, local statistics, public events, and round stroke changes. It never returns `MatchState`, an engine, opponent hands, undealt cards, or random streams. SwiftUI renders the supplied phases and legal actions. It does not calculate turn order, follow-suit permissions, winners, scoring, or elimination.
 
@@ -31,6 +31,8 @@ Navigation away from the table or backgrounding cancels the owned task, stops ef
 ## Table and interaction
 
 The game uses a bounded `GeometryReader` composition, with no scrolling table or hand. Opponent seats stay fixed, card backs show remaining counts, and seven narrow stroke marks stay beside each player. The bottom hand adapts its width and overlap to the available portrait space. The central trick receives the remaining height. Compact result layouts replace the trick and hand instead of adding another panel below them. Practical Dynamic Type limits keep the table bounded; full VoiceOver labels retain the information represented visually.
+
+The V2 backend does not change this shipping layout or the tutorial's two-opponent introduction. Player arrays, names, results, and timeline frames already accept variable counts, but `TrickView` still uses two opponent positions. Before exposing selection, adapt and manually verify those positions and the opponent summary spacing for one and three bots.
 
 A reserved interaction region below the trick holds Hold/Pass, Knock, hints, and transient status text. Its height remains the same when empty, and hand sizing depends only on available height. Shorter portrait layouts use tighter spacing to retain room for the trick without shrinking the hand when a response appears.
 

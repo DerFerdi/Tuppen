@@ -32,11 +32,13 @@ actor SessionDriver {
         return try update()
     }
 
-    func newMatch(seeds: SessionSeeds = .system(), deck: Deck? = nil) throws -> SessionUpdate {
+    func newMatch(
+        botCount: BotCount = .two, seeds: SessionSeeds = .system(), deck: Deck? = nil
+    ) throws -> SessionUpdate {
         // A user explicitly starting over can recover from an unreadable save.
         // Publish the replacement only after its first checkpoint succeeds.
         let candidate = try session ?? GameSession.empty(store: resolvedStore())
-        let events = try candidate.startNewMatch(seeds: seeds, deck: deck)
+        let events = try candidate.startNewMatch(botCount: botCount, seeds: seeds, deck: deck)
         session = candidate
         return try update(events: events)
     }
