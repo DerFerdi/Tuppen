@@ -115,7 +115,7 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-The upcoming combined V2 + V3 release includes player-count and difficulty selection. V4 and V5 remain plans without a release schedule.
+V2 + V3 player-count and difficulty selection form the completed current development baseline. Current work specifies V4 House Rules; those rules are not yet implemented or released. V5 remains a future plan without a release schedule.
 
 ### V1
 
@@ -127,7 +127,7 @@ Choose one, two, or three computer opponents and Easy, Medium, or Hard difficult
 
 ### V4
 
-Regional and house-rule configuration.
+Optional [House Rules](PRODUCT_SPEC.md#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The specification preserves the current standard rules as the default.
 
 ### V5
 

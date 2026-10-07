@@ -69,6 +69,8 @@ A failed load leaves the file untouched. The app reports a localized error and o
 
 ## Human statistics
 
+The counters below describe the implemented V2 + V3 baseline. The authoritative [future V4 statistics](../PRODUCT_SPEC.md#future-v4-statistics) specify additional human-only Four Pictures and Eight-Card-Rule counters, including tiebreaks being excluded from ordinary round counters. Those additions are not implemented yet.
+
 | Counter | Recorded fact |
 | --- | --- |
 | Matches played | Match reaches a winner or draw, even if the human was eliminated earlier. |

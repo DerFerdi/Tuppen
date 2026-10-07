@@ -1,5 +1,7 @@
 # Game engine
 
+This document describes the implemented V2 + V3 baseline. The authoritative [V4 House Rules specification](../PRODUCT_SPEC.md#v4-house-rules) defines planned extensions; their configuration and state transitions are not implemented yet.
+
 `GameEngine` owns a read-only `MatchState` snapshot and is the only component that applies rules. It has no SwiftUI, Foundation, storage, or networking dependencies. The engine and its state are `Sendable` value types, with no implicit main-actor isolation. A caller owns and serializes mutations to its engine instance.
 
 ## Starting and advancing a match

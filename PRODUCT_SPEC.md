@@ -2,6 +2,8 @@
 
 This document is the authoritative product and game specification for TUPPEN.
 
+The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 is current specification work, not implemented or released functionality.
+
 ## Product
 
 TUPPEN is a small, polished, offline-first iPhone adaptation of the traditional German card game Tuppen, played particularly in the Rhineland and Lower Rhine region of Germany.
@@ -296,6 +298,210 @@ The knocking player immediately wins the round.
 
 Do not play or evaluate any remaining unfinished trick. Immediate victory takes precedence even if a committed card belonging to a player who Passed would otherwise win that trick.
 
+## V4 House Rules
+
+V4 adds optional House Rules to the existing game. This section is the authoritative specification for those options and their interactions. It does not describe functionality already implemented or released.
+
+### Product terminology
+
+Use these terms consistently in product text and localization:
+
+| English | German |
+| --- | --- |
+| House Rules | Hausregeln |
+| Poverty | Armut |
+| poor | arm |
+| Consecutive Knock Restriction | Klopfsperre |
+| Four Pictures | Vier Bilder |
+| Eight-Card-Rule | Achter-Brief |
+
+Consecutive Knock Restriction / Klopfsperre is a neutral descriptive term. No traditional regional name is specified for that restriction.
+
+### Match configuration and defaults
+
+Each match has one immutable House Rules configuration, chosen when the match is created and shared by all participants.
+
+| Option | Allowed values | Standard default |
+| --- | --- | --- |
+| Maximum strokes | 7 or 10 | 7 |
+| Poverty | Off or on | Off |
+| Consecutive Knock Restriction | Off or on | Off |
+| Four Pictures | Off or on | Off |
+| Four Pictures bluffing | Off or on; requires Four Pictures | Off |
+| Eight-Card-Rule | Off or on | Off |
+
+With maximum strokes set to 7 and every option off, behavior must remain equivalent to the current standard rules. Selecting 10 changes the elimination threshold, not card ranking, scoring amounts, or other disabled mechanics. A participant is eliminated on reaching or exceeding the configured maximum. Every rule that refers to one stroke before elimination uses `maximumStrokes - 1`: six for a maximum of seven, nine for a maximum of ten.
+
+Opponent count and difficulty remain independent match options. Every House Rules configuration must compose with one, two, or three computer opponents and Easy, Medium, or Hard difficulty. There are no per-House-Rule difficulty settings. Bots must obey the active rules through engine-provided legal actions and the existing restricted information boundary.
+
+### Poverty
+
+When Poverty is enabled, determine the poor participants exactly once at the beginning of each normal round, before any card is played or any normal turn action is taken. Every active participant with exactly `maximumStrokes - 1` strokes is poor for that round. Multiple participants may be poor. Later stroke changes never create or remove Poverty during that round; evaluate it again only at the next normal round's start.
+
+If nobody is poor, the round begins normally at stake 1. If at least one participant is poor, it is a Poverty round:
+
+1. Raise the initial stake from 1 to 2 automatically, once regardless of how many participants are poor. This is not an ordinary player-initiated Knock and does not assign a technical knocker.
+2. Every poor participant must remain in the round and cannot Pass. They are not asked for a Hold/Pass choice.
+3. Ask every non-poor active participant to Hold or Pass in normal deterministic table order: traverse the round's dealer-relative order, beginning to the dealer's left and wrapping around. Skip poor participants, who have no choice to Pass, and seats that are no longer active in the round. Only the expected responder may act; each response is public before the next decision. This uses the engine's existing table-order principles, with no special Poverty ordering.
+4. Hold accepts stake 2. Pass immediately leaves the round and charges the previous stake, exactly 1 stroke. It is the participant's only Pass penalty for that round.
+5. Resolve these responses before any card is played. If exactly one poor participant remains after all non-poor participants Pass, that poor participant wins the round immediately. If two or more poor participants remain, they play the round against each other. If non-poor participants Hold, they also remain in play.
+
+If all active participants are poor, there are no responses to request; play begins at stake 2. Normal seating and opening-lead rules apply to the remaining participants.
+
+For the entire Poverty round, nobody may Knock or claim Four Pictures. Four Pictures bluffing and exchanges are also unavailable. These restrictions do not end when the initial responses finish. The automatic raise neither counts as an ordinary Knock nor changes the participant remembered by the Consecutive Knock Restriction.
+
+### Consecutive Knock Restriction
+
+When enabled, remember the participant who made the most recent successful ordinary player-initiated Knock in the match. That participant may not Knock again until a different participant makes an ordinary Knock. Before the first ordinary Knock, this restriction excludes nobody.
+
+The remembered participant persists across round boundaries. Winning a round, dealing another round, making a Four Pictures claim, or entering a Poverty round does not reset it. Invalid Knock attempts and automatic Poverty raises do not update it. This restriction is additional to the standard requirement that only the current player may Knock before playing, at most once in that turn.
+
+For example, A Knocks and nobody else Knocks that round. A remains unable to Knock in the next round. Once B makes an ordinary Knock, A becomes eligible under this restriction and B becomes restricted. Other turn and round restrictions still apply.
+
+### Four Pictures eligibility and exchange
+
+A truthful Four Pictures hand has four picture cards. For TUPPEN, the picture-card ranks are Jack, Queen, King, and Ace. Each of the four cards must have one of those ranks; repeated ranks are explicitly valid and the ranks do not need to differ. Suit is irrelevant.
+
+Valid examples include:
+
+* Jack, Jack, Jack, Jack.
+* Jack, Jack, Queen, Queen.
+* Queen, King, King, Ace.
+* Jack, Queen, King, Ace.
+
+Any hand containing a Seven, Eight, Nine, or Ten is not Four Pictures.
+
+There is no separate Four Pictures phase before gameplay. A normal round begins immediately, subject to the Poverty response procedure when applicable. A participant may claim Four Pictures only when all of the following hold:
+
+* Four Pictures is enabled.
+* The participant is still participating and it is their normal card turn, with no response or challenge unresolved.
+* The round is not a Poverty round and the match is not in the Eight-Card-Rule.
+* The participant has not played any card during this round and still holds four cards.
+* The participant has not made an ordinary Knock during this turn.
+* At least four cards remain in the undealt draw pile.
+* If bluffing is disabled, all four cards in the current hand are picture cards.
+
+Other participants may already have played into the first trick before a later seat claims. The claim does not erase those plays or change the established lead suit. Once a participant plays their first card, they cannot claim again during that round.
+
+After an accepted or proven truthful claim, provided challenge resolution has not ended the round, remove the claimant's current four-card hand from the round and draw four replacement cards from the remaining undealt pile. Removed hands do not return to that pile during the round. Replacement cards are private to the claimant. The claimant has still played no card, and the same normal turn continues.
+
+There is no one-claim-per-participant limit. The participant may claim again while all eligibility conditions still hold, including after receiving another qualifying hand. With bluffing enabled, the replacement hand need not be truthful to make another claim. Fewer than four remaining undealt cards prohibit any further claim; do not accept a claim and then discover that replacement cards are unavailable.
+
+An exchange does not consume, grant, or reset Knock eligibility. The legal order on the participant's own turn is:
+
+1. Optionally claim Four Pictures and resolve the exchange or challenge completely. Further eligible claims may repeat this step.
+2. Optionally make an ordinary Knock if otherwise legal, including under the Consecutive Knock Restriction, and resolve its responses.
+3. Play a legal card if the round continues.
+
+Once the participant Knocks, Four Pictures is unavailable for the rest of that turn, including after their Knock responses finish. They must play a card next if the round continues. Another participant's earlier ordinary Knock does not disable Four Pictures globally: a participant who has not yet played may still claim on their first turn if all eligibility conditions hold. No claim is allowed while any Knock responses are pending.
+
+### Four Pictures bluffing and challenges
+
+Four Pictures bluffing is a separate option that requires Four Pictures to be enabled. Enabling bluffing without Four Pictures is invalid.
+
+With bluffing disabled, there is no challenge flow. The authoritative engine validates the claimant's own hand internally and permits the exchange only if all four cards are picture cards. Other participants are not asked to verify or challenge, and this private validation does not reveal the hand.
+
+With bluffing enabled, the actual ranks do not determine claim eligibility; all timing, participation, and draw-pile requirements still apply. A hand containing any Seven, Eight, Nine, or Ten makes the claim false, but making that claim is legal while bluffing is enabled.
+
+Only with bluffing enabled, offer challenges immediately after the claim and before the claimant receives or sees any replacement card. Eligible challengers are other participants currently active in the round. Anyone who already Passed, is eliminated, or otherwise left the round cannot challenge. Begin with the next active participant after the claimant and proceed in deterministic table order, wrapping around and skipping ineligible seats without asking the claimant.
+
+Only the expected participant may decide whether to challenge. Declining is not a Pass: it causes no stroke or participation change. The first challenge immediately resolves the claim, and no later participant is asked. Apply the following outcomes, with immediate elimination and round resolution taking precedence as described below:
+
+| Resolution | Public information | Stroke effect | Hand and continuation |
+| --- | --- | --- | --- |
+| Nobody challenges | Accept without verification; the old hand stays hidden, with no new reveal. | None. | Exchange the old hand for four new cards and continue the same turn. |
+| A truthful claim is challenged | Reveal the claimant's original four picture cards before replacement; repeated ranks are valid. | Challenger receives exactly 1 stroke. | Claimant completes the exchange and continues the same turn if the round continues. |
+| A false claim is challenged | Reveal the claimant's original four cards, including at least one Seven, Eight, Nine, or Ten. | Claimant receives exactly 1 stroke. | No exchange; claimant keeps or receives back that same hand and continues the turn if still active and the round continues. |
+
+The challenge penalty is always 1 stroke, independent of the current stake. A challenged hand becomes public knowledge; keeping that hand after a false claim does not make its revealed contents secret again. An unchallenged discarded hand remains hidden unless an earlier challenge already revealed its cards. Accepting another claim does not erase that public knowledge. All unseen replacement cards remain hidden from other participants and bots.
+
+### Challenge strokes and immediate elimination
+
+Challenge strokes never recalculate Poverty. For example, with maximum strokes 7, a participant who starts at five strokes and receives a challenge stroke reaches six but does not become poor during that round. The same principle applies at eight to nine strokes with maximum strokes 10. A non-Poverty round therefore does not lose access to Four Pictures because of a later challenge stroke.
+
+Elimination is different: reaching the configured maximum through a challenge immediately eliminates that participant from the match and removes them from the current round. They receive no later card turn. An eliminated claimant does not resume their turn; an eliminated challenger cannot take part in later decisions.
+
+Any card that the eliminated participant already committed to the current trick stays physically and logically in that trick and may still win it under the original lead suit. Apply the existing departed-winner fallback for the next lead; a departed winner does not return to play. If they had not played a card, they simply leave the round. A Four Pictures claimant cannot already have played under the eligibility rule, but a later claimant's challenger may have done so.
+
+Resolve the challenge penalty and elimination immediately. If only one active participant remains in the round, that participant immediately wins the round, even if other match participants previously Passed and still survive in the match. Use the existing authoritative round-resolution semantics: do not finish the interrupted trick, continue the claimant's turn, or perform a pending exchange after the round has ended. This immediate victory takes precedence over a departed participant's committed card winning the unfinished trick; the card itself stays in the trick record. If the round continues, that card remains eligible to win when the trick resolves.
+
+The sole surviving match participant still wins the entire match under the existing rule. If an eliminated claimant leaves more than one participant in the round, normal table order advances past that departed seat; it does not return control to the claimant.
+
+### Poverty takes precedence over Four Pictures
+
+The poor-participant set fixed at normal round start determines this precedence for the whole round. If that set is nonempty, nobody may claim, bluff, or exchange Four Pictures. Challenge-caused strokes in a non-Poverty round cannot activate this restriction retroactively.
+
+### Eight-Card-Rule trigger and participants
+
+When enabled, the Eight-Card-Rule replaces the standard Draw in exactly one situation: the final remaining match participants would all be eliminated simultaneously, leaving no winner. Evaluate this after the complete simultaneous scoring batch, rather than after an individual participant's penalty. If any match participant survives, the rule does not trigger.
+
+Only the participants in that final simultaneous elimination enter the tiebreak. Previously eliminated participants do not return, including the owner of a departed winning card if that owner was eliminated earlier. Preserve the eligible participants' relative seating order. Their stroke totals no longer determine the winner once the tiebreak begins. This is a continuation of the same match, not a new match or a normal round.
+
+When the option is off, the existing Draw outcome remains unchanged. When it is on and triggers, do not first finalize a Draw and then reopen that finished match.
+
+### Eight-Card-Rule setup and play
+
+Use the existing 32-card deck and deal exactly eight cards to each eligible participant:
+
+| Tiebreak participants | Cards dealt | Cards not dealt |
+| --- | --- | --- |
+| 2 | 16 | 16 |
+| 3 | 24 | 8 |
+| 4 | 32 | 0 |
+
+The supported local match sizes are two to four total participants. Prepare the complete 32-card deck using the normal injected shuffle/deal process. Use the normal deterministic dealer and table-order principles, restricted to the final tied participants: advance from the previous dealer to the next participating seat, deal one card at a time starting to that dealer's left for eight circuits, and let the first participating seat to the dealer's left lead. Skip every seat outside the tiebreak. Preserve relative seating order; there is no special tiebreak seating or leader-selection rule.
+
+Play exactly eight tricks. Normal lead-suit and mandatory-follow-suit rules apply, with the existing rank order and no trump suit. A trick winner leads the next trick when applicable; the existing fallback for a departed winner remains the rule where relevant. Winning tricks one through seven has no direct scoring effect. Only the eighth trick decides the match, and its winner immediately wins the entire match.
+
+There is no normal round scoring after this tiebreak. Do not use retained stroke totals to select or disqualify its winner.
+
+During the Eight-Card-Rule, all of the following are unavailable:
+
+* Ordinary Knock and its Hold/Pass responses.
+* Poverty and its automatic raise.
+* Four Pictures, including bluffing and challenges.
+* Four-card exchanges and eight-card exchanges.
+* Any analogous Eight Pictures / Acht Bilder mechanic.
+
+The Eight-Card-Rule is a direct match tiebreak. It does not introduce another exchange rule.
+
+### Compatibility and hidden information
+
+Outside the explicit enabled overrides, retain the standard 32-card deck, rank order, follow-suit obligation, fixed lead suit, normal four-card deals and fourth-trick scoring, Pass penalty, committed-card survival, departed-winner fallback, deterministic Knock responses, and immediate victory when all opponents Pass.
+
+Bots remain limited to their own hand and public information. Public challenge revelations are legitimate knowledge; hidden opponent hands, unverified discarded hands, undealt card identities, and future randomness remain inaccessible. Legal actions and pending decisions must come from the authoritative engine, including disabled options, expected responders, forced participation, and repeated exchange eligibility. No difficulty receives privileged information.
+
+### Future V4 statistics
+
+Keep all statistics local, human-scoped, and driven by accepted authoritative transitions, with no recount on restore. The following additional counters are V4 requirements, not implemented statistics:
+
+| Counter | When to increment |
+| --- | --- |
+| Eight-Card-Rules played | Once when a tiebreak reaches its terminal outcome, if the human was one of its participating final tied players. |
+| Eight-Card-Rules won | Once when the human wins the eighth trick and therefore that tiebreak and match. |
+| Four Pictures exchanges | Once per four-card exchange actually completed by the human, whether truthful with or without a challenge, or a successful unchallenged false claim. |
+| Four Pictures bluffs | Once per false human Four Pictures claim that nobody challenges and that actually completes an exchange. |
+
+An Eight-Card-Rule is a match tiebreak, not an additional ordinary scored round. It increments neither `roundsPlayed` nor `roundsWon`. A tiebreak that occurs after the human was eliminated earlier contributes nothing to the human's Eight-Card-Rules played or won counters. A human included in the final simultaneous elimination is a tiebreak participant and is eligible for those counters.
+
+The tiebreak produces only one final match result. A would-be Draw that enters it is not a completed match. Preserve the completed normal round's statistics without erasing or recounting them. At the tiebreak's terminal outcome, record match played and any human match win using the existing match-counter semantics, including a match loss after earlier human elimination.
+
+A successful unchallenged human bluff increments both Four Pictures exchanges and Four Pictures bluffs. A truthful completed exchange increments only exchanges. An exposed false claim increments neither counter, because no exchange occurs. Nor do incomplete exchanges, truthful claims without an exchange, or any other participant's actions increment these counters. Repeated completed human exchanges each count once. In particular, if a challenge penalty ends the round before replacement cards are drawn, no exchange is recorded.
+
+Classifying a completed human exchange for the bluff counter may inspect that human's original hand privately. This statistical bookkeeping does not challenge, reject, or reveal an unchallenged claim, and it must not expose another participant's hidden discarded hand. Acceptance of an unchallenged claim remains independent of whether it was truthful.
+
+A Poverty raise or Four Pictures declaration/challenge is not an ordinary human Knock. Forced participation by a poor participant is not a human Hold action. Actual human Hold/Pass choices during Poverty retain the existing action-count meanings, and highest stake retains its human-participation boundary. Challenge penalties are strokes, not additional Knock/Hold/Pass actions or separate rounds.
+
+The new counters follow the existing atomic-save and reset semantics: save them with the accepted transition, do not count failed saves or restored historical events, and let a reset affect counters without changing the match. Historical profiles without these counters start them at zero; do not reconstruct them from old play.
+
+### Persistence and future New Game direction
+
+The immutable House Rules configuration must eventually be saved with the match. Continue must restore those exact settings. Changing the choices for a future New Game must not mutate an existing checkpoint. Historical saves without a V4 configuration must load with maximum strokes 7 and Poverty, Consecutive Knock Restriction, Four Pictures, Four Pictures bluffing, and Eight-Card-Rule all off. Existing opponent-count and difficulty compatibility remains intact.
+
+Restoration must also preserve the logical progress needed by the active rules: the round-start poor-participant set, last ordinary knocker across rounds, pending Poverty or challenge decisions, original hand awaiting challenge resolution, remaining draw pile and removed hands, and any tiebreak participation and trick progress. Pending claims cannot draw or reveal replacement cards merely because a match was restored. Existing transactional saving, seeded continuation, and statistics double-count prevention still apply. The eventual save-format decision must account for the new states; this specification does not implement a schema or migration.
+
+The future New Game configuration contains a section named House Rules in English and Hausregeln in German, alongside the independent opponent-count and difficulty choices. It offers maximum strokes 7 or 10 and the five rule toggles above. Four Pictures bluffing is configurable only when Four Pictures is enabled; disabling Four Pictures must not leave an enabled dependent option. This is product direction only, without a prescribed control layout or implemented UI.
+
 ## Game Engine
 
 The game engine is the authoritative source of truth.
@@ -450,6 +656,8 @@ These counters describe the human player:
 * Reset all statistics to zero without changing the match. Only later accepted game transitions contribute. The next transition while the human participates observes the current stake. After a reset following elimination, match completion can produce one match played with zero rounds played.
 
 Statistics are informational only.
+
+The [future V4 statistics](#future-v4-statistics) add human-only Four Pictures and Eight-Card-Rule counters. They preserve these existing meanings and are not part of the implemented V2 + V3 baseline.
 
 Do not introduce XP, streak rewards, currencies, badges, unlocks, or artificial progression.
 
@@ -705,7 +913,7 @@ Focus on making Tuppen feel excellent.
 
 ### V2 + V3 — Player Count and AI Difficulty
 
-The upcoming combined release supports selectable numbers of computer opponents:
+The completed current development baseline supports selectable numbers of computer opponents:
 
 * 1 opponent
 * 2 opponents
@@ -721,18 +929,9 @@ Choose one difficulty for all computer opponents in the match:
 
 Difficulty belongs in interchangeable AI strategies rather than the core engine. Defaults are two opponents and Medium, which preserves the V1 strategy. Save the selected count and difficulty with the match; historical saves restore as two opponents on Medium. New Game selects both in one compact sheet, while Continue uses the saved configuration.
 
-### V4 — Regional Rules
+### V4 — House Rules
 
-Add optional regional and house rules under the concept:
-
-**"So spielen wir."**
-
-Potential options include:
-
-* Vier Bilder
-* different stroke limits
-* alternate knocking rules
-* other regional table rules
+Current work defines the authoritative [House Rules specification](#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The standard configuration remains the default. These options are specified for future implementation; they are not yet implemented or released.
 
 ### V5 — Friends
 
