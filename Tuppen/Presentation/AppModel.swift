@@ -17,6 +17,7 @@ final class AppModel {
     var path: [AppScreen] = [] {
         didSet {
             navigationIntent = UUID()
+            isChoosingNewMatch = false
             if path.last != .game { cancelPresentation() }
         }
     }
@@ -30,6 +31,10 @@ final class AppModel {
     var presentationLocale = Locale(identifier: "en")
     var soundEnabled = true
     var hapticsEnabled = true
+    // A draft for the next match only. Continue always uses the saved session.
+    var newMatchBotCount: BotCount = .two
+    var newMatchDifficulty: BotDifficulty = .medium
+    var isChoosingNewMatch = false
     private(set) var snapshot: SessionUpdate?
     private(set) var table: TablePresentation?
     private(set) var presentedRoundChanges: [StrokeChange] = []
@@ -49,7 +54,7 @@ final class AppModel {
     private static let logger = Logger(subsystem: "com.DerFerdi.Tuppen", category: "Session")
 
     private enum Command: Equatable {
-        case load, newMatch, submit(GameAction), nextRound, resume, reset, skipToResult
+        case load, newMatch(BotCount, BotDifficulty), submit(GameAction), nextRound, resume, reset, skipToResult
     }
 
     init(
@@ -91,7 +96,20 @@ final class AppModel {
         await perform(.load)
     }
 
-    func newMatch() async { await perform(.newMatch) }
+    func chooseNewMatch() {
+        guard hasLoaded, !isBusy else { return }
+        newMatchBotCount = .two
+        newMatchDifficulty = .medium
+        isChoosingNewMatch = true
+    }
+
+    func newMatch() async {
+        guard !isBusy else { return }
+        isChoosingNewMatch = false
+        // Capture the confirmed choice in the command so a failed save retries
+        // that configuration even if the draft selection later changes.
+        await perform(.newMatch(newMatchBotCount, newMatchDifficulty))
+    }
     func submit(_ action: GameAction) async {
         guard canSubmit(action) else { return }
         await perform(.submit(action))
@@ -170,8 +188,8 @@ final class AppModel {
                 snapshot = try await driver.load()
                 hasLoaded = true
                 settle()
-            case .newMatch:
-                let update = try await driver.newMatch()
+            case .newMatch(let botCount, let difficulty):
+                let update = try await driver.newMatch(botCount: botCount, difficulty: difficulty)
                 // A completed save remains authoritative even after leaving.
                 // Only the still-current navigation request may open the table.
                 if navigationRequest == navigationIntent, !Task.isCancelled { path = [.game] }

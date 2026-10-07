@@ -20,6 +20,7 @@ struct ContentView: View {
                     }
                 }
         }
+        .sheet(isPresented: $model.isChoosingNewMatch) { NewMatchView() }
         .task { await model.load() }
         .onChange(of: preferences.soundEnabled, initial: true) { _, enabled in model.soundEnabled = enabled }
         .onChange(of: preferences.hapticsEnabled, initial: true) { _, enabled in model.hapticsEnabled = enabled }

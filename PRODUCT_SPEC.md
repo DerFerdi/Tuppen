@@ -703,11 +703,9 @@ One human versus two computer opponents.
 
 Focus on making Tuppen feel excellent.
 
-### V2 — Player Count
+### V2 + V3 — Player Count and AI Difficulty
 
-Support selectable numbers of computer opponents.
-
-Initial targets:
+The upcoming combined release supports selectable numbers of computer opponents:
 
 * 1 opponent
 * 2 opponents
@@ -715,15 +713,13 @@ Initial targets:
 
 Do not architect the engine around exactly three players.
 
-### V3 — AI Difficulty
-
-Add:
+Choose one difficulty for all computer opponents in the match:
 
 * Easy
 * Medium
 * Hard
 
-Difficulty belongs in interchangeable AI strategies rather than the core engine.
+Difficulty belongs in interchangeable AI strategies rather than the core engine. Defaults are two opponents and Medium, which preserves the V1 strategy. Save the selected count and difficulty with the match; historical saves restore as two opponents on Medium. New Game selects both in one compact sheet, while Continue uses the saved configuration.
 
 ### V4 — Regional Rules
 

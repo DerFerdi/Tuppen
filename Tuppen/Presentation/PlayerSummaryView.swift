@@ -8,6 +8,7 @@ struct PlayerSummaryView: View {
     var reaction: TableReaction?
     var addedStrokes = 0
     var compact = false
+    var narrow = false
     @Environment(AppPreferences.self) private var preferences
     @Environment(AppModel.self) private var model
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -24,7 +25,7 @@ struct PlayerSummaryView: View {
             } else {
                 VStack(spacing: 7) {
                     name
-                    HStack(spacing: 10) {
+                    HStack(spacing: narrow ? 6 : 10) {
                         cardBacks
                         StrokeMarksView(strokes: player.strokes)
                     }
@@ -33,7 +34,7 @@ struct PlayerSummaryView: View {
             }
         }
         .foregroundStyle(player.status == .eliminated ? .secondary : .primary)
-        .dynamicTypeSize(...(compact ? DynamicTypeSize.xLarge : .xxLarge))
+        .dynamicTypeSize(...(compact || narrow ? DynamicTypeSize.xLarge : .xxLarge))
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(strings.player(player.id, in: view))
@@ -48,8 +49,8 @@ struct PlayerSummaryView: View {
                     .accessibilityLabel(thinking ? strings.text("Thinking") : strings.text("Trick winner"))
             }
             Text(strings.player(player.id, in: view))
-                .font(.subheadline.weight(highlighted ? .semibold : .regular))
-                .lineLimit(1).minimumScaleFactor(0.8)
+                .font((narrow ? Font.footnote : .subheadline).weight(highlighted ? .semibold : .regular))
+                .lineLimit(1).minimumScaleFactor(narrow ? 0.75 : 0.8)
         }
     }
 

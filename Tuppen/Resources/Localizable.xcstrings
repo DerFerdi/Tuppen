@@ -280,6 +280,57 @@
         }
       }
     },
+    "1 Computer Opponent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Computergegner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Computer Opponent"
+          }
+        }
+      }
+    },
+    "2 Computer Opponents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 Computergegner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 Computer Opponents"
+          }
+        }
+      }
+    },
+    "3 Computer Opponents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 Computergegner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 Computer Opponents"
+          }
+        }
+      }
+    },
     "7" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -501,6 +552,23 @@
         }
       }
     },
+    "Computer Opponents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computergegner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer Opponents"
+          }
+        }
+      }
+    },
     "Continue" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -603,6 +671,23 @@
         }
       }
     },
+    "Difficulty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schwierigkeit"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficulty"
+          }
+        }
+      }
+    },
     "Double tap the table to Knock" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -650,6 +735,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Each player plays one card into a trick. The first card sets the suit. If you have that suit, you must follow it; otherwise, play any card. The highest card of the led suit wins."
+          }
+        }
+      }
+    },
+    "Easy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leicht"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy"
           }
         }
       }
@@ -854,6 +956,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Haptics"
+          }
+        }
+      }
+    },
+    "Hard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schwer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hard"
           }
         }
       }
@@ -1252,6 +1371,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Matches Won"
+          }
+        }
+      }
+    },
+    "Medium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mittel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
           }
         }
       }
@@ -1796,6 +1932,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start a New Game?"
+          }
+        }
+      }
+    },
+    "Start Game" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spiel starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Game"
           }
         }
       }
@@ -2361,19 +2514,19 @@
         }
       }
     },
-    "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds." : {
+    "You play against one to three computer opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds." : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Du spielst gegen zwei Gegner. Alle erhalten vier Karten. Die Farben heißen Kreuz, Pik, Herz und Karo."
+            "value" : "Du spielst gegen einen bis drei Computergegner. Jeder aktive Spieler erhält vier Karten. Die Farben sind Kreuz, Pik, Herz und Karo."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
+            "value" : "You play against one to three computer opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
           }
         }
       }

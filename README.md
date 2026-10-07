@@ -12,7 +12,8 @@ Like many traditional card games, Tuppen has regional and table-specific variati
 
 ## Features
 
-- Fully offline play for one human player against two computer opponents.
+- Fully offline play for one human player, with a choice of one to three computer opponents for each new match.
+- Easy, Medium, or Hard computer difficulty, shared by all opponents in the match. The default is two opponents on Medium.
 - German and English interface, with an optional How to Play guide.
 - Automatic local saving and match continuation.
 - Local statistics.
@@ -114,19 +115,15 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-V1 is the current implementation. Later versions are plans without a release schedule.
+The upcoming combined V2 + V3 release includes player-count and difficulty selection. V4 and V5 remain plans without a release schedule.
 
 ### V1
 
 Polished offline Tuppen against computer opponents.
 
-### V2
+### V2 + V3
 
-Selectable number of computer opponents.
-
-### V3
-
-Selectable AI difficulty.
+Choose one, two, or three computer opponents and Easy, Medium, or Hard difficulty in one New Game sheet. Two opponents and Medium are preselected. Medium preserves the original V1 strategy; Continue restores the saved match's configuration.
 
 ### V4
 

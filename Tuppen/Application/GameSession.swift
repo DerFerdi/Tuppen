@@ -41,6 +41,7 @@ final class GameSession {
     var statistics: LocalStatistics { saved.statistics }
     var hasActiveMatch: Bool { engine?.state.phase == .playing }
     var botCount: BotCount? { saved.session?.botCount }
+    var difficulty: BotDifficulty? { saved.session?.difficulty }
 
     init(store: any GameStore) throws {
         self.store = store
@@ -66,7 +67,8 @@ final class GameSession {
 
     @discardableResult
     func startNewMatch(
-        botCount: BotCount = .two, seeds: SessionSeeds = .system(), deck: Deck? = nil
+        botCount: BotCount = .two, difficulty: BotDifficulty = .medium,
+        seeds: SessionSeeds = .system(), deck: Deck? = nil
     ) throws -> [GameEvent] {
         var deckRandom = SeededRandom(seed: seeds.deck)
         // Seat zero remains the human; every other stable ID is a bot. Seats
@@ -77,7 +79,7 @@ final class GameSession {
         )
         let session = SavedSession(
             human: Self.human, match: start.engine.state, deckRandom: deckRandom,
-            botRandom: SeededRandom(seed: seeds.decisions), botCount: botCount
+            botRandom: SeededRandom(seed: seeds.decisions), botCount: botCount, difficulty: difficulty
         )
         try commit(start.engine, session: session, events: start.events)
         return start.events
@@ -95,7 +97,7 @@ final class GameSession {
     /// comes from the engine's phase, including its sequential response queue.
     /// nil means human input or a terminal match, never an artificial delay.
     @discardableResult
-    func advanceOneAutomaticStep(using strategy: any BotStrategy = V1BotStrategy()) throws -> [GameEvent]? {
+    func advanceOneAutomaticStep(using strategy: (any BotStrategy)? = nil) throws -> [GameEvent]? {
         guard var candidate = engine, var session = saved.session else { throw SessionError.noMatch }
         guard candidate.state.phase == .playing else { return nil }
         let events: [GameEvent]
@@ -114,7 +116,7 @@ final class GameSession {
         return events
     }
 
-    func advanceBots(using strategy: any BotStrategy = V1BotStrategy(), maxActions: Int = 64) throws -> AutomaticProgress {
+    func advanceBots(using strategy: (any BotStrategy)? = nil, maxActions: Int = 64) throws -> AutomaticProgress {
         guard maxActions > 0 else { throw SessionError.invalidActionBudget }
         var events: [GameEvent] = []
         for _ in 0..<maxActions {
@@ -134,8 +136,11 @@ final class GameSession {
     }
 
     private func botAction(
-        by player: PlayerID, engine: inout GameEngine, session: inout SavedSession, strategy: any BotStrategy
+        by player: PlayerID, engine: inout GameEngine, session: inout SavedSession, strategy: (any BotStrategy)?
     ) throws -> [GameEvent] {
+        // Test scenarios may inject a strategy. Ordinary play, including after
+        // restore or Skip to Result, always uses the saved match's difficulty.
+        let strategy = strategy ?? session.difficulty.makeStrategy()
         let view = try engine.view(for: player)
         guard let action = strategy.chooseAction(from: view, using: &session.botRandom),
               view.legalActions.contains(action) else { throw SessionError.invalidBotAction }

@@ -72,7 +72,7 @@ struct RoundResultView: View {
     }
 
     @ViewBuilder private var matchActions: some View {
-        Button(strings.text("New Game")) { Task { await model.newMatch() } }
+        Button(strings.text("New Game")) { model.chooseNewMatch() }
             .buttonStyle(.borderedProminent)
             .foregroundStyle(TableStyle.onAccent)
         Button { model.path = [] } label: {

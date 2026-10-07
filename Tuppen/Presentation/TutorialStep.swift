@@ -22,7 +22,7 @@ enum TutorialStep: CaseIterable, Identifiable {
     var explanation: String.LocalizationValue {
         switch self {
         case .cards:
-            "You play against two opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
+            "You play against one to three computer opponents. Each active player receives four cards. The suits are Clubs, Spades, Hearts, and Diamonds."
         case .ranks:
             "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit."
         case .followingSuit:

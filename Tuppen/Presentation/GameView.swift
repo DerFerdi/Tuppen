@@ -98,8 +98,8 @@ struct GameView: View {
     }
 
     private func opponents(_ table: TablePresentation) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            ForEach(table.players.filter { $0.id != table.view.player }, id: \.id) { player in
+        HStack(alignment: .top, spacing: table.opponents.count == 3 ? 8 : 12) {
+            ForEach(table.opponents, id: \.id) { player in
                 playerSummary(player, table: table)
             }
         }
@@ -112,7 +112,8 @@ struct GameView: View {
             highlighted: table.highlightedWinner == player.id,
             reaction: table.reactions[player.id],
             addedStrokes: table.strokeChanges.first(where: { $0.player == player.id })?.amount ?? 0,
-            compact: compact
+            compact: compact,
+            narrow: !compact && table.opponents.count == 3
         )
     }
 

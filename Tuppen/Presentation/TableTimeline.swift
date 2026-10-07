@@ -21,6 +21,11 @@ struct TablePresentation: Equatable, Sendable {
     var resultVisible = false
     var knockPulse = 0
 
+    var seating: TableSeating { TableSeating(view: view) }
+    var opponents: [PublicPlayerState] {
+        seating.opponents.compactMap { id in players.first { $0.id == id } }
+    }
+
     init(view: PlayerView) {
         self.view = view
         players = view.players

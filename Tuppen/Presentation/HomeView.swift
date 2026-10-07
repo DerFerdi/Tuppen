@@ -3,7 +3,6 @@ import SwiftUI
 struct HomeView: View {
     @Environment(AppModel.self) private var model
     @Environment(AppPreferences.self) private var preferences
-    @State private var confirmingNewMatch = false
     private var strings: GameStrings { preferences.strings }
 
     var body: some View {
@@ -16,12 +15,6 @@ struct HomeView: View {
         .background(TableStyle.background.ignoresSafeArea())
         .tint(TableStyle.accent)
         .toolbar(.hidden, for: .navigationBar)
-        .confirmationDialog(strings.text("Start a New Game?"), isPresented: $confirmingNewMatch, titleVisibility: .visible) {
-            Button(strings.text("New Game"), role: .destructive) { Task { await model.newMatch() } }
-            Button(strings.text("Cancel"), role: .cancel) {}
-        } message: {
-            Text(strings.text("This replaces your current match. Your statistics are kept."))
-        }
     }
 
     private var content: some View {
@@ -37,10 +30,7 @@ struct HomeView: View {
                         .buttonStyle(.borderedProminent)
                         .foregroundStyle(TableStyle.onAccent)
                 }
-                Button(strings.text("New Game")) {
-                    if model.hasActiveMatch { confirmingNewMatch = true }
-                    else { Task { await model.newMatch() } }
-                }
+                Button(strings.text("New Game")) { model.chooseNewMatch() }
                 .buttonStyle(.bordered)
             }
             .controlSize(.large)

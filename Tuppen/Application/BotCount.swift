@@ -1,5 +1,5 @@
-/// Supported local match configurations. The shipping New Game path keeps the
-/// historical two-opponent default until player selection is available.
+/// Supported local match configurations. Two opponents remain the default
+/// selection for each new match.
 enum BotCount: Int, CaseIterable, Codable, Sendable {
     case one = 1
     case two = 2

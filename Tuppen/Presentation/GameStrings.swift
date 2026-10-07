@@ -18,6 +18,22 @@ struct GameStrings {
         return text("Opponent \(number)")
     }
 
+    func opponents(_ count: BotCount) -> String {
+        switch count {
+        case .one: text("1 Computer Opponent")
+        case .two: text("2 Computer Opponents")
+        case .three: text("3 Computer Opponents")
+        }
+    }
+
+    func difficulty(_ difficulty: BotDifficulty) -> String {
+        switch difficulty {
+        case .easy: text("Easy")
+        case .medium: text("Medium")
+        case .hard: text("Hard")
+        }
+    }
+
     func rank(_ rank: Rank, abbreviated: Bool = false) -> String {
         switch rank {
         case .jack: text(abbreviated ? "J" : "Jack")

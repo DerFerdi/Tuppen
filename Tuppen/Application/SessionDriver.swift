@@ -33,12 +33,13 @@ actor SessionDriver {
     }
 
     func newMatch(
-        botCount: BotCount = .two, seeds: SessionSeeds = .system(), deck: Deck? = nil
+        botCount: BotCount = .two, difficulty: BotDifficulty = .medium,
+        seeds: SessionSeeds = .system(), deck: Deck? = nil
     ) throws -> SessionUpdate {
         // A user explicitly starting over can recover from an unreadable save.
         // Publish the replacement only after its first checkpoint succeeds.
         let candidate = try session ?? GameSession.empty(store: resolvedStore())
-        let events = try candidate.startNewMatch(botCount: botCount, seeds: seeds, deck: deck)
+        let events = try candidate.startNewMatch(botCount: botCount, difficulty: difficulty, seeds: seeds, deck: deck)
         session = candidate
         return try update(events: events)
     }
@@ -57,7 +58,7 @@ actor SessionDriver {
         return try update(events: session.advanceOneAutomaticStep() ?? [])
     }
 
-    func advance(using strategy: any BotStrategy = V1BotStrategy()) throws -> SessionUpdate? {
+    func advance(using strategy: (any BotStrategy)? = nil) throws -> SessionUpdate? {
         guard let session else { return nil }
         if case .finished = session.state?.round.phase { return nil }
         guard let events = try session.advanceOneAutomaticStep(using: strategy) else { return nil }
