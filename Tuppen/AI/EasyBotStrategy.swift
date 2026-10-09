@@ -12,7 +12,7 @@ struct EasyBotStrategy: BotStrategy {
         let strength = positionStrength(view)
         if view.legalActions.contains(.respondToKnock(.hold)) {
             let strokes = view.players.first { $0.id == view.player }?.strokes ?? 0
-            let passEliminates = strokes + view.stake - 1 >= 7
+            let passEliminates = strokes + view.stake - 1 >= view.houseRules.maximumStrokes.rawValue
             let threshold = min(0.8, 0.5 + Double(view.stake - 2) * 0.05)
             let response: KnockResponse = (passEliminates && strength > 0) || strength >= threshold ? .hold : .pass
             let action = GameAction.respondToKnock(response)

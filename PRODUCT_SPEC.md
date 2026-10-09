@@ -2,7 +2,7 @@
 
 This document is the authoritative product and game specification for TUPPEN.
 
-The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 is current specification work, not implemented or released functionality.
+The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 has a programmatic backend in development; its configuration UI and dedicated bot strategies are not implemented or released.
 
 ## Product
 
@@ -300,7 +300,7 @@ Do not play or evaluate any remaining unfinished trick. Immediate victory takes 
 
 ## V4 House Rules
 
-V4 adds optional House Rules to the existing game. This section is the authoritative specification for those options and their interactions. It does not describe functionality already implemented or released.
+V4 adds optional House Rules to the existing game. This section is the authoritative specification for those options and their interactions. The backend supports programmatic configuration; these options are not yet exposed in New Game or released to users.
 
 ### Product terminology
 
@@ -471,18 +471,20 @@ Outside the explicit enabled overrides, retain the standard 32-card deck, rank o
 
 Bots remain limited to their own hand and public information. Public challenge revelations are legitimate knowledge; hidden opponent hands, unverified discarded hands, undealt card identities, and future randomness remain inaccessible. Legal actions and pending decisions must come from the authoritative engine, including disabled options, expected responders, forced participation, and repeated exchange eligibility. No difficulty receives privileged information.
 
-### Future V4 statistics
+### V4 statistics
 
-Keep all statistics local, human-scoped, and driven by accepted authoritative transitions, with no recount on restore. The following additional counters are V4 requirements, not implemented statistics:
+Keep all statistics local, human-scoped, and driven by accepted authoritative transitions, with no recount on restore. The backend records these additional counters; their presentation remains future work:
 
 | Counter | When to increment |
 | --- | --- |
 | Eight-Card-Rules played | Once when a tiebreak reaches its terminal outcome, if the human was one of its participating final tied players. |
-| Eight-Card-Rules won | Once when the human wins the eighth trick and therefore that tiebreak and match. |
+| Eight-Card-Rules won | At the same completion point as played, if the participating human wins the eighth trick and therefore that tiebreak and match. |
 | Four Pictures exchanges | Once per four-card exchange actually completed by the human, whether truthful with or without a challenge, or a successful unchallenged false claim. |
 | Four Pictures bluffs | Once per false human Four Pictures claim that nobody challenges and that actually completes an exchange. |
 
 An Eight-Card-Rule is a match tiebreak, not an additional ordinary scored round. It increments neither `roundsPlayed` nor `roundsWon`. A tiebreak that occurs after the human was eliminated earlier contributes nothing to the human's Eight-Card-Rules played or won counters. A human included in the final simultaneous elimination is a tiebreak participant and is eligible for those counters.
+
+Entering or starting the tiebreak increments neither counter. An in-progress save therefore contains no played or won increment for that tiebreak, and restoring it changes neither counter. Finishing after restore increments played exactly once for a participating human, and won at that same completion point if the human wins. Commit both counters with the terminal state in one transaction; rollback must leave both counters and the tiebreak unchanged so a retry cannot partially count or double-count the result.
 
 The tiebreak produces only one final match result. A would-be Draw that enters it is not a completed match. Preserve the completed normal round's statistics without erasing or recounting them. At the tiebreak's terminal outcome, record match played and any human match win using the existing match-counter semantics, including a match loss after earlier human elimination.
 
@@ -496,9 +498,9 @@ The new counters follow the existing atomic-save and reset semantics: save them 
 
 ### Persistence and future New Game direction
 
-The immutable House Rules configuration must eventually be saved with the match. Continue must restore those exact settings. Changing the choices for a future New Game must not mutate an existing checkpoint. Historical saves without a V4 configuration must load with maximum strokes 7 and Poverty, Consecutive Knock Restriction, Four Pictures, Four Pictures bluffing, and Eight-Card-Rule all off. Existing opponent-count and difficulty compatibility remains intact.
+Save the immutable House Rules configuration with the match. Continue must restore those exact settings. Changing the choices for a future New Game must not mutate an existing checkpoint. Historical saves without a V4 configuration must load with maximum strokes 7 and Poverty, Consecutive Knock Restriction, Four Pictures, Four Pictures bluffing, and Eight-Card-Rule all off. Existing opponent-count and difficulty compatibility remains intact.
 
-Restoration must also preserve the logical progress needed by the active rules: the round-start poor-participant set, last ordinary knocker across rounds, pending Poverty or challenge decisions, original hand awaiting challenge resolution, remaining draw pile and removed hands, and any tiebreak participation and trick progress. Pending claims cannot draw or reveal replacement cards merely because a match was restored. Existing transactional saving, seeded continuation, and statistics double-count prevention still apply. The eventual save-format decision must account for the new states; this specification does not implement a schema or migration.
+Restoration must also preserve the logical progress needed by the active rules: the round-start poor-participant set, last ordinary knocker across rounds, pending Poverty or challenge decisions, original hand awaiting challenge resolution, remaining draw pile and removed hands, and any tiebreak participation and trick progress. Pending claims cannot draw or reveal replacement cards merely because a match was restored. Existing transactional saving, seeded continuation, and statistics double-count prevention still apply. See [AI and persistence](Documentation/AIAndPersistence.md#save-format-and-recovery) for the versioned save format and compatibility behavior.
 
 The future New Game configuration contains a section named House Rules in English and Hausregeln in German, alongside the independent opponent-count and difficulty choices. It offers maximum strokes 7 or 10 and the five rule toggles above. Four Pictures bluffing is configurable only when Four Pictures is enabled; disabling Four Pictures must not leave an enabled dependent option. This is product direction only, without a prescribed control layout or implemented UI.
 
@@ -657,7 +659,7 @@ These counters describe the human player:
 
 Statistics are informational only.
 
-The [future V4 statistics](#future-v4-statistics) add human-only Four Pictures and Eight-Card-Rule counters. They preserve these existing meanings and are not part of the implemented V2 + V3 baseline.
+The [V4 statistics](#v4-statistics) add human-only Four Pictures and Eight-Card-Rule counters while preserving these existing meanings.
 
 Do not introduce XP, streak rewards, currencies, badges, unlocks, or artificial progression.
 
@@ -931,7 +933,7 @@ Difficulty belongs in interchangeable AI strategies rather than the core engine.
 
 ### V4 — House Rules
 
-Current work defines the authoritative [House Rules specification](#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The standard configuration remains the default. These options are specified for future implementation; they are not yet implemented or released.
+The authoritative [House Rules specification](#v4-house-rules) covers maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The backend supports these options programmatically, with standard configuration as the default. Configuration UI and strategic V4 bot behavior remain future work; House Rules are not yet released to users.
 
 ### V5 — Friends
 

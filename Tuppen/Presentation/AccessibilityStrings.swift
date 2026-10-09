@@ -1,8 +1,11 @@
 import Foundation
 
 extension GameStrings {
-    func strokes(_ count: Int) -> String {
-        text("\(count) of seven strokes")
+    func strokes(_ count: Int, maximum: MaximumStrokes = .seven) -> String {
+        switch maximum {
+        case .seven: text("\(count) of seven strokes")
+        case .ten: text("\(count) of ten strokes")
+        }
     }
 
     func cardAvailability(_ card: Card, in view: PlayerView, busy: Bool) -> String {
@@ -30,14 +33,24 @@ extension GameStrings {
                 return text("Waiting for \(player(responder, in: view)) to Hold or Pass.")
             }
             return text("Stake: \(view.stake)")
+        case .awaitingPovertyResponses(let pending):
+            if pending.expectedResponder == view.player {
+                return text("Your response. Hold or Pass. Stake: \(view.stake).")
+            }
+            if let responder = pending.expectedResponder {
+                return text("Waiting for \(player(responder, in: view)) to Hold or Pass.")
+            }
+            return text("Stake: \(view.stake)")
+        case .awaitingFourPicturesChallenges:
+            return text("Currently unavailable")
         case .finished(let outcome):
-            return view.matchPhase == .playing ? roundResult(outcome, in: view) : matchResult(in: view)
+            return view.matchPhase.isActive ? roundResult(outcome, in: view) : matchResult(in: view)
         }
     }
 
     func matchResult(in view: PlayerView) -> String {
         switch view.matchPhase {
-        case .playing: text("The opponents play on.")
+        case .playing, .awaitingEightCardDeal, .eightCardRule: text("The opponents play on.")
         case .finished(let winner):
             winner == view.player ? text("You win the match.") : text("\(player(winner, in: view)) wins the match.")
         case .draw: text("The match is a draw.")
@@ -65,6 +78,12 @@ extension GameStrings {
         case .playerEliminated(let id):
             id == view.player ? text("You are eliminated.") : text("\(player(id, in: view)) is eliminated.")
         case .matchWon, .matchDrawn: matchResult(in: view)
+        case .povertyStarted, .fourPicturesClaimed, .fourPicturesDeclined,
+             .fourPicturesChallenged, .fourPicturesBluffExposed,
+             .fourPicturesRevealed, .fourPicturesExchanged, .eightCardRuleStarted, .eightCardRuleEnded:
+            // House Rules currently have a programmatic session interface;
+            // their dedicated presentation and announcements are still pending.
+            ""
         }
     }
 }

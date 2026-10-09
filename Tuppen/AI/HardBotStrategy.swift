@@ -12,9 +12,10 @@ struct HardBotStrategy: BotStrategy {
         let position = PublicPosition(view)
         let confidence = position.roundConfidence
         let strokes = view.players.first { $0.id == view.player }?.strokes ?? 0
+        let maximumStrokes = view.houseRules.maximumStrokes.rawValue
         if view.legalActions.contains(.respondToKnock(.hold)) {
-            let passEliminates = strokes + view.stake - 1 >= 7
-            let lossEliminates = strokes + view.stake >= 7
+            let passEliminates = strokes + view.stake - 1 >= maximumStrokes
+            let lossEliminates = strokes + view.stake >= maximumStrokes
             // Compare accepting the raised stake with paying the old stake now.
             // A survivable Pass deserves extra weight when Hold risks elimination.
             let threshold = lossEliminates ? 0.68 : 1 / Double(view.stake) + 0.06
@@ -24,7 +25,8 @@ struct HardBotStrategy: BotStrategy {
         }
 
         if view.legalActions.contains(.knock) {
-            let raisesEliminationRisk = strokes + view.stake < 7 && strokes + view.stake + 1 >= 7
+            let raisesEliminationRisk = strokes + view.stake < maximumStrokes
+                && strokes + view.stake + 1 >= maximumStrokes
             let threshold = 0.7 + (raisesEliminationRisk ? 0.16 : 0)
                 + min(0.08, Double(view.stake - 1) * 0.02)
             if confidence >= 0.999 { return .knock }

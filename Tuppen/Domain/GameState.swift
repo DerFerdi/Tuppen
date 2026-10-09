@@ -11,9 +11,16 @@ enum PlayerStatus: Equatable, Codable, Sendable {
 struct PlayerState: Equatable, Codable, Sendable {
     let id: PlayerID
     var strokes = 0
+    let maximumStrokes: MaximumStrokes
+
+    init(id: PlayerID, strokes: Int = 0, maximumStrokes: MaximumStrokes = .seven) {
+        self.id = id
+        self.strokes = strokes
+        self.maximumStrokes = maximumStrokes
+    }
 
     var status: PlayerStatus {
-        strokes >= GameEngine.eliminationStrokes ? .eliminated : .active
+        strokes >= maximumStrokes.rawValue ? .eliminated : .active
     }
 }
 
@@ -98,6 +105,7 @@ struct PendingKnock: Equatable, Codable, Sendable {
 enum RoundWinReason: Equatable, Codable, Sendable {
     case finalTrick
     case opponentsPassed
+    case opponentsEliminated
 }
 
 enum RoundOutcome: Equatable, Codable, Sendable {
@@ -118,6 +126,8 @@ enum RoundOutcome: Equatable, Codable, Sendable {
 enum RoundPhase: Equatable, Codable, Sendable {
     case playing(TurnState)
     case awaitingResponses(PendingKnock)
+    case awaitingPovertyResponses(PendingPoverty)
+    case awaitingFourPicturesChallenges(PendingFourPictures)
     case finished(RoundOutcome)
 
     /// During a response window, the knocking player retains the interrupted turn.
@@ -125,6 +135,8 @@ enum RoundPhase: Equatable, Codable, Sendable {
         switch self {
         case .playing(let turn): turn.player
         case .awaitingResponses(let knock): knock.player
+        case .awaitingPovertyResponses: nil
+        case .awaitingFourPicturesChallenges(let pending): pending.claimant
         case .finished: nil
         }
     }
@@ -135,12 +147,17 @@ struct RoundState: Equatable, Codable, Sendable {
     let dealer: PlayerID
     var participants: [PlayerID]
     var hands: [PlayerID: [Card]]
-    let undealtCards: [Card]
+    var undealtCards: [Card]
     var stake = 1
     var phase: RoundPhase
     var currentTrick: TrickState
     var completedTricks: [CompletedTrick] = []
     var knocks: [KnockRecord] = []
+    var poorParticipants: [PlayerID] = []
+    var povertyResponses: [PlayerResponse] = []
+    var removedHands: [[Card]] = []
+    var revealedHands: [RevealedHand] = []
+    var history: RoundHistory? = nil
 }
 
 enum MatchPhase: Equatable, Codable, Sendable {
@@ -148,6 +165,15 @@ enum MatchPhase: Equatable, Codable, Sendable {
     case finished(winner: PlayerID)
     /// Final-trick scoring eliminated all surviving match players together.
     case draw
+    case awaitingEightCardDeal(participants: [PlayerID])
+    case eightCardRule
+
+    var isActive: Bool {
+        switch self {
+        case .playing, .awaitingEightCardDeal, .eightCardRule: true
+        case .finished, .draw: false
+        }
+    }
 }
 
 /// Authoritative state contains secrets. Pass PlayerView, never MatchState, to
@@ -158,8 +184,83 @@ struct MatchState: Equatable, Codable, Sendable {
     var players: [PlayerState]
     var round: RoundState
     var phase: MatchPhase = .playing
+    let houseRules: HouseRules
+    var lastOrdinaryKnocker: PlayerID? = nil
+    var eightCardRule: EightCardState? = nil
+
+    init(
+        players: [PlayerState], round: RoundState, phase: MatchPhase = .playing,
+        houseRules: HouseRules = .standard, lastOrdinaryKnocker: PlayerID? = nil,
+        eightCardRule: EightCardState? = nil
+    ) {
+        self.players = players
+        self.round = round
+        self.phase = phase
+        self.houseRules = houseRules
+        self.lastOrdinaryKnocker = lastOrdinaryKnocker
+        self.eightCardRule = eightCardRule
+    }
 
     var activePlayers: [PlayerID] {
         players.filter { $0.status == .active }.map(\.id)
+    }
+}
+
+// Missing additive fields identify historical saves. Explicit null values are
+// still rejected, so corruption cannot silently disable configured rules.
+private extension KeyedDecodingContainer {
+    func decode<T: Decodable>(_ type: T.Type, forKey key: Key, default value: T) throws -> T {
+        contains(key) ? try decode(type, forKey: key) : value
+    }
+}
+
+extension PlayerState {
+    private enum CodingKeys: CodingKey { case id, strokes, maximumStrokes }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(PlayerID.self, forKey: .id)
+        strokes = try container.decode(Int.self, forKey: .strokes)
+        maximumStrokes = try container.decode(MaximumStrokes.self, forKey: .maximumStrokes, default: .seven)
+    }
+}
+
+extension RoundState {
+    private enum CodingKeys: CodingKey {
+        case number, dealer, participants, hands, undealtCards, stake, phase, currentTrick, completedTricks, knocks
+        case poorParticipants, povertyResponses, removedHands, revealedHands, history
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        number = try container.decode(Int.self, forKey: .number)
+        dealer = try container.decode(PlayerID.self, forKey: .dealer)
+        participants = try container.decode([PlayerID].self, forKey: .participants)
+        hands = try container.decode([PlayerID: [Card]].self, forKey: .hands)
+        undealtCards = try container.decode([Card].self, forKey: .undealtCards)
+        stake = try container.decode(Int.self, forKey: .stake)
+        phase = try container.decode(RoundPhase.self, forKey: .phase)
+        currentTrick = try container.decode(TrickState.self, forKey: .currentTrick)
+        completedTricks = try container.decode([CompletedTrick].self, forKey: .completedTricks)
+        knocks = try container.decode([KnockRecord].self, forKey: .knocks)
+        poorParticipants = try container.decode([PlayerID].self, forKey: .poorParticipants, default: [])
+        povertyResponses = try container.decode([PlayerResponse].self, forKey: .povertyResponses, default: [])
+        removedHands = try container.decode([[Card]].self, forKey: .removedHands, default: [])
+        revealedHands = try container.decode([RevealedHand].self, forKey: .revealedHands, default: [])
+        history = try container.decodeIfPresent(RoundHistory.self, forKey: .history)
+    }
+}
+
+extension MatchState {
+    private enum CodingKeys: CodingKey { case players, round, phase, houseRules, lastOrdinaryKnocker, eightCardRule }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        players = try container.decode([PlayerState].self, forKey: .players)
+        round = try container.decode(RoundState.self, forKey: .round)
+        phase = try container.decode(MatchPhase.self, forKey: .phase)
+        houseRules = try container.decode(HouseRules.self, forKey: .houseRules, default: .standard)
+        lastOrdinaryKnocker = try container.decodeIfPresent(PlayerID.self, forKey: .lastOrdinaryKnocker)
+        eightCardRule = try container.decodeIfPresent(EightCardState.self, forKey: .eightCardRule)
     }
 }

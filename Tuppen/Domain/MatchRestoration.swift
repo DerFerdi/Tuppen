@@ -4,6 +4,11 @@
 extension GameEngine {
     func replaySavedRound(_ snapshot: MatchState) throws -> GameEngine {
         var engine = self
+        if let history = snapshot.round.history {
+            // Only this round is replayed. Statistics never consume these events.
+            for entry in history.actions { try engine.apply(entry.action, by: entry.player) }
+            return engine
+        }
         let plays = snapshot.round.uniqueTricks.flatMap { trick in
             trick.plays.map { (trick.number, $0) }
         }
@@ -42,6 +47,13 @@ private extension RoundState {
 
 extension MatchState {
     func roundStartForRestoration() throws -> MatchState {
+        if let history = round.history { return try journalRoundStart(history) }
+        guard houseRules == .standard, lastOrdinaryKnocker == nil, eightCardRule == nil,
+              round.poorParticipants.isEmpty, round.povertyResponses.isEmpty,
+              round.removedHands.isEmpty, round.revealedHands.isEmpty,
+              players.allSatisfy({ $0.maximumStrokes == .seven }) else {
+            throw GameError.invalidSavedState
+        }
         let seats = players.map(\.id)
         let dealtSeats = Set(round.hands.keys)
         // These bounds follow from a 32-card deck and seven-stroke elimination.
@@ -125,5 +137,49 @@ extension MatchState {
             hands: initialHands, undealtCards: round.undealtCards,
             phase: .playing(.mayKnock(leader)), currentTrick: TrickState(number: 1)
         ))
+    }
+}
+
+private extension MatchState {
+    func journalRoundStart(_ history: RoundHistory) throws -> MatchState {
+        let seats = players.map(\.id)
+        let threshold = houseRules.maximumStrokes.rawValue
+        let maxStake = 1 + seats.count * GameEngine.cardsPerPlayer
+        // Every false challenged claim adds a stroke; all other completed claims
+        // consume four undealt cards. This bound follows from physical progress,
+        // rather than imposing a limit on accepted gameplay.
+        let maxActions = 32 * (seats.count + 2) + (8 + seats.count * threshold) * (seats.count + 1) + seats.count
+        guard houseRules != .standard,
+              (2...8).contains(seats.count), Set(seats).count == seats.count,
+              !houseRules.eightCardRule || seats.count <= 5,
+              history.initialPlayers.map(\.id) == seats,
+              history.actions.count <= maxActions,
+              (1...(seats.count * threshold)).contains(round.number),
+              players.allSatisfy({ $0.maximumStrokes == houseRules.maximumStrokes }),
+              history.initialPlayers.allSatisfy({
+                  $0.maximumStrokes == houseRules.maximumStrokes && (0..<(threshold + maxStake)).contains($0.strokes)
+              }),
+              (2...seats.count).contains(history.initialPlayers.filter { $0.status == .active }.count),
+              history.initialPlayers.contains(where: { $0.id == round.dealer && $0.status == .active }),
+              history.lastOrdinaryKnocker == nil || seats.contains(history.lastOrdinaryKnocker!),
+              houseRules.consecutiveKnockRestriction || history.lastOrdinaryKnocker == nil else {
+            throw GameError.invalidSavedState
+        }
+        if round.number == 1 {
+            guard history.initialPlayers.allSatisfy({ $0.strokes == 0 }), history.lastOrdinaryKnocker == nil else {
+                throw GameError.invalidSavedState
+            }
+        }
+        let priorProgress = history.initialPlayers.reduce(0) { $0 + min($1.strokes, threshold) }
+        guard round.number - 1 <= priorProgress else { throw GameError.invalidSavedState }
+        let deck = try Deck(cards: history.deck)
+        return MatchState(
+            players: history.initialPlayers,
+            round: GameEngine.deal(
+                number: round.number, dealer: round.dealer, players: history.initialPlayers, deck: deck,
+                houseRules: houseRules, lastOrdinaryKnocker: history.lastOrdinaryKnocker
+            ),
+            houseRules: houseRules, lastOrdinaryKnocker: history.lastOrdinaryKnocker
+        )
     }
 }

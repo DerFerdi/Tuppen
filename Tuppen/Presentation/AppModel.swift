@@ -70,7 +70,7 @@ final class AppModel {
 
     var view: PlayerView? { snapshot?.view }
     var statistics: LocalStatistics { snapshot?.statistics ?? LocalStatistics() }
-    var hasActiveMatch: Bool { view?.matchPhase == .playing }
+    var hasActiveMatch: Bool { view?.matchPhase.isActive == true }
     /// Dismissing the alert does not discard the failed load's recovery action.
     var canRetryRestore: Bool { hasLoaded && snapshot == nil && !isBusy }
     var canKnock: Bool { canSubmit(.knock) }
@@ -78,7 +78,11 @@ final class AppModel {
     var canSkipToResult: Bool { canPresent && isEliminatedSpectator && !isSkippingToResult && failure == nil }
 
     private var isEliminatedSpectator: Bool {
-        guard let view, view.matchPhase == .playing else { return false }
+        guard let view, view.matchPhase.isActive else { return false }
+        if case .awaitingEightCardDeal(let participants) = view.matchPhase,
+           participants.contains(view.player) { return false }
+        if view.isEightCardRule,
+           view.players.contains(where: { $0.id == view.player && $0.isParticipating }) { return false }
         return view.players.first(where: { $0.id == view.player })?.status == .eliminated
     }
 
@@ -211,12 +215,17 @@ final class AppModel {
             }
             retry = skipsPresentation ? .skipToResult : .resume
             while canPresent, !Task.isCancelled, let view {
+                guard view.matchPhase.isActive else { break }
                 if skipsPresentation {
                     // Cooperate with navigation/background cancellation between
                     // transactions without imposing a limit on valid gameplay.
                     await Task.yield()
                     try Task.checkCancellation()
                     guard canPresent else { throw CancellationError() }
+                }
+                if case .awaitingEightCardDeal = view.matchPhase {
+                    try await present(driver.nextRound(), skipping: skipsPresentation)
+                    continue
                 }
                 if case .finished = view.roundPhase {
                     // An eliminated spectator has no meaningful round decision.
@@ -232,6 +241,8 @@ final class AppModel {
                 switch view.roundPhase {
                 case .playing(let turn): player = turn.player; delay = .thinking
                 case .awaitingResponses(let pending): player = pending.expectedResponder; delay = .responseThinking
+                case .awaitingPovertyResponses(let pending): player = pending.expectedResponder; delay = .responseThinking
+                case .awaitingFourPicturesChallenges(let pending): player = pending.expectedResponder; delay = .responseThinking
                 case .finished: player = nil; delay = .thinking
                 }
                 guard let player, player != view.player else { break }
@@ -267,7 +278,7 @@ final class AppModel {
             // Keep the last table still while the session saves every step.
             // Only the real terminal result replaces it; intermediate events
             // produce no animation, sound, haptic, or VoiceOver announcement.
-            if let view = update.view, view.matchPhase != .playing {
+            if let view = update.view, !view.matchPhase.isActive {
                 settle()
                 try await speak(GameStrings(locale: presentationLocale).matchResult(in: view))
             }
@@ -295,7 +306,7 @@ final class AppModel {
     }
 
     private func speak(_ message: String) async throws {
-        guard voiceOverEnabled, canPresent else { return }
+        guard voiceOverEnabled, canPresent, !message.isEmpty else { return }
         try await announcements.announce(message, locale: presentationLocale)
         try Task.checkCancellation()
     }

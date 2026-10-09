@@ -13,7 +13,7 @@ struct V1BotStrategy: BotStrategy {
         switch view.roundPhase {
         case .playing(let turn): expected = turn.player
         case .awaitingResponses(let pending): expected = pending.expectedResponder
-        case .finished: expected = nil
+        case .awaitingPovertyResponses, .awaitingFourPicturesChallenges, .finished: expected = nil
         }
         guard expected == view.player else { return nil }
 
@@ -22,7 +22,7 @@ struct V1BotStrategy: BotStrategy {
         if view.legalActions.contains(.respondToKnock(.hold)) {
             // Prefer holding over immediate elimination when the heuristic is
             // positive. A nonpositive estimate does not prove a loss is certain.
-            let passEliminates = strokes + view.stake - 1 >= 7
+            let passEliminates = strokes + view.stake - 1 >= view.houseRules.maximumStrokes.rawValue
             let threshold = 0.35 + min(0.25, Double(view.stake - 1) * 0.04)
             let response: KnockResponse = (passEliminates && confidence > 0) || confidence >= threshold ? .hold : .pass
             let action = GameAction.respondToKnock(response)

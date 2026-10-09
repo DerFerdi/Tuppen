@@ -34,12 +34,15 @@ actor SessionDriver {
 
     func newMatch(
         botCount: BotCount = .two, difficulty: BotDifficulty = .medium,
+        houseRules: HouseRules = .standard,
         seeds: SessionSeeds = .system(), deck: Deck? = nil
     ) throws -> SessionUpdate {
         // A user explicitly starting over can recover from an unreadable save.
         // Publish the replacement only after its first checkpoint succeeds.
         let candidate = try session ?? GameSession.empty(store: resolvedStore())
-        let events = try candidate.startNewMatch(botCount: botCount, difficulty: difficulty, seeds: seeds, deck: deck)
+        let events = try candidate.startNewMatch(
+            botCount: botCount, difficulty: difficulty, houseRules: houseRules, seeds: seeds, deck: deck
+        )
         session = candidate
         return try update(events: events)
     }
@@ -53,6 +56,7 @@ actor SessionDriver {
     /// bot progression cannot silently deal over that result, including on load.
     func nextRound() throws -> SessionUpdate {
         guard let session else { throw SessionError.noMatch }
+        guard session.state?.eightCardRule == nil else { throw GameError.roundNotFinished }
         guard case .finished = session.state?.round.phase else { throw GameError.roundNotFinished }
         guard session.hasActiveMatch else { throw GameError.matchFinished }
         return try update(events: session.advanceOneAutomaticStep() ?? [])
@@ -60,7 +64,7 @@ actor SessionDriver {
 
     func advance(using strategy: (any BotStrategy)? = nil) throws -> SessionUpdate? {
         guard let session else { return nil }
-        if case .finished = session.state?.round.phase { return nil }
+        if session.state?.eightCardRule == nil, case .finished = session.state?.round.phase { return nil }
         guard let events = try session.advanceOneAutomaticStep(using: strategy) else { return nil }
         return try update(events: events)
     }
@@ -81,7 +85,7 @@ actor SessionDriver {
     private func update(events: [GameEvent] = []) throws -> SessionUpdate {
         guard let session else { throw SessionError.noMatch }
         var changes: [StrokeChange] = []
-        if let state = session.state, case .finished = state.round.phase {
+        if let state = session.state, state.eightCardRule == nil, case .finished = state.round.phase {
             // The engine's existing reconstruction includes Pass penalties and
             // terminal scoring. Comparing totals avoids a second scoring rule
             // implementation, and also supplies a recap after relaunch.

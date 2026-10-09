@@ -115,7 +115,7 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-V2 + V3 player-count and difficulty selection form the completed current development baseline. Current work specifies V4 House Rules; those rules are not yet implemented or released. V5 remains a future plan without a release schedule.
+V2 + V3 player-count and difficulty selection form the completed user-facing development baseline. V4 House Rules are in development: the backend supports programmatic configuration, while configuration UI and dedicated bot tactics remain pending. House Rules are not released to users. V5 remains a future plan without a release schedule.
 
 ### V1
 
@@ -127,7 +127,7 @@ Choose one, two, or three computer opponents and Easy, Medium, or Hard difficult
 
 ### V4
 
-Optional [House Rules](PRODUCT_SPEC.md#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The specification preserves the current standard rules as the default.
+Optional [House Rules](PRODUCT_SPEC.md#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The engine, local persistence, and human statistics support these options; New Game still creates the standard configuration. See [Game engine](Documentation/GameEngine.md#house-rules-state) for the backend boundary.
 
 ### V5
 

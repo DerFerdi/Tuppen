@@ -1,8 +1,11 @@
 /// Actions contain intent only; callers cannot supply scoring or state changes.
-enum GameAction: Equatable, Sendable {
+enum GameAction: Equatable, Codable, Sendable {
     case playCard(Card)
     case knock
     case respondToKnock(KnockResponse)
+    case respondToPoverty(KnockResponse)
+    case claimFourPictures
+    case respondToFourPictures(FourPicturesResponse)
 }
 
 /// Public facts produced in resolution order. Events never contain hidden hands
@@ -19,9 +22,19 @@ enum GameEvent: Equatable, Sendable {
     case playerEliminated(PlayerID)
     case matchWon(PlayerID)
     case matchDrawn
+    case povertyStarted(participants: [PlayerID])
+    case fourPicturesClaimed(PlayerID)
+    case fourPicturesDeclined(PlayerID)
+    case fourPicturesChallenged(claimant: PlayerID, challenger: PlayerID)
+    case fourPicturesBluffExposed(PlayerID)
+    case fourPicturesRevealed(RevealedHand)
+    case fourPicturesExchanged(PlayerID)
+    case eightCardRuleStarted(participants: [PlayerID], dealer: PlayerID)
+    case eightCardRuleEnded(winner: PlayerID, participants: [PlayerID])
 }
 
 enum GameError: Error, Equatable {
+    case invalidHouseRules
     case invalidDeck
     case invalidPlayerCount
     case duplicatePlayer

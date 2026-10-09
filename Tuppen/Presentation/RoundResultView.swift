@@ -29,7 +29,7 @@ struct RoundResultView: View {
                 .font(.system(compact ? .title2 : .title, design: .serif, weight: .medium))
                 .lineLimit(2).minimumScaleFactor(0.85)
                 .accessibilityAddTraits(.isHeader)
-                .accessibilityLabel(view.matchPhase == .playing ? title : strings.matchResult(in: view))
+                .accessibilityLabel(view.matchPhase.isActive ? title : strings.matchResult(in: view))
             if case .noActiveWinner = outcome {
                 Text(strings.text("The winner passed. Strokes for everyone still in."))
                     .font(.callout).foregroundStyle(.secondary)
@@ -51,7 +51,7 @@ struct RoundResultView: View {
                 }
             }
             .padding(.bottom, 4)
-            if view.matchPhase == .playing {
+            if view.matchPhase.isActive {
                 if view.players.first(where: { $0.id == view.player })?.status == .eliminated {
                     Text(strings.text("The opponents play on."))
                         .font(.callout).foregroundStyle(.secondary)
@@ -83,7 +83,7 @@ struct RoundResultView: View {
 
     private var title: String {
         switch view.matchPhase {
-        case .playing:
+        case .playing, .awaitingEightCardDeal, .eightCardRule:
             if case .noActiveWinner = outcome { strings.text("Round Complete") }
             else { strings.roundResult(outcome, in: view) }
         case .finished(let winner):

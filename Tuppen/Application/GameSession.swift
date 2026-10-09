@@ -39,9 +39,10 @@ final class GameSession {
 
     var state: MatchState? { engine?.state }
     var statistics: LocalStatistics { saved.statistics }
-    var hasActiveMatch: Bool { engine?.state.phase == .playing }
+    var hasActiveMatch: Bool { engine?.state.phase.isActive == true }
     var botCount: BotCount? { saved.session?.botCount }
     var difficulty: BotDifficulty? { saved.session?.difficulty }
+    var houseRules: HouseRules? { engine?.state.houseRules }
 
     init(store: any GameStore) throws {
         self.store = store
@@ -68,6 +69,7 @@ final class GameSession {
     @discardableResult
     func startNewMatch(
         botCount: BotCount = .two, difficulty: BotDifficulty = .medium,
+        houseRules: HouseRules = .standard,
         seeds: SessionSeeds = .system(), deck: Deck? = nil
     ) throws -> [GameEvent] {
         var deckRandom = SeededRandom(seed: seeds.deck)
@@ -75,7 +77,7 @@ final class GameSession {
         // remain in this order throughout the match, including after elimination.
         let seats = (0..<botCount.playerCount).map { PlayerID(rawValue: $0) }
         let start = try GameEngine.start(
-            players: seats, deck: deck ?? Deck.shuffled(using: &deckRandom)
+            players: seats, deck: deck ?? Deck.shuffled(using: &deckRandom), houseRules: houseRules
         )
         let session = SavedSession(
             human: Self.human, match: start.engine.state, deckRandom: deckRandom,
@@ -99,18 +101,16 @@ final class GameSession {
     @discardableResult
     func advanceOneAutomaticStep(using strategy: (any BotStrategy)? = nil) throws -> [GameEvent]? {
         guard var candidate = engine, var session = saved.session else { throw SessionError.noMatch }
-        guard candidate.state.phase == .playing else { return nil }
+        guard candidate.state.phase.isActive else { return nil }
         let events: [GameEvent]
-        switch candidate.state.round.phase {
-        case .finished:
+        if case .awaitingEightCardDeal = candidate.state.phase {
+            events = try candidate.startEightCardRule(deck: Deck.shuffled(using: &session.deckRandom))
+        } else if candidate.state.phase == .playing, case .finished = candidate.state.round.phase {
             events = try candidate.startNextRound(deck: Deck.shuffled(using: &session.deckRandom))
-        case .playing(let turn):
-            guard turn.player != session.human else { return nil }
-            events = try botAction(by: turn.player, engine: &candidate, session: &session, strategy: strategy)
-        case .awaitingResponses(let pending):
-            guard let responder = pending.expectedResponder else { throw SessionError.invalidBotAction }
-            guard responder != session.human else { return nil }
-            events = try botAction(by: responder, engine: &candidate, session: &session, strategy: strategy)
+        } else {
+            guard let actor = candidate.expectedActor else { throw SessionError.invalidBotAction }
+            guard actor != session.human else { return nil }
+            events = try botAction(by: actor, engine: &candidate, session: &session, strategy: strategy)
         }
         try commit(candidate, session: session, events: events)
         return events
@@ -138,12 +138,26 @@ final class GameSession {
     private func botAction(
         by player: PlayerID, engine: inout GameEngine, session: inout SavedSession, strategy: (any BotStrategy)?
     ) throws -> [GameEvent] {
-        // Test scenarios may inject a strategy. Ordinary play, including after
-        // restore or Skip to Result, always uses the saved match's difficulty.
-        let strategy = strategy ?? session.difficulty.makeStrategy()
+        // Test scenarios may inject a strategy. Standard decisions, including
+        // after restore or Skip to Result, use the saved match's difficulty.
         let view = try engine.view(for: player)
-        guard let action = strategy.chooseAction(from: view, using: &session.botRandom),
-              view.legalActions.contains(action) else { throw SessionError.invalidBotAction }
+        let action: GameAction?
+        if let strategy {
+            action = strategy.chooseAction(from: view, using: &session.botRandom)
+        } else if view.legalActions.contains(.respondToPoverty(.hold)) {
+            // The backend's neutral policy accepts Poverty and declines optional
+            // challenges. Strategic House Rules decisions belong in a later pass.
+            action = .respondToPoverty(.hold)
+        } else if view.legalActions.contains(.respondToFourPictures(.decline)) {
+            action = .respondToFourPictures(.decline)
+        } else if view.matchPhase == .eightCardRule {
+            // Existing difficulties reason about four-card rounds. Until they
+            // support the tiebreak, use a deterministic engine-approved card.
+            action = view.legalActions.first
+        } else {
+            action = session.difficulty.makeStrategy().chooseAction(from: view, using: &session.botRandom)
+        }
+        guard let action, view.legalActions.contains(action) else { throw SessionError.invalidBotAction }
         return try engine.apply(action, by: player)
     }
 
@@ -152,7 +166,7 @@ final class GameSession {
         var checkpoint = session
         checkpoint.match = candidate.state
         next.session = checkpoint
-        try next.statistics.record(events, state: candidate.state, human: session.human)
+        try next.statistics.record(events, state: candidate.state, human: session.human, previousState: engine?.state)
         // Publish neither events nor state until both state and counters are on
         // disk. Restore reads counters directly and never consumes old events.
         try store.save(next)

@@ -169,6 +169,12 @@ enum TableTimeline {
             case .matchDrawn:
                 frame.resultVisible = true
                 beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: false), announcement: event))
+            case .povertyStarted, .fourPicturesClaimed, .fourPicturesDeclined,
+                 .fourPicturesChallenged, .fourPicturesBluffExposed,
+                 .fourPicturesRevealed, .fourPicturesExchanged, .eightCardRuleStarted, .eightCardRuleEnded:
+                // Settle to the committed public view without assigning normal
+                // Knock or round-result choreography to different rule events.
+                break
             }
         }
         frame.players = view.players

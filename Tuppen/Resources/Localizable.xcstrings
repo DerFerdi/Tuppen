@@ -222,6 +222,23 @@
         }
       }
     },
+    "%lld of ten strokes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld von zehn Strichen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of ten strokes"
+          }
+        }
+      }
+    },
     "%lld strokes added." : {
       "extractionState" : "manual",
       "localizations" : {

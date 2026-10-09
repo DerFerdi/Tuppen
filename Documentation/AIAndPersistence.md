@@ -6,13 +6,15 @@ The application layer supports one human and one, two, or three computer opponen
 
 `BotCount` admits only `.one`, `.two`, and `.three`, for two through four total participants. `BotDifficulty` admits only `.easy`, `.medium`, and `.hard`. Pass both to `GameSession.startNewMatch(botCount:difficulty:)` or `SessionDriver.newMatch(botCount:difficulty:)`. Defaults are `.two` and `.medium`. New Game selects both per match; Continue uses the saved configuration independently of the drafts.
 
+Both creation methods also accept `houseRules: HouseRules`, defaulting to `.standard`. This immutable domain configuration is independent of count and difficulty. House Rules currently have a programmatic interface only: the existing New Game sheet passes no override, and Continue reads the saved configuration.
+
 New matches always seat the human at ID zero, followed by bots with IDs one through the configured count. This order is deterministic and retains eliminated seats. The engine already deals four cards per active player and handles turn order and response queues without a fixed seat count. Every non-human actor uses the same selected difficulty. `GameSession.botCount` describes the original configuration, not the number of bots still active; `difficulty` remains fixed for the match.
 
 ## Bot boundary and decisions
 
 `BotStrategy.chooseAction(from:using:)` accepts a `PlayerView` and an injected decision generator. It returns an optional `GameAction`, with no actor identity or engine mutation. An out-of-turn view produces no action. `GameSession` obtains the expected actor from the authoritative phase, creates that seat's view, checks the returned action against its legal actions, and submits it through `GameEngine.apply(_:by:)` for validation.
 
-`PlayerView` contains only the bot's hand and public facts: seats, strokes, participation, hand counts, stake, tricks, knocks, and legal actions. It carries no authoritative state, opponent hands, undealt cards, or deal generator. Hidden-card permutations are tested both before play and after public actions. Deck and bot randomness use independent `SeededRandom` streams; only the decision stream crosses the strategy boundary.
+`PlayerView` contains only the bot's hand and public facts: seats, strokes, participation, hand counts, stake, tricks, Knocks, House Rules, challenge revelations, and legal actions. It carries no authoritative state, hidden opponent hands, undealt or unverified discarded cards, private replay journal, or deal generator. A challenge reveals the old hand only; replacement cards remain private. Hidden-card permutations are tested both before play and after public actions. Deck and bot randomness use independent `SeededRandom` streams; only the decision stream crosses the strategy boundary.
 
 `BotDifficulty.makeStrategy()` maps Easy to `EasyBotStrategy`, Medium to the unchanged `V1BotStrategy`, and Hard to `HardBotStrategy`. The session resolves this from the checkpoint for every automatic decision. Explicit strategy injection remains available for deterministic test scenarios; ordinary driver calls never override the saved choice.
 
@@ -32,6 +34,8 @@ Hard conserves established cards in early tricks and weighs winning the third-tr
 
 The strategies can intentionally agree, especially on forced-suit single-card turns and visibly lost final tricks. Hard reasons more deeply from public history but remains a bounded heuristic, not an optimal solver. Difficulty affects neither information access nor rule validation.
 
+The standard difficulty heuristics remain unchanged. Their elimination-risk thresholds use the configured maximum. New optional-rule decisions use a deliberately neutral session policy: bots Hold during Poverty, decline Four Pictures challenges, and choose the first engine-advertised legal card in an Eight-Card-Rule. They do not initiate Four Pictures claims. Explicit test strategies may override these choices; every returned action still passes legal-action and engine validation. Dedicated House Rules tactics are deferred. In particular, the ordinary strategies do not yet use challenge revelations to estimate retained versus discarded cards.
+
 Tests inject seeds or fixed draws; production obtains separate seeds from the system generator when creating a match. All strategy randomness uses the existing saved decision stream. Saved generator states allow exact continuation in the current implementation. Cross-toolchain fixture tests should retain explicit decks because Swift's shuffle algorithm is not a save-format guarantee.
 
 ## Session orchestration
@@ -49,6 +53,8 @@ let progress = try session.advanceBots()
 
 `advanceOneAutomaticStep` applies one bot action or deals the next round. During a knock it follows `PendingKnock.expectedResponder`, stopping before the human's response. Once responses finish, the engine resumes the knocker's mandatory card turn. A human who has passed or been eliminated does not block the remaining bots.
 
+`GameEngine.expectedActor` also covers Poverty responses, challenge decisions, and tiebreak turns. Automatic progression always stops before that actor is the human. An awaiting Eight-Card-Rule consumes the next deck shuffle as a saved deal step. Its participants may have terminal stroke totals from the last scored round; tiebreak participation, rather than those totals, determines who acts. The presentation driver keeps the existing result-acknowledgment boundary: `nextRound()` starts the pending tiebreak, while `advance()` performs its subsequent bot card turns.
+
 `advanceBots` repeats those steps until human input, match completion, or a cooperative action budget (64 by default). `yielded` means the caller should resume; it imposes no limit on a valid match. There are no timers or artificial delays. The app uses the single-step method to publish each committed state and pause at round results.
 
 Every successful action and between-round deal saves automatically. The session first prepares a candidate engine, counters, and random streams, then writes the checkpoint, then publishes the new live state and events. A failed write discards that candidate, including consumed randomness, so retrying is safe. In a multi-step call, earlier successful steps remain committed if a later step fails; read the current session state or use the single-step API when presenting individual events.
@@ -61,15 +67,19 @@ Statistics and match state are separate types in the same atomic file. Saving th
 
 New `SavedSession` values also encode an integer `botCount` and a string `difficulty` (`easy`, `medium`, or `hard`). The envelope remains version 1: these additive fields need no migration of authoritative state or random streams. An absent count means the historical two-bot configuration, never an inferred count; absent difficulty means Medium, the historical V1 strategy. Explicit nulls or unsupported values are corrupt. A supported count that disagrees with retained match seats is invalid, and the human must still be seated. Eliminated seats count toward the original configuration. Historical saves load without rewriting or recounting them; the next successful transaction writes both fields. Older V1 binaries reject new two- or four-seat saves through their three-seat validation. Builds predating difficulty selection ignore the new field and use their original strategy, so downgrades do not preserve Easy or Hard behavior.
 
+V4 retains version 1 with explicit defaults for additive fields: absent House Rules mean `.standard`, and absent new statistics mean zero. Checkpoints include rule configuration, the latest ordinary knocker, Poverty membership and responses, remaining and removed cards, pending challenges, public revelations, and tiebreak state. Older binaries are not expected to preserve V4 state on downgrade. Invalid configurations and inconsistent state are rejected rather than silently repaired.
+
 The codec reads the version before interpreting the payload. Unknown versions produce `unsupportedVersion`; malformed data produces `corruptData`; inconsistent decoded contents produce `invalidContents`. Read/write failures also have typed errors. These carry no UI text and can be mapped to Apple's string catalog by presentation code. A missing file means a new local profile.
 
-`GameEngine(restoring:)` validates card conservation and bounded structure, reconstructs the start of the saved round, and checks that its recorded plays and knocks reproduce the exact snapshot through existing rule validation. This handles pending responses, passed committed cards, elimination, and draws without duplicating scoring rules. Earlier completed rounds must also be supported by prior scoring progress: each costs at least one unit, with each player's strokes capped at seven for this check. Current-round penalties are excluded. A fresh zero-stroke game claiming round 21 is therefore rejected at load time. This is a necessary consistency check, not full historical replay; restoration emits no application events or reconstructed statistics. Phase 1 rules are unchanged.
+`GameEngine(restoring:)` validates card conservation and bounded structure, reconstructs the start of the saved round, and checks that accepted actions reproduce the exact snapshot through existing rule validation. Standard historical saves use the existing play/Knock reconstruction. Configured House Rules retain a private current-round journal with its original deal, starting player totals, and actions: public plays alone cannot reconstruct exchanged hands. Tiebreaks retain their own deal and card actions. Neither journal reaches a player view.
+
+Earlier completed rounds must also be supported by prior scoring progress: each costs at least one unit, with each player's strokes capped at the configured maximum for this check. Current-round penalties are excluded. This is a necessary consistency check, not full match replay. Restore validation emits no application events, consumes no saved random stream, and never recounts statistics or draws pending replacement cards.
 
 A failed load leaves the file untouched. The app reports a localized error and offers a new game using `GameSession.empty(store:)`. Creating the empty session alone does not overwrite anything; only a successful new-match save replaces the file. `LocalGameStore.remove()` also remains available for explicit recovery. Compatible migrations belong at the codec's version switch when needed; changes to the persisted schema or restoration semantics require an explicit compatibility decision and a version bump where necessary.
 
 ## Human statistics
 
-The counters below describe the implemented V2 + V3 baseline. The authoritative [future V4 statistics](../PRODUCT_SPEC.md#future-v4-statistics) specify additional human-only Four Pictures and Eight-Card-Rule counters, including tiebreaks being excluded from ordinary round counters. Those additions are not implemented yet.
+All counters are human-scoped and stored locally. The [product specification](../PRODUCT_SPEC.md#v4-statistics) defines the additional House Rules semantics; the current Statistics screen still shows the original counters.
 
 | Counter | Recorded fact |
 | --- | --- |
@@ -79,10 +89,18 @@ The counters below describe the implemented V2 + V3 baseline. The authoritative 
 | Rounds won | Human is the active round winner. A passed card winning with `noActiveWinner` does not count. |
 | Knocks made / held / passed | Successful human Knock / Hold / Pass actions only. |
 | Highest stake reached | Maximum authoritative stake observed during accepted transitions while the human participates, including their Pass action. It freezes once the human leaves that round and excludes later bot-only raises. |
+| Eight-Card-Rules played | A completed tiebreak in which the human participated. Starting, saving, or restoring an unfinished tiebreak does not count. |
+| Eight-Card-Rules won | The human wins that tiebreak's eighth trick, recorded at the same completion point as played. |
+| Four Pictures exchanges | The human actually receives four replacement cards after a successful claim. |
+| Four Pictures bluffs | A false human claim is unchallenged and completes an exchange; this also increments exchanges. |
 
 Round participation comes from retained hand entries, which remain present even when a dealt player has no cards left, Passes, or is eliminated. Current participation and the human's Pass event define the stake boundary: passing at stake two followed by bot raises to three leaves the human maximum at two.
 
 Counters consume only newly accepted engine events during a checkpoint commit. Restoration loads them directly and produces no historical events, so opening a finished round or terminal match cannot recount it. Failed or illegal actions do not count.
+
+Tiebreaks never count as ordinary rounds. Their completion records one match result and, for a participating human, the applicable tiebreak counters in the same atomic checkpoint. An earlier-eliminated human still receives the normal match loss but no tiebreak participation. Completing a restored tiebreak counts once; a failed save rolls back its result and counters together.
+
+Four Pictures statistics inspect only the human's own pre-exchange hand when an actual exchange event is accepted. This private classification does not verify or reveal an unchallenged claim to other players. Exposed false claims, interrupted exchanges, and bot exchanges contribute nothing. Actual human Poverty Hold/Pass choices retain the existing response counters; forced poor participation and the automatic raise create no artificial Hold or Knock.
 
 `resetStatistics()` atomically zeros every counter without changing the match. Only subsequent accepted transitions contribute; if the human is still participating, the next transition observes that round's current stake. Reset after Pass does not recover the earlier stake. Reset after elimination followed by bot-only match completion legitimately yields one match played and zero rounds played. Validation therefore allows matches played to exceed rounds played, and never requires the human's highest stake to cover the current round's stake, even for a just-reset participating human.
 

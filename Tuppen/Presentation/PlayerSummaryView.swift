@@ -19,7 +19,7 @@ struct PlayerSummaryView: View {
             if compact {
                 HStack(spacing: 12) {
                     name
-                    StrokeMarksView(strokes: player.strokes).fixedSize()
+                    StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes).fixedSize()
                     reactionLabel
                 }
             } else {
@@ -27,7 +27,7 @@ struct PlayerSummaryView: View {
                     name
                     HStack(spacing: narrow ? 6 : 10) {
                         cardBacks
-                        StrokeMarksView(strokes: player.strokes)
+                        StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes)
                     }
                     reactionLabel.frame(height: 18)
                 }
@@ -101,7 +101,7 @@ struct PlayerSummaryView: View {
     }
 
     private var accessibilitySummary: String {
-        var parts = [strings.strokes(player.strokes)]
+        var parts = [strings.strokes(player.strokes, maximum: view.houseRules.maximumStrokes)]
         if player.status == .eliminated { parts.append(strings.text("Eliminated")) }
         else if !player.isParticipating { parts.append(strings.text("Passed")) }
         else { parts.append(strings.text("Cards: \(player.remainingCardCount)")) }
