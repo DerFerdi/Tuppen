@@ -115,7 +115,7 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-V2 + V3 player-count and difficulty selection form the completed user-facing development baseline. V4 House Rules are in development: the backend supports programmatic configuration, while configuration UI and dedicated bot tactics remain pending. House Rules are not released to users. V5 remains a future plan without a release schedule.
+V2 + V3 player-count and difficulty selection form the completed user-facing development baseline. V4 House Rules are in development: the backend and all three bot difficulties support programmatic configuration; configuration UI remains pending. House Rules are not released to users. V5 remains a future plan without a release schedule.
 
 ### V1
 
@@ -123,7 +123,7 @@ Polished offline Tuppen against computer opponents.
 
 ### V2 + V3
 
-Choose one, two, or three computer opponents and Easy, Medium, or Hard difficulty in one New Game sheet. Two opponents and Medium are preselected. Medium preserves the original V1 strategy; Continue restores the saved match's configuration.
+Choose one, two, or three computer opponents and Easy, Medium, or Hard difficulty in one New Game sheet. Two opponents and Medium are preselected. Medium retains the V1 approach with reduced speculative Knocks; Continue restores the saved match's configuration.
 
 ### V4
 

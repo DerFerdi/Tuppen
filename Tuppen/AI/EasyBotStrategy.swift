@@ -2,14 +2,23 @@
 /// infers missing suits or card locations from the public history.
 struct EasyBotStrategy: BotStrategy {
     func chooseAction<R: RandomNumberGenerator>(from view: PlayerView, using random: inout R) -> GameAction? {
-        guard view.matchPhase == .playing, !view.legalActions.isEmpty else { return nil }
-        switch view.roundPhase {
-        case .playing(let turn) where turn.player == view.player: break
-        case .awaitingResponses(let pending) where pending.expectedResponder == view.player: break
-        default: return nil
-        }
+        guard BotDecisionSupport.mayAct(in: view) else { return nil }
 
         let strength = positionStrength(view)
+        if view.legalActions.contains(.respondToPoverty(.hold)) {
+            let strokes = BotDecisionSupport.strokes(of: view.player, in: view)
+            let maximum = view.houseRules.maximumStrokes.rawValue
+            let passEliminates = strokes + 1 >= maximum
+            let threshold = strokes + 2 >= maximum ? 0.875 : 0.625
+            return .respondToPoverty((passEliminates && strength > 0) || strength >= threshold ? .hold : .pass)
+        }
+        if case .awaitingFourPicturesChallenges(let pending) = view.roundPhase {
+            let proven = BotDecisionSupport.knownFalseClaim(by: pending.claimant, in: view)
+            return .respondToFourPictures(proven ? .challenge : .decline)
+        }
+        if view.legalActions.contains(.claimFourPictures), view.hand.isFourPictures {
+            return .claimFourPictures
+        }
         if view.legalActions.contains(.respondToKnock(.hold)) {
             let strokes = view.players.first { $0.id == view.player }?.strokes ?? 0
             let passEliminates = strokes + view.stake - 1 >= view.houseRules.maximumStrokes.rawValue
@@ -24,13 +33,9 @@ struct EasyBotStrategy: BotStrategy {
             return .knock
         }
 
-        let cards = view.legalActions.compactMap { action -> Card? in
-            if case .playCard(let card) = action { card } else { nil }
-        }.sorted {
-            $0.rank == $1.rank ? $0.suit.rawValue < $1.suit.rawValue : $0.rank < $1.rank
-        }
+        let cards = BotDecisionSupport.legalCards(in: view)
         guard !cards.isEmpty else { return nil }
-        if view.currentTrick.number == 4 {
+        if view.currentTrick.number == BotDecisionSupport.finalTrick(in: view) {
             return .playCard(cards.last(where: { winsCurrentTrick($0, view: view) }) ?? cards[0])
         }
         // Choosing between the two cheapest cards gives away some lead control
@@ -39,12 +44,13 @@ struct EasyBotStrategy: BotStrategy {
     }
 
     private func positionStrength(_ view: PlayerView) -> Double {
-        if view.currentTrick.number == 4,
+        let finalTrick = BotDecisionSupport.finalTrick(in: view)
+        if view.currentTrick.number == finalTrick,
            let committed = view.currentTrick.plays.first(where: { $0.player == view.player }) {
             return view.currentTrick.winningPlay?.player == view.player
                 ? rankStrength(committed.card) : 0
         }
-        let candidates = view.currentTrick.number == 4
+        let candidates = view.currentTrick.number == finalTrick
             ? view.hand.filter { winsCurrentTrick($0, view: view) } : view.hand
         return candidates.map(rankStrength).max() ?? 0
     }

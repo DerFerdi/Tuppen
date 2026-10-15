@@ -138,25 +138,11 @@ final class GameSession {
     private func botAction(
         by player: PlayerID, engine: inout GameEngine, session: inout SavedSession, strategy: (any BotStrategy)?
     ) throws -> [GameEvent] {
-        // Test scenarios may inject a strategy. Standard decisions, including
+        // Test scenarios may inject a strategy. Default decisions, including
         // after restore or Skip to Result, use the saved match's difficulty.
         let view = try engine.view(for: player)
-        let action: GameAction?
-        if let strategy {
-            action = strategy.chooseAction(from: view, using: &session.botRandom)
-        } else if view.legalActions.contains(.respondToPoverty(.hold)) {
-            // The backend's neutral policy accepts Poverty and declines optional
-            // challenges. Strategic House Rules decisions belong in a later pass.
-            action = .respondToPoverty(.hold)
-        } else if view.legalActions.contains(.respondToFourPictures(.decline)) {
-            action = .respondToFourPictures(.decline)
-        } else if view.matchPhase == .eightCardRule {
-            // Existing difficulties reason about four-card rounds. Until they
-            // support the tiebreak, use a deterministic engine-approved card.
-            action = view.legalActions.first
-        } else {
-            action = session.difficulty.makeStrategy().chooseAction(from: view, using: &session.botRandom)
-        }
+        let decisionStrategy = strategy ?? session.difficulty.makeStrategy()
+        let action = decisionStrategy.chooseAction(from: view, using: &session.botRandom)
         guard let action, view.legalActions.contains(action) else { throw SessionError.invalidBotAction }
         return try engine.apply(action, by: player)
     }

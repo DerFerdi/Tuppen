@@ -2,7 +2,7 @@
 
 This document is the authoritative product and game specification for TUPPEN.
 
-The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 has a programmatic backend in development; its configuration UI and dedicated bot strategies are not implemented or released.
+The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 has a programmatic backend with dedicated Easy / Medium / Hard tactics; its configuration UI is not implemented and House Rules are not released.
 
 ## Product
 
@@ -929,11 +929,11 @@ Choose one difficulty for all computer opponents in the match:
 * Medium
 * Hard
 
-Difficulty belongs in interchangeable AI strategies rather than the core engine. Defaults are two opponents and Medium, which preserves the V1 strategy. Save the selected count and difficulty with the match; historical saves restore as two opponents on Medium. New Game selects both in one compact sheet, while Continue uses the saved configuration.
+Difficulty belongs in interchangeable AI strategies rather than the core engine. Defaults are two opponents and Medium, which retains the V1 approach with reduced speculative Knocks. Save the selected count and difficulty with the match; historical saves restore as two opponents on Medium. New Game selects both in one compact sheet, while Continue uses the saved configuration.
 
 ### V4 — House Rules
 
-The authoritative [House Rules specification](#v4-house-rules) covers maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The backend supports these options programmatically, with standard configuration as the default. Configuration UI and strategic V4 bot behavior remain future work; House Rules are not yet released to users.
+The authoritative [House Rules specification](#v4-house-rules) covers maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The backend supports these options programmatically, with standard configuration as the default. Dedicated V4 bot tactics are implemented; configuration UI remains future work and House Rules are not yet released to users.
 
 ### V5 — Friends
 

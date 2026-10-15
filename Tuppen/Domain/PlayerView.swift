@@ -27,7 +27,12 @@ struct PlayerView: Equatable, Sendable {
     let lastOrdinaryKnocker: PlayerID?
     let poorParticipants: [PlayerID]
     let povertyResponses: [PlayerResponse]
+    /// Historical challenge revelations, including hands subsequently exchanged.
     let revealedHands: [RevealedHand]
+    /// Only publicly revealed cards still retained by their original owner.
+    let knownHands: [RevealedHand]
+    /// Previously revealed cards removed by a public whole-hand exchange.
+    let discardedPublicCards: [Card]
     let isEightCardRule: Bool
 
     init(
@@ -36,7 +41,8 @@ struct PlayerView: Equatable, Sendable {
         currentTrick: TrickState, leadSuit: Suit?, completedTricks: [CompletedTrick],
         knocks: [KnockRecord], legalActions: [GameAction], houseRules: HouseRules = .standard,
         lastOrdinaryKnocker: PlayerID? = nil, poorParticipants: [PlayerID] = [],
-        povertyResponses: [PlayerResponse] = [], revealedHands: [RevealedHand] = [], isEightCardRule: Bool = false
+        povertyResponses: [PlayerResponse] = [], revealedHands: [RevealedHand] = [],
+        knownHands: [RevealedHand] = [], discardedPublicCards: [Card] = [], isEightCardRule: Bool = false
     ) {
         self.player = player
         self.hand = hand
@@ -56,6 +62,8 @@ struct PlayerView: Equatable, Sendable {
         self.poorParticipants = poorParticipants
         self.povertyResponses = povertyResponses
         self.revealedHands = revealedHands
+        self.knownHands = knownHands
+        self.discardedPublicCards = discardedPublicCards
         self.isEightCardRule = isEightCardRule
     }
 }

@@ -177,6 +177,7 @@ struct GameEngine: Sendable {
         } else {
             phase = round.phase
         }
+        let knowledge = publicHandKnowledge
         return PlayerView(
             player: player, hand: hands[player, default: []],
             players: state.players.map {
@@ -194,8 +195,33 @@ struct GameEngine: Sendable {
             houseRules: state.houseRules, lastOrdinaryKnocker: state.lastOrdinaryKnocker,
             poorParticipants: tiebreak == nil ? round.poorParticipants : [],
             povertyResponses: tiebreak == nil ? round.povertyResponses : [],
-            revealedHands: tiebreak == nil ? round.revealedHands : [], isEightCardRule: tiebreak != nil
+            revealedHands: tiebreak == nil ? round.revealedHands : [],
+            knownHands: tiebreak == nil ? knowledge.retained : [],
+            discardedPublicCards: tiebreak == nil ? knowledge.discarded : [], isEightCardRule: tiebreak != nil
         )
+    }
+
+    /// Revelation is the allowlist: unchallenged old hands and replacement
+    /// identities never cross this boundary. Whole-hand exchanges are public,
+    /// and a removed card cannot return during the round, so no saved AI memory
+    /// or inspection of current opponent hands is needed to retire old knowledge.
+    private var publicHandKnowledge: (retained: [RevealedHand], discarded: [Card]) {
+        let round = state.round
+        let removed = Set(round.removedHands.flatMap { $0 })
+        let played = Set(round.completedTricks.flatMap { $0.trick.plays.map(\.card) }
+            + round.currentTrick.plays.map(\.card))
+        var retained: [RevealedHand] = []
+        var discarded: [Card] = []
+        var seen: Set<Card> = []
+        for revelation in round.revealedHands {
+            let cards = revelation.cards.filter { seen.insert($0).inserted }
+            discarded += cards.filter { removed.contains($0) }
+            let current = cards.filter { !removed.contains($0) && !played.contains($0) }
+            if !current.isEmpty {
+                retained.append(RevealedHand(player: revelation.player, cards: current))
+            }
+        }
+        return (retained, discarded)
     }
 
     private mutating func play(_ card: Card, by player: PlayerID, events: inout [GameEvent]) {

@@ -2,17 +2,30 @@
 /// counting estimates threats; it never assigns exact hidden hands to opponents.
 struct HardBotStrategy: BotStrategy {
     func chooseAction<R: RandomNumberGenerator>(from view: PlayerView, using random: inout R) -> GameAction? {
-        guard view.matchPhase == .playing, !view.legalActions.isEmpty else { return nil }
-        switch view.roundPhase {
-        case .playing(let turn) where turn.player == view.player: break
-        case .awaitingResponses(let pending) where pending.expectedResponder == view.player: break
-        default: return nil
-        }
+        guard BotDecisionSupport.mayAct(in: view) else { return nil }
 
         let position = PublicPosition(view)
         let confidence = position.roundConfidence
         let strokes = view.players.first { $0.id == view.player }?.strokes ?? 0
         let maximumStrokes = view.houseRules.maximumStrokes.rawValue
+        if view.legalActions.contains(.respondToPoverty(.hold)) {
+            let passEliminates = strokes + 1 >= maximumStrokes
+            let lossEliminates = strokes + 2 >= maximumStrokes
+            let pressureAfterPass = strokes + 1 >= maximumStrokes - 2
+            // Paying one stroke safely can still leave little room next round.
+            // Immediate elimination remains a stronger reason to avoid Hold.
+            let threshold = lossEliminates ? 0.68 : 0.50 - (pressureAfterPass ? 0.08 : 0)
+            let openingControl = opensRound(view) ? 0.05 : 0
+            let hold = passEliminates ? confidence > 0 : confidence + openingControl >= threshold
+            return .respondToPoverty(hold ? .hold : .pass)
+        }
+        if case .awaitingFourPicturesChallenges(let pending) = view.roundPhase {
+            return challengeResponse(to: pending.claimant, view: view, using: &random)
+        }
+        if view.legalActions.contains(.claimFourPictures),
+           view.hand.isFourPictures || shouldBluffFourPictures(view, confidence: confidence, using: &random) {
+            return .claimFourPictures
+        }
         if view.legalActions.contains(.respondToKnock(.hold)) {
             let passEliminates = strokes + view.stake - 1 >= maximumStrokes
             let lossEliminates = strokes + view.stake >= maximumStrokes
@@ -33,11 +46,7 @@ struct HardBotStrategy: BotStrategy {
             if confidence >= threshold, random.next() % 100 < 60 { return .knock }
         }
 
-        let cards = view.legalActions.compactMap { action -> Card? in
-            if case .playCard(let card) = action { card } else { nil }
-        }.sorted {
-            $0.rank == $1.rank ? $0.suit.rawValue < $1.suit.rawValue : $0.rank < $1.rank
-        }
+        let cards = BotDecisionSupport.legalCards(in: view)
         guard var chosen = cards.first else { return nil }
         var best = position.playValue(chosen)
         for card in cards.dropFirst() {
@@ -48,6 +57,61 @@ struct HardBotStrategy: BotStrategy {
             }
         }
         return .playCard(chosen)
+    }
+
+    private func opensRound(_ view: PlayerView) -> Bool {
+        guard let dealer = view.players.firstIndex(where: { $0.id == view.dealer }) else { return false }
+        let first = (1...view.players.count).map { view.players[(dealer + $0) % view.players.count] }
+            .first { $0.isParticipating }
+        return first?.id == view.player
+    }
+
+    private func shouldBluffFourPictures<R: RandomNumberGenerator>(
+        _ view: PlayerView, confidence: Double, using random: inout R
+    ) -> Bool {
+        let opponents = view.players.filter { $0.isParticipating && $0.id != view.player }
+        let maximum = view.houseRules.maximumStrokes.rawValue
+        guard BotDecisionSupport.weakExchangeCandidate(view.hand), confidence <= 0.42,
+              !BotDecisionSupport.knownFalseClaim(by: view.player, in: view),
+              picturesUnavailable(to: view.player, view: view, includingOwnHand: false) <= 12,
+              BotDecisionSupport.strokes(of: view.player, in: view) + 2 < maximum,
+              (1...2).contains(opponents.count),
+              opponents.allSatisfy({ $0.strokes >= maximum - 2 }) else { return false }
+        // Pressure makes an uncertain challenge costly for every opponent. Even
+        // then, replacing a weak hand is a rare wager, never routine aggression.
+        return random.next() % 100 < (opponents.count == 1 ? 2 : 1)
+    }
+
+    private func challengeResponse<R: RandomNumberGenerator>(
+        to claimant: PlayerID, view: PlayerView, using random: inout R
+    ) -> GameAction {
+        // Sixteen picture cards exist; thirteen known elsewhere rule out four
+        // in the claimant’s hand without inspecting any hidden cards.
+        if BotDecisionSupport.knownFalseClaim(by: claimant, in: view)
+            || picturesUnavailable(to: claimant, view: view) > 12 {
+            return .respondToFourPictures(.challenge)
+        }
+        let maximum = view.houseRules.maximumStrokes.rawValue
+        let strokes = BotDecisionSupport.strokes(of: view.player, in: view)
+        let claimantStrokes = BotDecisionSupport.strokes(of: claimant, in: view)
+        // A past exposed bluff is a weak behavioral signal after an exchange,
+        // not proof about the new hand. Do not risk elimination on that signal.
+        guard strokes + 2 < maximum, claimantStrokes + 1 < maximum,
+              BotDecisionSupport.previouslyExposedBluff(by: claimant, in: view) else {
+            return .respondToFourPictures(.decline)
+        }
+        return .respondToFourPictures(random.next() % 100 < 4 ? .challenge : .decline)
+    }
+
+    private func picturesUnavailable(
+        to claimant: PlayerID, view: PlayerView, includingOwnHand: Bool = true
+    ) -> Int {
+        let played = (view.completedTricks.map(\.trick) + [view.currentTrick]).flatMap { $0.plays.map(\.card) }
+        let heldElsewhere = view.knownHands.filter { $0.player != claimant }.flatMap(\.cards)
+        // A challenge can use our private cards. Before bluffing ourselves, only
+        // publicly unavailable cards prove what opponents can already disprove.
+        let ownCards = includingOwnHand ? view.hand : []
+        return Set(ownCards + played + view.discardedPublicCards + heldElsewhere).filter(\.isPicture).count
     }
 }
 
@@ -60,14 +124,16 @@ private struct PublicPosition {
     init(_ view: PlayerView) {
         self.view = view
         let tricks = view.completedTricks.map(\.trick) + [view.currentTrick]
-        knownCards = Set(view.hand + tricks.flatMap { $0.plays.map(\.card) })
+        knownCards = Set(view.hand + tricks.flatMap { $0.plays.map(\.card) }
+            + view.discardedPublicCards + view.knownHands.flatMap(\.cards))
         opponents = view.players.filter { $0.isParticipating && $0.id != view.player }
         var voids: [PlayerID: Set<Suit>] = [:]
         for trick in tricks {
             guard let lead = trick.leadSuit else { continue }
             for play in trick.plays where play.card.suit != lead {
                 // Mandatory following makes an off-suit play proof of a void.
-                // Hands only shrink during a round, so that fact remains valid.
+                // Exchanges are possible only before a seat's first card, so
+                // a void proved by its own play cannot later be refilled.
                 voids[play.player, default: []].insert(lead)
             }
         }
@@ -76,7 +142,7 @@ private struct PublicPosition {
 
     var roundConfidence: Double {
         let strength: Double
-        if view.currentTrick.number == 4 {
+        if view.currentTrick.number == BotDecisionSupport.finalTrick(in: view) {
             if let committed = view.currentTrick.plays.first(where: { $0.player == view.player }) {
                 strength = view.currentTrick.winningPlay?.player == view.player
                     ? unbeatenChance(committed.card, against: waitingOpponents) : 0
@@ -105,16 +171,21 @@ private struct PublicPosition {
     }
 
     func playValue(_ card: Card) -> Double {
-        if view.currentTrick.number == 4 { return finalWinChance(card) }
+        let finalTrick = BotDecisionSupport.finalTrick(in: view)
+        if view.currentTrick.number == finalTrick { return finalWinChance(card) }
         let remainder = view.hand.filter { $0 != card }
-        let retainedStrength = remainder.map { unbeatenChance($0, against: opponents) }.max() ?? 0
+        let retained = remainder.map { unbeatenChance($0, against: opponents) }.sorted(by: >)
+        let retainedStrength = retained.first ?? 0
         let lead = nextLeadChance(after: card)
-        if view.currentTrick.number == 3 {
+        if view.currentTrick.number == finalTrick - 1 {
             // The last remaining card is much more useful when we choose its
             // suit as leader. Losing the lead retains a chance, not a guarantee.
             return retainedStrength * (0.42 + 0.58 * lead)
         }
-        return retainedStrength - 0.18 * unbeatenChance(card, against: opponents) + 0.04 * lead
+        // A longer tiebreak needs an entry as well as a final winner. Preserve a
+        // second control card early instead of protecting only the best card.
+        let entryReserve = view.isEightCardRule ? 0.22 * (retained.dropFirst().first ?? 0) : 0
+        return retainedStrength + entryReserve - 0.18 * unbeatenChance(card, against: opponents) + 0.04 * lead
     }
 
     private var waitingOpponents: [PublicPlayerState] {
@@ -151,16 +222,18 @@ private struct PublicPosition {
         let higher = Rank.allCases.filter {
             $0 > card.rank && !knownCards.contains(Card(suit: card.suit, rank: $0))
         }.count
-        guard higher > 0 else { return 1 }
         var chance = 1.0
         for player in players where !voidSuits[player.id, default: []].contains(card.suit) {
+            let retained = view.knownHands.first { $0.player == player.id }?.cards ?? []
+            if retained.contains(where: { $0.suit == card.suit && $0.rank > card.rank }) { return 0 }
+            guard higher > 0 else { continue }
             let voids = voidSuits[player.id, default: []]
             let possibleCards = Suit.allCases.filter { !voids.contains($0) }.reduce(0) { total, suit in
                 total + Rank.allCases.filter { !knownCards.contains(Card(suit: suit, rank: $0)) }.count
             }
             // Uniform unseen possibilities are a heuristic, not exact odds:
             // cards may be undealt and opponents' holdings are correlated.
-            for draw in 0..<player.remainingCardCount {
+            for draw in 0..<max(0, player.remainingCardCount - retained.count) {
                 let available = possibleCards - draw
                 guard available > 0 else { break }
                 chance *= Double(max(0, available - higher)) / Double(available)

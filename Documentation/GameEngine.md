@@ -95,6 +95,8 @@ A four-participant tiebreak is tested through a five-seat domain match. The depa
 
 `MatchState` is privileged and must not be passed to a bot strategy. `PlayerView` is a separate value containing only the requesting player's hand, public seat information, current and completed tricks, Knock history, House Rules, actual challenge revelations, and engine-computed legal actions. It has no engine reference, opponent-hand dictionary, undealt-card storage, removed hidden hands, or private replay journal. A revealed hand is public gameplay history, not access to that seat's future replacement cards.
 
+The view separates historical revelations from `knownHands` (revealed cards still retained) and `discardedPublicCards` (revealed cards removed by an exchange). These projections use only previously revealed identities and their public disposition; they never publish unchallenged old hands. See [AI and persistence](AIAndPersistence.md#house-rules-tactics) for how strategies use this knowledge.
+
 Tests swap every pair of hidden positions for each player and require the resulting views to remain equal. Further scenarios replay the same public history with different secrets through completed tricks, sequential responses, Pass, elimination, and subsequent active turns. Views and public events must remain equal while opponent hands and undealt cards differ. `BotStrategy` accepts this restricted view and a separate decision generator.
 
 ## Localization
