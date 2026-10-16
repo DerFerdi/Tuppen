@@ -19,24 +19,6 @@ struct SavedSession: Codable, Equatable, Sendable {
         self.botCount = botCount
         self.difficulty = difficulty
     }
-
-    private enum CodingKeys: String, CodingKey {
-        case human, match, deckRandom, botRandom, botCount, difficulty
-    }
-
-    init(from decoder: any Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        human = try values.decode(PlayerID.self, forKey: .human)
-        match = try values.decode(MatchState.self, forKey: .match)
-        deckRandom = try values.decode(SeededRandom.self, forKey: .deckRandom)
-        botRandom = try values.decode(SeededRandom.self, forKey: .botRandom)
-        // Version-1 saves predate this field and always had two bots. Default
-        // only for an absent key: null or invalid counts remain corrupt data.
-        botCount = try values.contains(.botCount) ? values.decode(BotCount.self, forKey: .botCount) : .two
-        // Historical decisions used V1, now Medium. An explicit invalid value
-        // must fail instead of silently changing a saved match's strategy.
-        difficulty = try values.contains(.difficulty) ? values.decode(BotDifficulty.self, forKey: .difficulty) : .medium
-    }
 }
 
 struct SavedGame: Codable, Equatable, Sendable {

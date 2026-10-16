@@ -2,7 +2,7 @@
 
 This document is the authoritative product and game specification for TUPPEN.
 
-The completed current development baseline includes V2 opponent-count selection, V3 Easy / Medium / Hard difficulty, and V4 House Rules with their interface. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. These development features are unreleased; the submitted V1 App Store release retains its original scope. V4 includes dedicated Easy / Medium / Hard tactics.
+The completed current development baseline includes V2 opponent-count selection, V3 Easy / Medium / Hard difficulty, and V4 House Rules with their interface. Sections describing V1 retain the scope of TUPPEN 1.0, which is already published on the App Store. The combined V2–V4 update remains unreleased. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 includes dedicated Easy / Medium / Hard tactics.
 
 ## Product
 
@@ -473,7 +473,7 @@ Bots remain limited to their own hand and public information. Public challenge r
 
 ### V4 statistics
 
-Keep all statistics local, human-scoped, and driven by accepted authoritative transitions, with no recount on restore. The backend records these additional counters; their presentation remains future work:
+Keep all statistics local, human-scoped, and driven by accepted authoritative transitions, with no recount on restore. The Statistics screen displays these additional counters:
 
 | Counter | When to increment |
 | --- | --- |
@@ -499,6 +499,8 @@ The new counters follow the existing atomic-save and reset semantics: save them 
 ### Persistence and New Game configuration
 
 Save the immutable House Rules configuration with the match. Continue must restore those exact settings. Changing the choices for a future New Game must not mutate an existing checkpoint. Historical saves without a V4 configuration must load with maximum strokes 7 and Poverty, Consecutive Knock Restriction, Four Pictures, Four Pictures bluffing, and Eight-Card-Rule all off. Existing opponent-count and difficulty compatibility remains intact.
+
+Every new checkpoint uses save-format version 2, including standard-rules matches and profiles with no match. Read historical version-1 checkpoints using defaults only for missing historical fields, preserving explicitly saved valid options and counters. Loading alone must not rewrite the file; the next successful atomic checkpoint writes version 2. Version-2 data must contain the current schema and pass logical validation without historical defaults hiding corruption. Reject unsupported future versions safely. Match state and all lifetime statistics remain in the same versioned transaction.
 
 Restoration must also preserve the logical progress needed by the active rules: the round-start poor-participant set, last ordinary knocker across rounds, pending Poverty or challenge decisions, original hand awaiting challenge resolution, remaining draw pile and removed hands, and any tiebreak participation and trick progress. Pending claims cannot draw or reveal replacement cards merely because a match was restored. Existing transactional saving, seeded continuation, and statistics double-count prevention still apply. See [AI and persistence](Documentation/AIAndPersistence.md#save-format-and-recovery) for the versioned save format and compatibility behavior.
 

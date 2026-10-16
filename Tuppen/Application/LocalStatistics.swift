@@ -16,34 +16,6 @@ struct LocalStatistics: Codable, Equatable, Sendable {
 
     init() {}
 
-    private enum CodingKeys: String, CodingKey {
-        case matchesPlayed, matchesWon, roundsPlayed, roundsWon
-        case knocksMade, knocksHeld, knocksPassed, highestStakeReached
-        case eightCardRulesPlayed, eightCardRulesWon, fourPicturesExchanges, fourPicturesBluffs
-    }
-
-    init(from decoder: any Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        matchesPlayed = try values.decode(Int.self, forKey: .matchesPlayed)
-        matchesWon = try values.decode(Int.self, forKey: .matchesWon)
-        roundsPlayed = try values.decode(Int.self, forKey: .roundsPlayed)
-        roundsWon = try values.decode(Int.self, forKey: .roundsWon)
-        knocksMade = try values.decode(Int.self, forKey: .knocksMade)
-        knocksHeld = try values.decode(Int.self, forKey: .knocksHeld)
-        knocksPassed = try values.decode(Int.self, forKey: .knocksPassed)
-        highestStakeReached = try values.decode(Int.self, forKey: .highestStakeReached)
-        // Missing V4 fields identify an older profile. Explicit nulls or invalid
-        // counters remain errors rather than silently discarding saved data.
-        eightCardRulesPlayed = try values.contains(.eightCardRulesPlayed)
-            ? values.decode(Int.self, forKey: .eightCardRulesPlayed) : 0
-        eightCardRulesWon = try values.contains(.eightCardRulesWon)
-            ? values.decode(Int.self, forKey: .eightCardRulesWon) : 0
-        fourPicturesExchanges = try values.contains(.fourPicturesExchanges)
-            ? values.decode(Int.self, forKey: .fourPicturesExchanges) : 0
-        fourPicturesBluffs = try values.contains(.fourPicturesBluffs)
-            ? values.decode(Int.self, forKey: .fourPicturesBluffs) : 0
-    }
-
     mutating func record(
         _ events: [GameEvent], state: MatchState, human: PlayerID, previousState: MatchState? = nil
     ) throws {
@@ -96,6 +68,9 @@ struct LocalStatistics: Codable, Equatable, Sendable {
                       eightCardRulesPlayed, eightCardRulesWon, fourPicturesExchanges, fourPicturesBluffs]
         guard counts.allSatisfy({ $0 >= 0 }), matchesWon <= matchesPlayed,
               roundsWon <= roundsPlayed,
+              // Tiebreak completion and its match result share one transaction;
+              // resetting counters clears both, even during an active tiebreak.
+              eightCardRulesPlayed <= matchesPlayed, eightCardRulesWon <= matchesWon,
               eightCardRulesWon <= eightCardRulesPlayed, fourPicturesBluffs <= fourPicturesExchanges,
               (0...33).contains(highestStakeReached) else { throw PersistenceError.invalidContents }
     }

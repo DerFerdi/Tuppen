@@ -1,5 +1,7 @@
 # TUPPEN
 
+[Download TUPPEN on the App Store](https://apps.apple.com/de/app/tuppen/id6819442657)
+
 TUPPEN is an open-source iOS adaptation of the traditional German card game Tuppen, played particularly in the Rhineland and Lower Rhine region of Germany.
 
 The app focuses on preserving the character of the game in a simple, offline implementation for iPhone.
@@ -12,7 +14,7 @@ Like many traditional card games, Tuppen has regional and table-specific variati
 
 ## Features
 
-These features describe the unreleased development branch. The currently submitted V1 App Store release has the original fixed configuration.
+TUPPEN 1.0 is available on the App Store with two computer opponents and the original fixed ruleset. The features below describe the combined V2–V4 update on the development branch, which has not yet been published as an App Store update. Opponent-count selection, difficulty selection, and House Rules are not included in the published 1.0 version.
 
 - Fully offline play for one human player, with a choice of one to three computer opponents for each new match.
 - Easy, Medium, or Hard computer difficulty, shared by all opponents in the match. The default is two opponents on Medium.
@@ -118,7 +120,7 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-The current development branch implements V2 opponent-count selection, V3 difficulty, and V4 House Rules, including their interface. These changes are unreleased and are separate from the submitted V1 App Store release. V5 remains a future plan without a release schedule.
+The current development branch implements V2 opponent-count selection, V3 difficulty, and V4 House Rules, including their interface. These changes will form one combined update and remain unreleased. The published App Store version is TUPPEN 1.0 with the V1 scope below. V5 remains a future plan without a release schedule.
 
 ### V1
 

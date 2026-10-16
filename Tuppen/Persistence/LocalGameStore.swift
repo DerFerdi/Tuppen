@@ -7,7 +7,9 @@ protocol GameStore {
 }
 
 enum GameSaveCodec {
-    static let currentVersion = 1
+    // This boundary also protects lifetime counters in standard-rules matches
+    // and statistics-only profiles from readers that predate House Rules.
+    static let currentVersion = 2
 
     private struct Header: Decodable {
         let version: Int
@@ -28,9 +30,16 @@ enum GameSaveCodec {
         let version: Int
         do { version = try decoder.decode(Header.self, from: data).version }
         catch { throw PersistenceError.corruptData }
-        guard version == currentVersion else { throw PersistenceError.unsupportedVersion(version) }
+        guard version == 1 || version == currentVersion else {
+            throw PersistenceError.unsupportedVersion(version)
+        }
         let game: SavedGame
-        do { game = try decoder.decode(Envelope.self, from: data).game }
+        do {
+            // Compatibility defaults belong to the old wire format, not to the
+            // current models. Loading never writes the migrated value to disk.
+            let currentData = version == 1 ? try VersionOneMigration.apply(to: data) : data
+            game = try decoder.decode(Envelope.self, from: currentData).game
+        }
         catch { throw PersistenceError.corruptData }
         _ = try game.restoredEngine()
         return game
