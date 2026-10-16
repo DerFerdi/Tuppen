@@ -10,10 +10,11 @@ struct GameView: View {
     private var strings: GameStrings { preferences.strings }
 
     var body: some View {
+        @Bindable var model = model
         GeometryReader { geometry in
             if let table = model.table {
                 let compact = geometry.size.height < 700
-                let handHeight = min(174, max(104, geometry.size.height * 0.27))
+                let handHeight = HandLayout.height(available: geometry.size.height, eightCardRule: table.view.isEightCardRule)
                 VStack(spacing: compact ? 5 : 10) {
                     navigation.frame(height: 34).accessibilitySortPriority(100)
                     opponents(table).frame(height: compact ? 70 : 84)
@@ -37,12 +38,12 @@ struct GameView: View {
                                 // VoiceOver retains the full prompt and hints.
                                 .dynamicTypeSize(...DynamicTypeSize.xLarge)
                         }
-                        .frame(height: 74)
+                        .frame(height: 88)
                         .accessibilityElement(children: .contain)
                         .accessibilityLabel(strings.text("Current decision"))
                         .accessibilityValue(model.isBusy ? strings.text("Play is in progress.") : strings.actionPrompt(in: table.view))
                         .accessibilitySortPriority(70)
-                        HandView(cards: table.hand, namespace: cardMotion)
+                        HandView(cards: table.hand, namespace: cardMotion, eightCardRule: table.view.isEightCardRule)
                             .frame(height: handHeight)
                             .accessibilitySortPriority(60)
                     }
@@ -57,6 +58,12 @@ struct GameView: View {
                 .padding(.vertical, 8)
                 .frame(width: geometry.size.width, height: geometry.size.height)
             }
+        }
+        .sheet(isPresented: $model.isShowingMatchInformation) {
+            if let update = model.snapshot { MatchInformationView(update: update) }
+        }
+        .onChange(of: model.isShowingMatchInformation) { _, showing in
+            if !showing { Task { await model.resume() } }
         }
         .background(TableStyle.background.ignoresSafeArea())
         .tint(TableStyle.accent)
@@ -86,6 +93,10 @@ struct GameView: View {
                 if model.canKnock {
                     Button(strings.text("Knock"), systemImage: "hand.tap") { knock() }
                 }
+                Button(strings.text("Match Information"), systemImage: "info.circle") {
+                    model.isShowingMatchInformation = true
+                }
+                .disabled(model.isBusy)
                 NavigationLink(strings.text("Settings"), value: AppScreen.settings)
                 NavigationLink(strings.text("Statistics"), value: AppScreen.statistics)
             } label: {
@@ -121,6 +132,24 @@ struct GameView: View {
         let motionReduced = reduceMotion
         return ZStack {
             TrickView(table: table, namespace: cardMotion)
+                .accessibilityHidden(table.revealedHand != nil)
+            if let hand = table.revealedHand {
+                GeometryReader { geometry in
+                    VStack(spacing: 8) {
+                        Text(strings.notice(.event(.fourPicturesRevealed(hand)), in: table.view))
+                            .font(.caption).multilineTextAlignment(.center)
+                        HStack(spacing: 6) {
+                            ForEach(hand.cards, id: \.self) { card in
+                                CardView(card: card)
+                                    .frame(width: min(62, max(24, (geometry.size.height - 46) * 0.7)))
+                            }
+                        }
+                    }
+                    .padding(8)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .background(TableStyle.background.opacity(0.98), in: RoundedRectangle(cornerRadius: 12))
+                }
+            }
             if table.reactions.values.contains(.knocked) {
                 Text(strings.text("TOK TOK"))
                     .font(.system(.title2, design: .serif, weight: .semibold)).tracking(5)
@@ -135,7 +164,7 @@ struct GameView: View {
         .onTapGesture(count: 2) { if !voiceOverEnabled { knock() } }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(strings.text("Card table"))
-        .accessibilityValue(strings.text("Stake: \(table.stake)"))
+        .accessibilityValue(table.view.isEightCardRule ? strings.text("Eight-Card-Rule") : strings.text("Stake: \(table.stake)"))
         .accessibilityActions {
             if model.canKnock { Button(strings.text("Knock")) { knock() } }
         }
@@ -151,23 +180,34 @@ struct GameView: View {
         if model.automaticWorkFailed {
             Button(strings.text("Retry")) { Task { await model.retry() } }
                 .buttonStyle(.bordered).disabled(model.isBusy)
-        } else if model.canSubmit(.respondToKnock(.hold)) {
-            VStack(spacing: 8) {
-                Text(responsePrompt(table))
-                    .font(.subheadline.weight(.medium).monospacedDigit())
-                    .lineLimit(1).minimumScaleFactor(0.8)
-                HStack(spacing: 16) {
-                    Button(strings.text("Hold")) { Task { await model.submit(.respondToKnock(.hold)) } }
-                        .buttonStyle(.borderedProminent)
-                        .foregroundStyle(TableStyle.onAccent)
-                        .accessibilityHint(strings.text("Stay in this round at stake \(table.stake)."))
-                    Button(strings.text("Pass")) { Task { await model.submit(.respondToKnock(.pass)) } }
-                        .buttonStyle(.bordered)
-                        .accessibilityHint(passHint(table))
+        } else if model.canSubmit(.respondToFourPictures(.challenge)) {
+            VStack(spacing: 6) {
+                Text(strings.challengePrompt(in: table.view))
+                    .font(.subheadline.weight(.medium)).lineLimit(2).minimumScaleFactor(0.8)
+                HStack(spacing: 10) {
+                    decisionButton("Challenge", action: .respondToFourPictures(.challenge))
+                    decisionButton("Decline", action: .respondToFourPictures(.decline))
                 }
-                .controlSize(.large)
+            }
+            .multilineTextAlignment(.center)
+        } else if model.canSubmit(.respondToKnock(.hold)) || model.canSubmit(.respondToPoverty(.hold)) {
+            let poverty = model.canSubmit(.respondToPoverty(.hold))
+            VStack(spacing: 6) {
+                Text(poverty ? strings.text("Poverty · Stake: \(table.stake)") : responsePrompt(table))
+                    .font(.subheadline.weight(.medium).monospacedDigit())
+                    .lineLimit(2).minimumScaleFactor(0.8)
+                HStack(spacing: 16) {
+                    decisionButton("Hold", action: poverty ? .respondToPoverty(.hold) : .respondToKnock(.hold))
+                        .accessibilityHint(strings.text("Stay in this round at stake \(table.stake)."))
+                    decisionButton("Pass", action: poverty ? .respondToPoverty(.pass) : .respondToKnock(.pass))
+                        .accessibilityHint(poverty ? strings.text("Leave this round and receive \(1) strokes.") : passHint(table))
+                }
             }
             .transition(.opacity)
+        } else if let notice = table.notice {
+            Text(strings.notice(notice, in: table.view))
+                .font(.subheadline.weight(.medium)).multilineTextAlignment(.center)
+                .lineLimit(3).minimumScaleFactor(0.8)
         } else if let outcome = table.roundOutcome {
             Text(roundMessage(outcome, table: table))
                 .font(.subheadline.weight(.medium)).multilineTextAlignment(.center)
@@ -176,18 +216,31 @@ struct GameView: View {
             Text(strings.text("Trick \(table.trick.number) · Winner: \(strings.player(winner, in: table.view))"))
                 .font(.subheadline.weight(.medium)).multilineTextAlignment(.center)
                 .transition(.opacity)
-        } else if voiceOverEnabled, model.canKnock {
-            // VoiceOver reserves double tap for activation. This ordinary
-            // button uses the same legality gate as the gesture and menu.
-            Button(strings.text("Knock")) { knock() }.buttonStyle(.bordered)
-                .controlSize(.large)
+        } else if model.canSubmit(.claimFourPictures) || (voiceOverEnabled && model.canKnock) {
+            HStack(spacing: 12) {
+                if model.canSubmit(.claimFourPictures) {
+                    decisionButton("Four Pictures", action: .claimFourPictures)
+                }
+                if voiceOverEnabled && model.canKnock {
+                    Button(strings.text("Knock")) { knock() }.buttonStyle(.bordered).controlSize(.large)
+                }
+            }
         } else if model.canKnock, !hasDiscoveredKnock, table.stake == 1 {
             Text(strings.text("Double tap the table to Knock"))
                 .font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center)
-        } else if table.stake > 1 {
+        } else if table.stake > 1 && !table.view.isEightCardRule {
             Text(strings.text("Stake: \(table.stake)"))
                 .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
         }
+    }
+
+    private func decisionButton(_ title: String.LocalizationValue, action: GameAction) -> some View {
+        Button { Task { await model.submit(action) } } label: {
+            Text(strings.text(title)).font(.subheadline.weight(.medium))
+                .lineLimit(1).minimumScaleFactor(0.8).frame(minHeight: 32)
+        }
+        .buttonStyle(.bordered).controlSize(.regular)
+        .disabled(!model.canSubmit(action))
     }
 
     private func roundMessage(_ outcome: RoundOutcome, table: TablePresentation) -> String {

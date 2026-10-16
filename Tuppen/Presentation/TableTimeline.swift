@@ -1,5 +1,10 @@
 import Foundation
 
+enum TableNotice: Equatable, Sendable {
+    case event(GameEvent)
+    case verifiedPictures(PlayerID)
+}
+
 enum TableReaction: Equatable, Sendable {
     case knocked, held, passed, eliminated
 }
@@ -20,6 +25,8 @@ struct TablePresentation: Equatable, Sendable {
     var roundOutcome: RoundOutcome?
     var resultVisible = false
     var knockPulse = 0
+    var notice: TableNotice?
+    var revealedHand: RevealedHand?
 
     var seating: TableSeating { TableSeating(view: view) }
     var opponents: [PublicPlayerState] {
@@ -42,7 +49,7 @@ struct TablePresentation: Equatable, Sendable {
 enum TablePause: Equatable, Sendable {
     case thinking, responseThinking, cardMovement, cardSettle
     case knockGap, knockReveal, reaction, trickRead, trickWinner, collection
-    case roundOutcome, scoring, elimination, result, spectatorRound, deal
+    case roundOutcome, scoring, elimination, result, spectatorRound, deal, reveal
 }
 
 enum TablePacing {
@@ -68,6 +75,7 @@ enum TablePacing {
         case .roundOutcome: seconds = 0.8
         case .scoring: seconds = 0.65
         case .elimination: seconds = 0.8
+        case .reveal: seconds = 1.4
         case .result: seconds = 0.5
         case .spectatorRound: seconds = 1.8
         case .deal: seconds = reduceMotion ? 0.08 : 0.16
@@ -89,6 +97,7 @@ struct TableBeat: Equatable, Sendable {
     let pause: TablePause?
     var effect: TableEffect?
     var announcement: GameEvent?
+    var announcesNotice = false
 }
 
 /// Converts one accepted transaction into a short, ordered visual sequence.
@@ -99,26 +108,41 @@ enum TableTimeline {
         var frame = TablePresentation(view: view)
         frame.resultVisible = false
         frame.roundOutcome = nil
-        let startsRound = update.events.contains { if case .roundStarted = $0 { true } else { false } }
+        let startsRound = update.events.contains {
+            switch $0 { case .roundStarted, .eightCardRuleStarted: true; default: false }
+        }
         // Replacing a match can start another round numbered one. Its deal must
         // not inherit a previous match's visible stake or Knock pulse.
         if !startsRound, let previous, previous.view.roundNumber == view.roundNumber {
             frame.players = previous.players
             frame.stake = previous.stake
             frame.knockPulse = previous.knockPulse
+            if !update.events.contains(where: { if case .cardPlayed = $0 { true } else { false } }) {
+                frame.trick = previous.trick
+            }
+            if update.events.contains(where: { if case .fourPicturesExchanged = $0 { true } else { false } }) {
+                // The committed view already contains replacements. Keep the old
+                // own hand until the claim, reveal, and penalty have been shown.
+                frame.hand = previous.hand
+            }
         }
         var beats: [TableBeat] = []
         for event in update.events {
             switch event {
-            case .roundStarted:
+            case .roundStarted, .eightCardRuleStarted:
+                let countToDeal = view.isEightCardRule ? 8 : 4
                 frame.hand = []
                 frame.players = view.players.map { replacing($0, count: 0) }
+                if view.isEightCardRule {
+                    frame.notice = .event(event)
+                    beats.append(TableBeat(frame: frame, pause: .reveal, announcement: event))
+                }
                 beats.append(TableBeat(frame: frame, pause: .deal))
-                for count in 1...4 {
+                for count in 1...countToDeal {
                     frame.hand = Array(view.hand.prefix(count))
                     frame.players = view.players.map { replacing($0, count: min(count, $0.remainingCardCount)) }
                     beats.append(TableBeat(frame: frame, pause: .deal, effect: .deal,
-                                           announcement: count == 4 ? event : nil))
+                                           announcement: count == countToDeal && !view.isEightCardRule ? event : nil))
                 }
             case .cardPlayed(let play):
                 // The engine has already cleared an early completed trick. Keep
@@ -143,6 +167,10 @@ enum TableTimeline {
                 updatePlayer(player, in: &frame, from: view, participation: true)
                 beats.append(TableBeat(frame: frame, pause: .reaction, announcement: event))
             case .trickWon(_, let winner):
+                // A challenge can eliminate the last unplayed seat and resolve
+                // the trick. Clear its reveal before emphasizing committed cards.
+                frame.revealedHand = nil
+                frame.notice = nil
                 if let completed = completedTrick(in: update) { frame.trick = completed.trick }
                 beats.append(TableBeat(frame: frame, pause: .trickRead))
                 frame.highlightedWinner = winner
@@ -153,14 +181,24 @@ enum TableTimeline {
                 frame.collecting = false
                 frame.highlightedWinner = nil
             case .roundEnded(let outcome):
+                frame.revealedHand = nil
+                frame.notice = nil
                 frame.roundOutcome = outcome
                 beats.append(TableBeat(frame: frame, pause: .roundOutcome, announcement: event))
             case .strokesAdded(let player, let amount):
-                updatePlayer(player, in: &frame, from: view, strokes: true)
+                if let index = frame.players.firstIndex(where: { $0.id == player }) {
+                    let old = frame.players[index]
+                    // One transaction can contain a challenge penalty and round
+                    // scoring. Reveal each addition, not the final total twice.
+                    frame.players[index] = PublicPlayerState(
+                        id: old.id, strokes: old.strokes + amount, status: old.status,
+                        isParticipating: old.isParticipating, remainingCardCount: old.remainingCardCount
+                    )
+                }
                 frame.strokeChanges.append(StrokeChange(player: player, amount: amount))
                 beats.append(TableBeat(frame: frame, pause: .scoring, effect: .strokes(amount), announcement: event))
             case .playerEliminated(let player):
-                updatePlayer(player, in: &frame, from: view, status: true)
+                updatePlayer(player, in: &frame, from: view, participation: true, status: true)
                 frame.reactions[player] = .eliminated
                 beats.append(TableBeat(frame: frame, pause: .elimination, effect: .elimination, announcement: event))
             case .matchWon(let winner):
@@ -169,14 +207,39 @@ enum TableTimeline {
             case .matchDrawn:
                 frame.resultVisible = true
                 beats.append(TableBeat(frame: frame, pause: .result, effect: .matchResult(won: false), announcement: event))
+            case .fourPicturesRevealed(let hand):
+                frame.revealedHand = hand
+                frame.notice = .event(event)
+                beats.append(TableBeat(frame: frame, pause: .reveal, announcement: event))
+                if !update.events.contains(.fourPicturesBluffExposed(hand.player)) {
+                    frame.notice = .verifiedPictures(hand.player)
+                    beats.append(TableBeat(frame: frame, pause: .reaction, announcesNotice: true))
+                }
+            case .fourPicturesExchanged(let player):
+                frame.revealedHand = nil
+                frame.notice = .event(event)
+                beats.append(TableBeat(frame: frame, pause: .reaction, announcement: event))
+                if player == view.player { frame.hand = [] }
+                if let index = frame.players.firstIndex(where: { $0.id == player }) {
+                    frame.players[index] = replacing(frame.players[index], count: 0)
+                }
+                beats.append(TableBeat(frame: frame, pause: .deal))
+                for count in 1...4 {
+                    if player == view.player { frame.hand = Array(view.hand.prefix(count)) }
+                    if let index = frame.players.firstIndex(where: { $0.id == player }) {
+                        frame.players[index] = replacing(frame.players[index], count: count)
+                    }
+                    beats.append(TableBeat(frame: frame, pause: .deal, effect: .deal))
+                }
             case .povertyStarted, .fourPicturesClaimed, .fourPicturesDeclined,
-                 .fourPicturesChallenged, .fourPicturesBluffExposed,
-                 .fourPicturesRevealed, .fourPicturesExchanged, .eightCardRuleStarted, .eightCardRuleEnded:
-                // Settle to the committed public view without assigning normal
-                // Knock or round-result choreography to different rule events.
-                break
+                 .fourPicturesChallenged, .fourPicturesBluffExposed, .eightCardRuleEnded:
+                frame.notice = .event(event)
+                beats.append(TableBeat(frame: frame, pause: .reaction, announcement: event))
             }
         }
+        frame.hand = view.hand
+        frame.notice = nil
+        frame.revealedHand = nil
         frame.players = view.players
         frame.stake = view.stake
         frame.reactions = [:]
@@ -199,13 +262,13 @@ enum TableTimeline {
 
     private static func updatePlayer(
         _ player: PlayerID, in frame: inout TablePresentation, from view: PlayerView,
-        cardCount: Bool = false, participation: Bool = false, strokes: Bool = false, status: Bool = false
+        cardCount: Bool = false, participation: Bool = false, status: Bool = false
     ) {
         guard let index = frame.players.firstIndex(where: { $0.id == player }),
               let latest = view.players.first(where: { $0.id == player }) else { return }
         let old = frame.players[index]
         frame.players[index] = PublicPlayerState(
-            id: player, strokes: strokes ? latest.strokes : old.strokes,
+            id: player, strokes: old.strokes,
             status: status ? latest.status : old.status,
             isParticipating: participation ? latest.isParticipating : old.isParticipating,
             remainingCardCount: cardCount ? latest.remainingCardCount : old.remainingCardCount

@@ -12,6 +12,18 @@ struct SessionUpdate: Equatable, Sendable {
     let statistics: LocalStatistics
     let events: [GameEvent]
     let roundChanges: [StrokeChange]
+    let botCount: BotCount?
+    let difficulty: BotDifficulty?
+
+    init(view: PlayerView?, statistics: LocalStatistics, events: [GameEvent], roundChanges: [StrokeChange],
+         botCount: BotCount? = nil, difficulty: BotDifficulty? = nil) {
+        self.view = view
+        self.statistics = statistics
+        self.events = events
+        self.roundChanges = roundChanges
+        self.botCount = botCount
+        self.difficulty = difficulty
+    }
 }
 
 /// Serializes the synchronous session and its disk writes off the main actor.
@@ -96,7 +108,7 @@ actor SessionDriver {
         }
         return try SessionUpdate(
             view: session.humanView(), statistics: session.statistics,
-            events: events, roundChanges: changes
+            events: events, roundChanges: changes, botCount: session.botCount, difficulty: session.difficulty
         )
     }
 }

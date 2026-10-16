@@ -12,8 +12,11 @@ Like many traditional card games, Tuppen has regional and table-specific variati
 
 ## Features
 
+These features describe the unreleased development branch. The currently submitted V1 App Store release has the original fixed configuration.
+
 - Fully offline play for one human player, with a choice of one to three computer opponents for each new match.
 - Easy, Medium, or Hard computer difficulty, shared by all opponents in the match. The default is two opponents on Medium.
+- Optional House Rules: seven or ten strokes, Poverty, Consecutive Knock Restriction, Four Pictures with bluffing, and Eight-Card-Rule.
 - German and English interface, with an optional How to Play guide.
 - Automatic local saving and match continuation.
 - Local statistics.
@@ -115,7 +118,7 @@ The bundled [privacy manifest](Tuppen/PrivacyInfo.xcprivacy) declares app-only p
 
 ## Roadmap
 
-V2 + V3 player-count and difficulty selection form the completed user-facing development baseline. V4 House Rules are in development: the backend and all three bot difficulties support programmatic configuration; configuration UI remains pending. House Rules are not released to users. V5 remains a future plan without a release schedule.
+The current development branch implements V2 opponent-count selection, V3 difficulty, and V4 House Rules, including their interface. These changes are unreleased and are separate from the submitted V1 App Store release. V5 remains a future plan without a release schedule.
 
 ### V1
 
@@ -127,7 +130,7 @@ Choose one, two, or three computer opponents and Easy, Medium, or Hard difficult
 
 ### V4
 
-Optional [House Rules](PRODUCT_SPEC.md#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The engine, local persistence, and human statistics support these options; New Game still creates the standard configuration. See [Game engine](Documentation/GameEngine.md#house-rules-state) for the backend boundary.
+Optional [House Rules](PRODUCT_SPEC.md#v4-house-rules): maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. Choose these options in the expandable House Rules section of New Game. Defaults remain seven strokes with every optional rule off. Continue preserves the saved configuration, available from Match Information at the table. The tutorial explains the options, and Statistics includes Four Pictures and tiebreak counters. See [App presentation](Documentation/AppPresentation.md#house-rules) for the interface boundary.
 
 ### V5
 

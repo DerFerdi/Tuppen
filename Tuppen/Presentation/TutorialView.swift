@@ -28,6 +28,16 @@ struct TutorialView: View {
                         }
                     }
                 }
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(strings.text("House Rules"))
+                        .font(.system(.title2, design: .serif, weight: .medium))
+                        .accessibilityAddTraits(.isHeader)
+                    Text(strings.text("House Rules are optional. Choose them in New Game; they apply for the whole match."))
+                    ruleExplanation("Maximum strokes", GameStrings.maximumStrokesExplanation)
+                    ForEach(HouseRuleOption.allCases) { option in
+                        ruleExplanation(option.title, option.explanation)
+                    }
+                }
             }
             .padding(24)
             .frame(maxWidth: 560)
@@ -38,6 +48,13 @@ struct TutorialView: View {
         .navigationTitle(strings.text("How to Play"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)
+    }
+
+    private func ruleExplanation(_ title: String.LocalizationValue, _ explanation: String.LocalizationValue) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(strings.text(title)).font(.headline).accessibilityAddTraits(.isHeader)
+            Text(strings.text(explanation)).fixedSize(horizontal: false, vertical: true)
+        }
     }
 
     // Examples repeat the prose visually; VoiceOver reads the complete rules

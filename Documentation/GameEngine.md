@@ -1,6 +1,6 @@
 # Game engine
 
-The engine supports the standard rules and programmatically configured V4 House Rules. The [product specification](../PRODUCT_SPEC.md#v4-house-rules) defines their precise behavior. House Rules configuration and decision controls are not yet available in the app UI.
+The engine supports the standard rules and optional V4 House Rules. The [product specification](../PRODUCT_SPEC.md#v4-house-rules) defines their precise behavior. The unreleased app interface exposes configuration and decisions through the existing [presentation boundary](AppPresentation.md#house-rules).
 
 `GameEngine` owns a read-only `MatchState` snapshot and is the only component that applies rules. It has no SwiftUI, Foundation, storage, or networking dependencies. The engine and its state are `Sendable` value types, with no implicit main-actor isolation. A caller owns and serializes mutations to its engine instance.
 

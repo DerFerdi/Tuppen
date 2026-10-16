@@ -2,7 +2,7 @@
 
 This document is the authoritative product and game specification for TUPPEN.
 
-The completed current development baseline includes V2 opponent-count selection and V3 Easy / Medium / Hard difficulty. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. V4 has a programmatic backend with dedicated Easy / Medium / Hard tactics; its configuration UI is not implemented and House Rules are not released.
+The completed current development baseline includes V2 opponent-count selection, V3 Easy / Medium / Hard difficulty, and V4 House Rules with their interface. Sections describing V1 retain the original release scope. The standard rules below remain the default; only the explicitly enabled options in [V4 House Rules](#v4-house-rules) override them. These development features are unreleased; the submitted V1 App Store release retains its original scope. V4 includes dedicated Easy / Medium / Hard tactics.
 
 ## Product
 
@@ -300,7 +300,7 @@ Do not play or evaluate any remaining unfinished trick. Immediate victory takes 
 
 ## V4 House Rules
 
-V4 adds optional House Rules to the existing game. This section is the authoritative specification for those options and their interactions. The backend supports programmatic configuration; these options are not yet exposed in New Game or released to users.
+V4 adds optional House Rules to the existing game. This section is the authoritative specification for those options and their interactions. The current development branch supports these options in New Game and at the table; they have not been released to users.
 
 ### Product terminology
 
@@ -496,13 +496,13 @@ A Poverty raise or Four Pictures declaration/challenge is not an ordinary human 
 
 The new counters follow the existing atomic-save and reset semantics: save them with the accepted transition, do not count failed saves or restored historical events, and let a reset affect counters without changing the match. Historical profiles without these counters start them at zero; do not reconstruct them from old play.
 
-### Persistence and future New Game direction
+### Persistence and New Game configuration
 
 Save the immutable House Rules configuration with the match. Continue must restore those exact settings. Changing the choices for a future New Game must not mutate an existing checkpoint. Historical saves without a V4 configuration must load with maximum strokes 7 and Poverty, Consecutive Knock Restriction, Four Pictures, Four Pictures bluffing, and Eight-Card-Rule all off. Existing opponent-count and difficulty compatibility remains intact.
 
 Restoration must also preserve the logical progress needed by the active rules: the round-start poor-participant set, last ordinary knocker across rounds, pending Poverty or challenge decisions, original hand awaiting challenge resolution, remaining draw pile and removed hands, and any tiebreak participation and trick progress. Pending claims cannot draw or reveal replacement cards merely because a match was restored. Existing transactional saving, seeded continuation, and statistics double-count prevention still apply. See [AI and persistence](Documentation/AIAndPersistence.md#save-format-and-recovery) for the versioned save format and compatibility behavior.
 
-The future New Game configuration contains a section named House Rules in English and Hausregeln in German, alongside the independent opponent-count and difficulty choices. It offers maximum strokes 7 or 10 and the five rule toggles above. Four Pictures bluffing is configurable only when Four Pictures is enabled; disabling Four Pictures must not leave an enabled dependent option. This is product direction only, without a prescribed control layout or implemented UI.
+The New Game configuration contains a section named House Rules in English and Hausregeln in German, alongside the independent opponent-count and difficulty choices. It offers maximum strokes 7 or 10 and the five rule toggles above. Four Pictures bluffing is configurable only when Four Pictures is enabled; disabling Four Pictures must not leave an enabled dependent option. The expandable native section also explains each option. Match Information shows the saved configuration at the table.
 
 ## Game Engine
 
@@ -933,7 +933,7 @@ Difficulty belongs in interchangeable AI strategies rather than the core engine.
 
 ### V4 — House Rules
 
-The authoritative [House Rules specification](#v4-house-rules) covers maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The backend supports these options programmatically, with standard configuration as the default. Dedicated V4 bot tactics are implemented; configuration UI remains future work and House Rules are not yet released to users.
+The authoritative [House Rules specification](#v4-house-rules) covers maximum strokes 7 or 10, Poverty, Consecutive Knock Restriction, Four Pictures with optional bluffing, and Eight-Card-Rule. The backend, dedicated bot tactics, New Game configuration, and table interactions are implemented, with standard configuration as the default. V4 remains unreleased.
 
 ### V5 — Friends
 

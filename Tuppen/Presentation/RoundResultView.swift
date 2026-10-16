@@ -52,7 +52,12 @@ struct RoundResultView: View {
             }
             .padding(.bottom, 4)
             if view.matchPhase.isActive {
-                if view.players.first(where: { $0.id == view.player })?.status == .eliminated {
+                if case .awaitingEightCardDeal(let participants) = view.matchPhase, participants.contains(view.player) {
+                    Text(strings.text("The remaining players continue with eight cards. Only the eighth trick decides the match."))
+                        .font(.callout).foregroundStyle(.secondary)
+                    Button(strings.text("Start Eight-Card-Rule")) { Task { await model.nextRound() } }
+                        .buttonStyle(.borderedProminent).foregroundStyle(TableStyle.onAccent)
+                } else if view.players.first(where: { $0.id == view.player })?.status == .eliminated {
                     Text(strings.text("The opponents play on."))
                         .font(.callout).foregroundStyle(.secondary)
                 } else {

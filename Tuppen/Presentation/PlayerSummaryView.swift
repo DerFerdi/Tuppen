@@ -19,7 +19,9 @@ struct PlayerSummaryView: View {
             if compact {
                 HStack(spacing: 12) {
                     name
-                    StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes).fixedSize()
+                    if !view.isEightCardRule {
+                        StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes).fixedSize()
+                    }
                     reactionLabel
                 }
             } else {
@@ -27,13 +29,15 @@ struct PlayerSummaryView: View {
                     name
                     HStack(spacing: narrow ? 6 : 10) {
                         cardBacks
-                        StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes)
+                        if !view.isEightCardRule {
+                            StrokeMarksView(strokes: player.strokes, maximum: view.houseRules.maximumStrokes)
+                        }
                     }
                     reactionLabel.frame(height: 18)
                 }
             }
         }
-        .foregroundStyle(player.status == .eliminated ? .secondary : .primary)
+        .foregroundStyle(isEliminated ? .secondary : .primary)
         .dynamicTypeSize(...(compact || narrow ? DynamicTypeSize.xLarge : .xxLarge))
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
@@ -94,17 +98,27 @@ struct PlayerSummaryView: View {
         case .passed: strings.text("PASSES")
         case .eliminated: strings.text("Eliminated")
         case nil:
-            if player.status == .eliminated { strings.text("Eliminated") }
+            if view.isEightCardRule && player.isParticipating { strings.text("Eight-Card-Rule") }
+            else if isEliminated { strings.text("Eliminated") }
+            else if view.poorParticipants.contains(player.id) { strings.text("poor") }
             else if !player.isParticipating { strings.text("Passed") }
             else { nil }
         }
     }
 
+    private var isEliminated: Bool {
+        player.status == .eliminated && !(view.isEightCardRule && player.isParticipating)
+    }
+
     private var accessibilitySummary: String {
-        var parts = [strings.strokes(player.strokes, maximum: view.houseRules.maximumStrokes)]
-        if player.status == .eliminated { parts.append(strings.text("Eliminated")) }
+        // Retained strokes belong to the scored round, not tiebreak survival.
+        var parts = view.isEightCardRule && player.isParticipating
+            ? [strings.text("Eight-Card-Rule participant")]
+            : [strings.strokes(player.strokes, maximum: view.houseRules.maximumStrokes)]
+        if isEliminated { parts.append(strings.text("Eliminated")) }
         else if !player.isParticipating { parts.append(strings.text("Passed")) }
         else { parts.append(strings.text("Cards: \(player.remainingCardCount)")) }
+        if view.poorParticipants.contains(player.id) { parts.append(strings.text("poor")) }
         if thinking { parts.append(strings.text("Thinking")) }
         if highlighted { parts.append(strings.text("Trick winner")) }
         if case .knocked = reaction { parts.append(strings.text("Knocked")) }
@@ -115,6 +129,10 @@ struct PlayerSummaryView: View {
                 parts.append(strings.text("To play"))
             case .awaitingResponses(let pending) where pending.expectedResponder == player.id:
                 parts.append(strings.text("Hold or Pass required"))
+            case .awaitingPovertyResponses(let pending) where pending.expectedResponder == player.id:
+                parts.append(strings.text("Hold or Pass required"))
+            case .awaitingFourPicturesChallenges(let pending) where pending.expectedResponder == player.id:
+                parts.append(strings.text("Challenge or Decline required"))
             default: break
             }
         }

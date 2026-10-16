@@ -43,6 +43,32 @@ struct NewMatchView: View {
                         .accessibilityAddTraits(model.newMatchDifficulty == difficulty ? .isSelected : [])
                     }
                 }
+                Section {
+                    DisclosureGroup(strings.text("House Rules")) {
+                        Picker(strings.text("Maximum strokes"), selection: Binding(
+                            get: { model.newMatchHouseRules.maximumStrokes },
+                            set: { model.selectMaximumStrokes($0) }
+                        )) {
+                            ForEach(MaximumStrokes.allCases, id: \.self) { maximum in
+                                Text(maximum.rawValue.formatted(.number.locale(preferences.locale))).tag(maximum)
+                            }
+                        }
+                        Text(strings.text(GameStrings.maximumStrokesExplanation))
+                            .font(.caption).foregroundStyle(.secondary)
+                        ForEach(HouseRuleOption.allCases) { option in
+                            VStack(alignment: .leading, spacing: 6) {
+                                Toggle(strings.text(option.title), isOn: Binding(
+                                    get: { option.isEnabled(in: model.newMatchHouseRules) },
+                                    set: { model.selectHouseRule(option, enabled: $0) }
+                                ))
+                                .disabled(option == .bluffing && !model.newMatchHouseRules.fourPictures)
+                                .accessibilityHint(strings.text(option.explanation))
+                                Text(strings.text(option.explanation))
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
             }
             .scrollContentBackground(.hidden)
             .background(TableStyle.background)

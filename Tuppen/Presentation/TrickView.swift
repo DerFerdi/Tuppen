@@ -8,6 +8,11 @@ struct TrickView: View {
 
     var body: some View {
         VStack(spacing: 4) {
+            Text(preferences.strings.trickHeading(number: table.trick.number, in: table.view))
+                .font(.caption.weight(.medium)).lineLimit(1).minimumScaleFactor(0.8)
+                .dynamicTypeSize(...DynamicTypeSize.large)
+                .frame(height: 18)
+                .accessibilityHidden(true)
             // The engine supplies the original led suit even after its player
             // leaves. Reserve this line so revealing it cannot move the cards.
             Text(table.trick.leadSuit.map { preferences.strings.text("Led suit: \(preferences.strings.suit($0))") } ?? "")
@@ -84,7 +89,7 @@ struct TrickView: View {
 
     private var accessibilitySummary: String {
         let strings = preferences.strings
-        var parts = [strings.text("Trick \(table.trick.number)")]
+        var parts = [strings.trickHeading(number: table.trick.number, in: table.view)]
         if let suit = table.trick.leadSuit { parts.append(strings.text("Led suit: \(strings.suit(suit))")) }
         if table.trick.plays.isEmpty { parts.append(strings.text("No cards played yet.")) }
         parts += table.trick.plays.map { strings.text("\(strings.player($0.player, in: table.view)): \(strings.card($0.card))") }

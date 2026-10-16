@@ -6,7 +6,7 @@ The application layer supports one human and one, two, or three computer opponen
 
 `BotCount` admits only `.one`, `.two`, and `.three`, for two through four total participants. `BotDifficulty` admits only `.easy`, `.medium`, and `.hard`. Pass both to `GameSession.startNewMatch(botCount:difficulty:)` or `SessionDriver.newMatch(botCount:difficulty:)`. Defaults are `.two` and `.medium`. New Game selects both per match; Continue uses the saved configuration independently of the drafts.
 
-Both creation methods also accept `houseRules: HouseRules`, defaulting to `.standard`. This immutable domain configuration is independent of count and difficulty. House Rules currently have a programmatic interface only: the existing New Game sheet passes no override, and Continue reads the saved configuration.
+Both creation methods also accept `houseRules: HouseRules`, defaulting to `.standard`. This immutable domain configuration is independent of count and difficulty. The New Game sheet passes the confirmed rules together with count and difficulty; Continue reads the saved configuration. Presentation details are covered in [App presentation](AppPresentation.md#house-rules).
 
 New matches always seat the human at ID zero, followed by bots with IDs one through the configured count. This order is deterministic and retains eliminated seats. The engine already deals four cards per active player and handles turn order and response queues without a fixed seat count. Every non-human actor uses the same selected difficulty. `GameSession.botCount` describes the original configuration, not the number of bots still active; `difficulty` remains fixed for the match.
 

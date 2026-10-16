@@ -8,15 +8,9 @@ struct StatisticsView: View {
     var body: some View {
         List {
             if model.snapshot != nil {
-                let statistics = model.statistics
-                row("Matches Played", statistics.matchesPlayed)
-                row("Matches Won", statistics.matchesWon)
-                row("Rounds Played", statistics.roundsPlayed)
-                row("Rounds Won", statistics.roundsWon)
-                row("Knocks Made", statistics.knocksMade)
-                row("Knocks Held", statistics.knocksHeld)
-                row("Knocks Passed", statistics.knocksPassed)
-                row("Highest Stake Reached", statistics.highestStakeReached)
+                ForEach(StatisticItem.items(in: model.statistics)) { item in
+                    row(item.title, item.value)
+                }
             } else {
                 Text(strings.text("Statistics are unavailable until your saved data is opened or a new game is started."))
                     .foregroundStyle(.secondary)

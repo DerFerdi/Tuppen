@@ -34,6 +34,10 @@ final class AppModel {
     // A draft for the next match only. Continue always uses the saved session.
     var newMatchBotCount: BotCount = .two
     var newMatchDifficulty: BotDifficulty = .medium
+    var newMatchHouseRules: HouseRules = .standard
+    var isShowingMatchInformation = false {
+        didSet { if isShowingMatchInformation { cancelPresentation() } }
+    }
     var isChoosingNewMatch = false
     private(set) var snapshot: SessionUpdate?
     private(set) var table: TablePresentation?
@@ -54,7 +58,7 @@ final class AppModel {
     private static let logger = Logger(subsystem: "com.DerFerdi.Tuppen", category: "Session")
 
     private enum Command: Equatable {
-        case load, newMatch(BotCount, BotDifficulty), submit(GameAction), nextRound, resume, reset, skipToResult
+        case load, newMatch(BotCount, BotDifficulty, HouseRules), submit(GameAction), nextRound, resume, reset, skipToResult
     }
 
     init(
@@ -104,6 +108,7 @@ final class AppModel {
         guard hasLoaded, !isBusy else { return }
         newMatchBotCount = .two
         newMatchDifficulty = .medium
+        newMatchHouseRules = .standard
         isChoosingNewMatch = true
     }
 
@@ -112,7 +117,7 @@ final class AppModel {
         isChoosingNewMatch = false
         // Capture the confirmed choice in the command so a failed save retries
         // that configuration even if the draft selection later changes.
-        await perform(.newMatch(newMatchBotCount, newMatchDifficulty))
+        await perform(.newMatch(newMatchBotCount, newMatchDifficulty, newMatchHouseRules))
     }
     func submit(_ action: GameAction) async {
         guard canSubmit(action) else { return }
@@ -192,8 +197,8 @@ final class AppModel {
                 snapshot = try await driver.load()
                 hasLoaded = true
                 settle()
-            case .newMatch(let botCount, let difficulty):
-                let update = try await driver.newMatch(botCount: botCount, difficulty: difficulty)
+            case .newMatch(let botCount, let difficulty, let houseRules):
+                let update = try await driver.newMatch(botCount: botCount, difficulty: difficulty, houseRules: houseRules)
                 // A completed save remains authoritative even after leaving.
                 // Only the still-current navigation request may open the table.
                 if navigationRequest == navigationIntent, !Task.isCancelled { path = [.game] }
@@ -223,7 +228,9 @@ final class AppModel {
                     try Task.checkCancellation()
                     guard canPresent else { throw CancellationError() }
                 }
-                if case .awaitingEightCardDeal = view.matchPhase {
+                if case .awaitingEightCardDeal(let participants) = view.matchPhase {
+                    // A participant acknowledges the scored round before the tiebreak deal.
+                    if participants.contains(view.player) { break }
                     try await present(driver.nextRound(), skipping: skipsPresentation)
                     continue
                 }
@@ -267,7 +274,7 @@ final class AppModel {
         }
     }
 
-    private var canPresent: Bool { path.last == .game && sceneIsActive }
+    private var canPresent: Bool { path.last == .game && sceneIsActive && !isShowingMatchInformation }
 
     private func present(_ update: SessionUpdate, skipping: Bool = false) async throws {
         // Publish authority immediately after the save, then reveal its public
@@ -301,6 +308,10 @@ final class AppModel {
     }
 
     private func speak(_ beat: TableBeat) async throws {
+        if beat.announcesNotice, let notice = beat.frame.notice {
+            try await speak(GameStrings(locale: presentationLocale).notice(notice, in: beat.frame.view))
+            return
+        }
         guard let event = beat.announcement else { return }
         try await speak(GameStrings(locale: presentationLocale).announcement(event, in: beat.frame.view))
     }

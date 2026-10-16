@@ -41,8 +41,14 @@ extension GameStrings {
                 return text("Waiting for \(player(responder, in: view)) to Hold or Pass.")
             }
             return text("Stake: \(view.stake)")
-        case .awaitingFourPicturesChallenges:
-            return text("Currently unavailable")
+        case .awaitingFourPicturesChallenges(let pending):
+            if pending.expectedResponder == view.player {
+                return challengePrompt(in: view) + " " + text("Your response. Challenge or Decline.")
+            }
+            if let responder = pending.expectedResponder {
+                return text("Waiting for \(player(responder, in: view)) to Challenge or Decline.")
+            }
+            return challengePrompt(in: view)
         case .finished(let outcome):
             return view.matchPhase.isActive ? roundResult(outcome, in: view) : matchResult(in: view)
         }
@@ -78,12 +84,42 @@ extension GameStrings {
         case .playerEliminated(let id):
             id == view.player ? text("You are eliminated.") : text("\(player(id, in: view)) is eliminated.")
         case .matchWon, .matchDrawn: matchResult(in: view)
-        case .povertyStarted, .fourPicturesClaimed, .fourPicturesDeclined,
-             .fourPicturesChallenged, .fourPicturesBluffExposed,
-             .fourPicturesRevealed, .fourPicturesExchanged, .eightCardRuleStarted, .eightCardRuleEnded:
-            // House Rules currently have a programmatic session interface;
-            // their dedicated presentation and announcements are still pending.
-            ""
+        case .povertyStarted(let participants):
+            text("Poverty. Stake: two. Poor players: \(participants.map { player($0, in: view) }.joined(separator: ", ")).")
+        case .fourPicturesClaimed(let id):
+            id == view.player ? text("You claim Four Pictures.")
+                : text("\(player(id, in: view)) claims Four Pictures.")
+        case .fourPicturesDeclined(let id):
+            id == view.player ? text("You decline to challenge.")
+                : text("\(player(id, in: view)) declines to challenge.")
+        case .fourPicturesChallenged(let claimant, let challenger):
+            if challenger == view.player { text("You challenge \(player(claimant, in: view)).") }
+            else if claimant == view.player { text("\(player(challenger, in: view)) challenges your claim.") }
+            else { text("\(player(challenger, in: view)) challenges \(player(claimant, in: view)).") }
+        case .fourPicturesBluffExposed(let id):
+            text("\(player(id, in: view)): bluff exposed.")
+        case .fourPicturesRevealed(let hand):
+            hand.player == view.player ? text("You reveal: \(hand.cards.map(card).joined(separator: ", ")).")
+                : text("\(player(hand.player, in: view)) reveals: \(hand.cards.map(card).joined(separator: ", ")).")
+        case .fourPicturesExchanged(let id):
+            id == view.player ? text("You exchange four cards.")
+                : text("\(player(id, in: view)) exchanges four cards.")
+        case .eightCardRuleStarted:
+            text("Eight-Card-Rule. Eight cards, eight tricks. Only the eighth trick decides the match.")
+        case .eightCardRuleEnded(let winner, _):
+            winner == view.player ? text("You win the eighth trick and the match.")
+                : text("\(player(winner, in: view)) wins the eighth trick and the match.")
+        }
+    }
+
+    func notice(_ notice: TableNotice, in view: PlayerView) -> String {
+        switch notice {
+        case .event(.fourPicturesRevealed(let hand)):
+            hand.player == view.player ? text("You reveal your hand.")
+                : text("\(player(hand.player, in: view)) reveals their hand.")
+        case .event(let event): announcement(event, in: view)
+        case .verifiedPictures(let player):
+            text("\(self.player(player, in: view)): Four Pictures confirmed.")
         }
     }
 }

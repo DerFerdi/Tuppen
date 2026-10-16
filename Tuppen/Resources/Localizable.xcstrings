@@ -1,6 +1,91 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ challenges %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zweifelt die Ansage von %@ an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ challenges %@."
+          }
+        }
+      }
+    },
+    "%@ challenges your claim." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zweifelt deine Ansage an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ challenges your claim."
+          }
+        }
+      }
+    },
+    "%@ claims Four Pictures." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sagt Vier Bilder an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ claims Four Pictures."
+          }
+        }
+      }
+    },
+    "%@ declines to challenge." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zweifelt nicht an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ declines to challenge."
+          }
+        }
+      }
+    },
+    "%@ exchanges four cards." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ tauscht vier Karten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ exchanges four cards."
+          }
+        }
+      }
+    },
     "%@ Holds." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -103,6 +188,40 @@
         }
       }
     },
+    "%@ reveals their hand." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zeigt die Handkarten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ reveals their hand."
+          }
+        }
+      }
+    },
+    "%@ reveals: %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zeigt: %@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ reveals: %@."
+          }
+        }
+      }
+    },
     "%@ to play." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +252,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Wins"
+          }
+        }
+      }
+    },
+    "%@ wins the eighth trick and the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gewinnt den achten Stich und das Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wins the eighth trick and the match."
           }
         }
       }
@@ -184,6 +320,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@: %@"
+          }
+        }
+      }
+    },
+    "%@: bluff exposed." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: Bluff aufgedeckt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: bluff exposed."
+          }
+        }
+      }
+    },
+    "%@: Four Pictures confirmed." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: Vier Bilder bestätigt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: Four Pictures confirmed."
           }
         }
       }
@@ -501,6 +671,23 @@
         }
       }
     },
+    "Bluffing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluffen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluffing"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -552,6 +739,57 @@
         }
       }
     },
+    "Challenge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzweifeln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge"
+          }
+        }
+      }
+    },
+    "Challenge or Decline required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzweifeln oder nicht anzweifeln erforderlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge or Decline required"
+          }
+        }
+      }
+    },
+    "Choose seven or ten strokes. Reaching the chosen limit eliminates a player." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle sieben oder zehn Striche. Wer diese Grenze erreicht, scheidet aus."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose seven or ten strokes. Reaching the chosen limit eliminates a player."
+          }
+        }
+      }
+    },
     "Clubs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -582,6 +820,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Computer Opponents"
+          }
+        }
+      }
+    },
+    "Consecutive Knock Restriction" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klopfsperre"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consecutive Knock Restriction"
           }
         }
       }
@@ -654,6 +909,23 @@
         }
       }
     },
+    "Decline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht anzweifeln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decline"
+          }
+        }
+      }
+    },
     "Deutsch" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -701,6 +973,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Difficulty"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
@@ -786,6 +1075,125 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eight"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Brief"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rule"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rule participant" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teilnehmer am Achter-Brief"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rule participant"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rule · Decisive eighth trick" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Brief · Entscheidender achter Stich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rule · Decisive eighth trick"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rule · Trick %lld of 8" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Brief · Stich %lld von 8"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rule · Trick %lld of 8"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rule. Eight cards, eight tricks. Only the eighth trick decides the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Brief. Acht Karten, acht Stiche. Nur der achte Stich entscheidet das Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rule. Eight cards, eight tricks. Only the eighth trick decides the match."
+          }
+        }
+      }
+    },
+    "Eight-Card-Rules played" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Briefe gespielt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rules played"
+          }
+        }
+      }
+    },
+    "Eight-Card-Rules won" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Briefe gewonnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eight-Card-Rules won"
           }
         }
       }
@@ -943,6 +1351,40 @@
         }
       }
     },
+    "Four Pictures" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vier Bilder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Four Pictures"
+          }
+        }
+      }
+    },
+    "Four Pictures exchanges" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vier Bilder getauscht"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Four Pictures exchanges"
+          }
+        }
+      }
+    },
     "From weakest to strongest: Jack, Queen, King, Ace, Seven, Eight, Nine, Ten. There is no trump suit." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1096,6 +1538,40 @@
         }
       }
     },
+    "House Rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hausregeln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "House Rules"
+          }
+        }
+      }
+    },
+    "House Rules are optional. Choose them in New Game; they apply for the whole match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hausregeln sind optional. Wähle sie unter Neues Spiel aus; sie gelten für das gesamte Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "House Rules are optional. Choose them in New Game; they apply for the whole match."
+          }
+        }
+      }
+    },
     "How to Play" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1109,6 +1585,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "How to Play"
+          }
+        }
+      }
+    },
+    "If the final remaining players would all be eliminated together, they play an eight-card tiebreak. Eight cards, eight tricks: only the eighth decides the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Würden die letzten Spieler gleichzeitig ausscheiden, spielen sie einen Achter-Brief. Acht Karten, acht Stiche: Nur der achte entscheidet das Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If the final remaining players would all be eliminated together, they play an eight-card tiebreak. Eight cards, eight tricks: only the eighth decides the match."
           }
         }
       }
@@ -1358,6 +1851,23 @@
         }
       }
     },
+    "Match Information" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spielinformationen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Match Information"
+          }
+        }
+      }
+    },
     "Matches Played" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1388,6 +1898,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Matches Won"
+          }
+        }
+      }
+    },
+    "Maximum strokes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximale Striche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximum strokes"
           }
         }
       }
@@ -1477,6 +2004,23 @@
         }
       }
     },
+    "Off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off"
+          }
+        }
+      }
+    },
     "OK" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1490,6 +2034,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        }
+      }
+    },
+    "On" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On"
+          }
+        }
+      }
+    },
+    "On your turn, before your first card and your own Knock, exchange four picture cards for four new cards. Jack, Queen, King, and Ace count, including repeated ranks. You may exchange again while eligible." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn du am Zug bist, kannst du vor deiner ersten Karte und deinem eigenen Klopfen vier Bildkarten gegen vier neue Karten tauschen. Bube, Dame, König und Ass zählen, auch mehrfach derselbe Rang. Solange die Voraussetzungen erfüllt sind, darfst du erneut tauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On your turn, before your first card and your own Knock, exchange four picture cards for four new cards. Jack, Queen, King, and Ace count, including repeated ranks. You may exchange again while eligible."
           }
         }
       }
@@ -1647,6 +2225,91 @@
         }
       }
     },
+    "Players may falsely claim Four Pictures. Others can challenge before replacement cards are dealt. A false claimant or an unsuccessful challenger receives one stroke." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vier Bilder dürfen auch vorgetäuscht werden. Andere können anzweifeln, bevor neue Karten ausgeteilt werden. Wer blufft und erwischt wird oder eine wahre Ansage anzweifelt, erhält einen Strich."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Players may falsely claim Four Pictures. Others can challenge before replacement cards are dealt. A false claimant or an unsuccessful challenger receives one stroke."
+          }
+        }
+      }
+    },
+    "poor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "arm"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "poor"
+          }
+        }
+      }
+    },
+    "Poverty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Armut"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poverty"
+          }
+        }
+      }
+    },
+    "Poverty · Stake: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Armut · Einsatz: %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poverty · Stake: %lld"
+          }
+        }
+      }
+    },
+    "Poverty. Stake: two. Poor players: %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Armut. Einsatz: zwei. Arm: %@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poverty. Stake: two. Poor players: %@."
+          }
+        }
+      }
+    },
     "Privacy Policy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1660,6 +2323,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
+    "Publicly known cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffentlich bekannte Karten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicly known cards"
           }
         }
       }
@@ -1953,6 +2633,23 @@
         }
       }
     },
+    "Start Eight-Card-Rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achter-Brief starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Eight-Card-Rule"
+          }
+        }
+      }
+    },
     "Start Game" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1966,6 +2663,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start Game"
+          }
+        }
+      }
+    },
+    "Starting a round one stroke before elimination makes you poor. The stake is two: poor players stay in; others Hold or Pass. No Knock or Four Pictures in this round." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wer eine Runde einen Strich vor dem Ausscheiden beginnt, ist arm. Der Einsatz ist zwei: Arme bleiben dabei, die anderen halten oder passen. Klopfen und Vier Bilder sind in dieser Runde nicht möglich."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting a round one stroke before elimination makes you poor. The stake is two: poor players stay in; others Hold or Pass. No Knock or Four Pictures in this round."
           }
         }
       }
@@ -2089,6 +2803,23 @@
         }
       }
     },
+    "Successful Four Pictures bluffs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfolgreiche Vier-Bilder-Bluffs"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Successful Four Pictures bluffs"
+          }
+        }
+      }
+    },
     "System" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2191,6 +2922,23 @@
         }
       }
     },
+    "The last player to Knock cannot Knock again until another player has Knocked." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wer zuletzt geklopft hat, darf erst wieder klopfen, nachdem jemand anderes geklopft hat."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The last player to Knock cannot Knock again until another player has Knocked."
+          }
+        }
+      }
+    },
     "The match is a draw." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2221,6 +2969,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The opponents play on."
+          }
+        }
+      }
+    },
+    "The remaining players continue with eight cards. Only the eighth trick decides the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die verbleibenden Spieler spielen mit acht Karten weiter. Nur der achte Stich entscheidet das Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The remaining players continue with eight cards. Only the eighth trick decides the match."
           }
         }
       }
@@ -2429,6 +3194,23 @@
         }
       }
     },
+    "Waiting for %@ to Challenge or Decline." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warte auf %@: anzweifeln oder nicht anzweifeln."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for %@ to Challenge or Decline."
+          }
+        }
+      }
+    },
     "Waiting for %@ to Hold or Pass." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2476,6 +3258,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You are eliminated."
+          }
+        }
+      }
+    },
+    "You challenge %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du zweifelst die Ansage von %@ an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You challenge %@."
+          }
+        }
+      }
+    },
+    "You claim Four Pictures." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du sagst Vier Bilder an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You claim Four Pictures."
+          }
+        }
+      }
+    },
+    "You decline to challenge." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du zweifelst nicht an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You decline to challenge."
+          }
+        }
+      }
+    },
+    "You exchange four cards." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du tauschst vier Karten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You exchange four cards."
           }
         }
       }
@@ -2565,6 +3415,40 @@
         }
       }
     },
+    "You reveal your hand." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du zeigst deine Handkarten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You reveal your hand."
+          }
+        }
+      }
+    },
+    "You reveal: %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du zeigst: %@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You reveal: %@."
+          }
+        }
+      }
+    },
     "You Win" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2578,6 +3462,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You Win"
+          }
+        }
+      }
+    },
+    "You win the eighth trick and the match." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du gewinnst den achten Stich und das Spiel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You win the eighth trick and the match."
           }
         }
       }
@@ -2629,6 +3530,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your hand"
+          }
+        }
+      }
+    },
+    "Your response. Challenge or Decline." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du bist dran: anzweifeln oder nicht anzweifeln."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your response. Challenge or Decline."
           }
         }
       }
